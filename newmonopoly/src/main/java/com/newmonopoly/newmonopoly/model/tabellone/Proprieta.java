@@ -17,7 +17,6 @@ public class Proprieta extends Casella{
         setAffitto(affitto);
     }
 
-    /// setter
     public void setCosto(int costo) {
         this.costo = costo;
     }
@@ -34,7 +33,6 @@ public class Proprieta extends Casella{
         this.affitto = affitto;
     }
 
-    /// getter
     public Giocatore getProprietario() {
         return proprietario;
     }

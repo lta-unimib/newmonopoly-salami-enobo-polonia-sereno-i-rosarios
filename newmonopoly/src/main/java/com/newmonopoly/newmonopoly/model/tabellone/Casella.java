@@ -1,19 +1,17 @@
 package com.newmonopoly.newmonopoly.model.tabellone;
 
-public class Casella{
+import lombok.Getter;
+import lombok.Setter;
+
+import java.io.Serializable;
+
+public abstract class Casella implements Serializable {
+
+    @Getter @Setter
     private String nome;
 
     public Casella (String nome) {
         this.nome = nome;
     }
 
-    /// setter
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    /// getter
-    public String getNome() {
-        return nome;
-    }
 }
