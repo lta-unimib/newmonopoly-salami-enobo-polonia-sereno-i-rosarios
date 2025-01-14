@@ -13,7 +13,4 @@ public abstract class Tasse extends Casella {
             super(nome);
             this.importo = importo;
         }
-
-        public abstract void applicaTassa(Token token);
-
 }

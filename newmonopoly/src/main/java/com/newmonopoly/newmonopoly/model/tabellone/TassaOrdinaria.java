@@ -8,9 +8,4 @@ public class TassaOrdinaria extends Tasse{
         super("Tassa di Ordinaria", 100);
     }
 
-    @Override
-    public void applicaTassa(Token token) {
-        token.getGiocatore().pagaTassa(importo);
-    }
-
 }

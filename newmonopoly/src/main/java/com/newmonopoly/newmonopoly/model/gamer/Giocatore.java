@@ -1,6 +1,5 @@
 package com.newmonopoly.newmonopoly.model.gamer;
 
-import com.newmonopoly.newmonopoly.model.portafoglio.Banconota;
 import com.newmonopoly.newmonopoly.model.tabellone.Proprieta;
 import lombok.Getter;
 import lombok.Setter;
@@ -34,6 +33,18 @@ public class Giocatore implements Serializable {
         banconote.put(1, new Banconota(1, 5));      // 5 banconote da 1
     }
 
+    public void ricevi(int quantita)
+    {
+        //da implementare
+    }
+
+    public void pay(int quantita)
+    {
+        if(this.getSaldo() >= quantita) {
+            //da implementare
+        }
+    }
+
     public int getSaldo(){
         int totale = 0;
         for (Banconota banconota : banconote.values()) {
@@ -42,37 +53,6 @@ public class Giocatore implements Serializable {
         return totale;
     }
 
-    public void acquistaProprieta(Proprieta proprieta){
-        if (proprieta.getProprietario() == null)
-            if(this.getSaldo() >= proprieta.getCosto()) {
-                proprieta.setProprietario(this);
-                // togli banconote
-            }
-    }
-
-    public void pagaAffitto(Proprieta proprieta){
-        if (this.getSaldo() >= proprieta.getAffitto()){
-            // togli banconote
-            // aggiungile al proprietario
-        }
-    }
-
-    public void ipotecaProprieta(Proprieta proprieta){
-        proprieta.setProprietario(null);
-        // aggiungi banconote proprieta.getIpoteca()
-    }
-
-    public void vendiProprieta(Proprieta proprieta, Giocatore acquirente){
-        proprieta.setProprietario(acquirente);
-        // aggiungi/rimuovi banconote
-    }
-
-    public void pagaTassa(int importo){
-        if (this.getSaldo() >= importo){
-        // rimuovi banconote
-        }
-
-    }
 
     /* Metodo per modificare la quantità di una banconota (aggiungere o sottrarre)
     public void modificaBanconote(int valore, int quantita) {

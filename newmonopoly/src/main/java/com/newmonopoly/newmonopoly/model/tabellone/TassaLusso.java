@@ -8,8 +8,4 @@ public class TassaLusso extends Tasse{
         super("Tassa di Lusso", 200);
     }
 
-    @Override
-    public void applicaTassa(Token token) {
-        token.getGiocatore().pagaTassa(importo);
-    }
 }
