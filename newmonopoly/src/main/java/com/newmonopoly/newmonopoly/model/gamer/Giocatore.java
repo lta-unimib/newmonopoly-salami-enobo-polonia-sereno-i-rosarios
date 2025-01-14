@@ -1,12 +1,12 @@
 package com.newmonopoly.newmonopoly.model.gamer;
 
-import com.newmonopoly.newmonopoly.model.tabellone.Proprieta;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeSet;
 
 @Getter
 @Setter
@@ -33,17 +33,41 @@ public class Giocatore implements Serializable {
         banconote.put(1, new Banconota(1, 5));      // 5 banconote da 1
     }
 
-    public void ricevi(int quantita)
-    {
-        //da implementare
-    }
-
-    public void pay(int quantita)
-    {
-        if(this.getSaldo() >= quantita) {
-            //da implementare
+    public void ricevi(int quantita) {
+    
+        for (Integer valoreBanconota : new TreeSet<>(banconote.keySet()).descendingSet()) {
+            Banconota banconota = banconote.get(valoreBanconota);
+            int quantitaDaAggiungere = quantita / valoreBanconota;
+            if (quantitaDaAggiungere > 0) {
+                banconota.modificaQuantita(quantitaDaAggiungere); 
+                quantita -= quantitaDaAggiungere * valoreBanconota; 
+            }
+            if (quantita == 0) {
+                break;
+            }
         }
     }
+    
+
+    public void pay(int quantita) {
+        if (getSaldo() < quantita) {
+            throw new IllegalArgumentException("Saldo insufficiente per effettuare il pagamento.");
+        }
+    
+        for (Integer valoreBanconota : new TreeSet<>(banconote.keySet()).descendingSet()) {
+    Banconota banconota = banconote.get(valoreBanconota);
+    while (quantita >= valoreBanconota && banconota.getQuantita() > 0) {
+        banconota.modificaQuantita(-1);
+        quantita -= valoreBanconota;
+    }
+}
+
+    
+        if (quantita > 0) {
+            throw new IllegalStateException("Errore: pagamento non completato nonostante saldo sufficiente.");
+        }
+    }
+    
 
     public int getSaldo(){
         int totale = 0;
@@ -53,13 +77,19 @@ public class Giocatore implements Serializable {
         return totale;
     }
 
-
-    /* Metodo per modificare la quantità di una banconota (aggiungere o sottrarre)
-    public void modificaBanconote(int valore, int quantita) {
-        Banconota banconota = banconote.get(valore);
-        if (banconota != null) {
-            banconota.modificaQuantita(quantita);
+      /* classe funzionante creata per controllare che le banconote venissero aggiunte o detratte correttamente
+        public String mostraBanconote() {
+            StringBuilder sb = new StringBuilder();
+            sb.append("Banconote di ").append(nome).append(":\n");
+            
+            // Itera attraverso le chiavi (valori delle banconote) in ordine decrescente
+            for (Integer valoreBanconota : new TreeSet<>(banconote.keySet()).descendingSet()) {
+                Banconota banconota = banconote.get(valoreBanconota);
+                sb.append(valoreBanconota).append("$: ").append(banconota.getQuantita()).append(" banconote\n");
+            }
+            return sb.toString();
         }
-    } */
+    */
+    
 
 }
