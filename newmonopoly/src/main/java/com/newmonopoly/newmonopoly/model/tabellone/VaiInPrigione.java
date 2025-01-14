@@ -11,6 +11,6 @@ public class VaiInPrigione extends Casella{
     }
 
     public void arresto(Token pedina){
-        getPrigione("Prigione").nuovoPrigioniero(pedina);
+        getPrigione().nuovoPrigioniero(pedina);
     }
 }

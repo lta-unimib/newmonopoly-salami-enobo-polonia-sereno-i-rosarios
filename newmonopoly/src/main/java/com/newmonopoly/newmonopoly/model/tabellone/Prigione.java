@@ -8,14 +8,14 @@ public class Prigione extends Casella{
 
     private ArrayList<Token> prigionieri;
 
-    private Prigione (String nome) {
-        super(nome);
+    private Prigione () {
+        super("prigione");
         this.prigionieri = new ArrayList<Token>(6);
     }
 
-    public static synchronized Prigione getPrigione(String nome) {
+    public static synchronized Prigione getPrigione() {
         if (prigione == null) {
-            prigione = new Prigione(nome);
+            prigione = new Prigione();
         }
         return prigione;
     }
