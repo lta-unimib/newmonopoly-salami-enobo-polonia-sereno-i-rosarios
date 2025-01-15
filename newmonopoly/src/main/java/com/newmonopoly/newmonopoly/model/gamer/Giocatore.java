@@ -77,7 +77,44 @@ public class Giocatore implements Serializable {
         return totale;
     }
 
-      /* classe funzionante creata per controllare che le banconote venissero aggiunte o detratte correttamente
+
+    // Metodi per ottenere la quantità di banconote in un dato momento
+    public int getBanconoteDaCinquecento() {
+        int quantita = banconote.get(500).getQuantita();
+        return quantita;
+    }
+
+    public int getBanconoteDaCento() {
+        int quantita = banconote.get(100).getQuantita();
+        return quantita;
+    }
+
+    public int getBanconoteDaCinquanta() {
+        int quantita = banconote.get(50).getQuantita();
+        return quantita;
+    }
+
+    public int getBanconoteDaVenti() {
+        int quantita = banconote.get(20).getQuantita();
+        return quantita;
+    }
+
+    public int getBanconoteDaDieci() {
+        int quantita = banconote.get(10).getQuantita();
+        return quantita;
+    }
+
+    public int getBanconoteDaCinque() {
+        int quantita = banconote.get(5).getQuantita();
+        return quantita;
+    }
+
+    public int getBanconoteDaUno() {
+        int quantita = banconote.get(1).getQuantita();
+        return quantita;
+    }
+
+    /* classe funzionante creata per controllare che le banconote venissero aggiunte o detratte correttamente
         public String mostraBanconote() {
             StringBuilder sb = new StringBuilder();
             sb.append("Banconote di ").append(nome).append(":\n");

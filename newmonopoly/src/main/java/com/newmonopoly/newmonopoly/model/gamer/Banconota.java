@@ -19,6 +19,15 @@ public class Banconota {
         return valore;
     }
 
+    public void modificaQuantita(int quantitaDaAggiungere) {
+        int nuovaQuantita = this.quantita + quantitaDaAggiungere;
+        if (nuovaQuantita < 0) {
+            throw new IllegalArgumentException("Quantità insufficiente di banconote per questa operazione.");
+        }
+        this.quantita = nuovaQuantita;
+    }
+
+    /*
     public void incrementaQuantita(int quantita) {
         this.quantita+=quantita;
     }
@@ -29,13 +38,6 @@ public class Banconota {
         }
         this.quantita-=quantita;
     }
-
-    public void modificaQuantita(int quantitaDaAggiungere) {
-        int nuovaQuantita = this.quantita + quantitaDaAggiungere;
-        if (nuovaQuantita < 0) {
-            throw new IllegalArgumentException("Quantità insufficiente di banconote per questa operazione.");
-        }
-        this.quantita = nuovaQuantita;
-    }
+     */
 
 }

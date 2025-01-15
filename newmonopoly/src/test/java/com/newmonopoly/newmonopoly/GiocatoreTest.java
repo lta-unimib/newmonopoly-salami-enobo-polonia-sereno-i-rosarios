@@ -11,7 +11,12 @@ public class GiocatoreTest {
 
     @BeforeEach
     public void setUp() {
-        giocatore = new Giocatore("Mario");
+        giocatore = new Giocatore("User");
+    }
+
+    @Test
+    public void testGetSaldo() {
+        assertEquals(1490, giocatore.getSaldo());
     }
 
     @Test
@@ -42,11 +47,38 @@ public class GiocatoreTest {
 
     @Test
     public void testRicevi() {
-        Giocatore giocatore = new Giocatore("Mario");
         int saldoIniziale = giocatore.getSaldo();
-        // Ricevi 1350 (500x2, 100x4, 50x1, 20x1, 10x1, 5x1, 1x5)
+        // Ricevi 1350
         giocatore.ricevi(1350);
         assertEquals(saldoIniziale + 1350, giocatore.getSaldo());
+    }
+
+    @Test
+    public void testControlloLogicaRicevi() {
+        int saldoIniziale = giocatore.getSaldo();
+        // Ricevi 686 (500 + 100 + 50 + 20 + 10 + 5 + 1)
+        giocatore.ricevi(686);
+        assertEquals(3, giocatore.getBanconoteDaCinquecento());
+        assertEquals(5, giocatore.getBanconoteDaCento());
+        assertEquals(2, giocatore.getBanconoteDaCinquanta());
+        assertEquals(2, giocatore.getBanconoteDaVenti());
+        assertEquals(2, giocatore.getBanconoteDaDieci());
+        assertEquals(2, giocatore.getBanconoteDaCinque());
+        assertEquals(6, giocatore.getBanconoteDaUno());
+    }
+
+    @Test
+    public void testControlloLogicaPay() {
+        int saldoIniziale = giocatore.getSaldo();
+        // Pay 686 (500 + 100 + 50 + 20 + 10 + 5 + 1)
+        giocatore.pay(686);
+        assertEquals(1, giocatore.getBanconoteDaCinquecento());
+        assertEquals(3, giocatore.getBanconoteDaCento());
+        assertEquals(0, giocatore.getBanconoteDaCinquanta());
+        assertEquals(0, giocatore.getBanconoteDaVenti());
+        assertEquals(0, giocatore.getBanconoteDaDieci());
+        assertEquals(0, giocatore.getBanconoteDaCinque());
+        assertEquals(4, giocatore.getBanconoteDaUno());
     }
 }
 
