@@ -79,6 +79,9 @@ public class Giocatore implements Serializable {
         return totale;
     }
 
+    public String getNome() {
+        return nome;
+    }
 
     // Metodi per ottenere la quantità di banconote in un dato momento
     public int getBanconoteDaCinquecento() {

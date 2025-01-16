@@ -2,7 +2,7 @@ package com.newmonopoly.newmonopoly.model.tabellone;
 
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 
-public class Proprieta extends Casella{
+public class Proprieta extends Casella {
 
     private Giocatore proprietario;
     private int costo;

@@ -36,4 +36,5 @@ public class Prigione extends Casella implements Serializable {
     public void freedom(Token pedina){
         this.prigionieri.remove(pedina);
     }
+
 }

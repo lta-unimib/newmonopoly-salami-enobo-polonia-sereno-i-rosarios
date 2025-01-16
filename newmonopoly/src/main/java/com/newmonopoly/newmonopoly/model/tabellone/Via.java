@@ -1,6 +1,6 @@
 package com.newmonopoly.newmonopoly.model.tabellone;
 
-public class Via extends Casella{
+public class Via extends Casella {
 
     private static Via via = null;
 
