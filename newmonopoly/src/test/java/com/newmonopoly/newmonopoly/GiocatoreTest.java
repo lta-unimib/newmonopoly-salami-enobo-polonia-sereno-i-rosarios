@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class GiocatoreTest {
+class GiocatoreTest {
 
     private Giocatore giocatore;
 
@@ -15,12 +15,12 @@ public class GiocatoreTest {
     }
 
     @Test
-    public void testGetSaldo() {
+    void testGetSaldo() {
         assertEquals(1490, giocatore.getSaldo());
     }
 
     @Test
-    public void testPaySuccess() {
+    void testPaySuccess() {
         int saldoIniziale = giocatore.getSaldo();
         int importoDaPagare = 150;
         giocatore.pay(importoDaPagare);
@@ -29,14 +29,14 @@ public class GiocatoreTest {
     }
 
     @Test
-    public void testPayExactAmount() {
+    void testPayExactAmount() {
         int importoDaPagare = giocatore.getSaldo();
         giocatore.pay(importoDaPagare);
         assertEquals(0, giocatore.getSaldo(), "Il saldo dovrebbe essere 0 dopo aver pagato l'intero importo.");
     }
 
     @Test
-    public void testPayInsufficientSaldo() {
+    void testPayInsufficientSaldo() {
         int importoDaPagare = giocatore.getSaldo() + 100;  // Supera il saldo disponibile
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             giocatore.pay(importoDaPagare);
@@ -46,7 +46,7 @@ public class GiocatoreTest {
     }
 
     @Test
-    public void testRicevi() {
+    void testRicevi() {
         int saldoIniziale = giocatore.getSaldo();
         // Ricevi 1350
         giocatore.ricevi(1350);
@@ -54,8 +54,7 @@ public class GiocatoreTest {
     }
 
     @Test
-    public void testControlloLogicaRicevi() {
-        int saldoIniziale = giocatore.getSaldo();
+    void testControlloLogicaRicevi() {
         // Ricevi 686 (500 + 100 + 50 + 20 + 10 + 5 + 1)
         giocatore.ricevi(686);
         assertEquals(3, giocatore.getBanconoteDaCinquecento());
@@ -68,8 +67,7 @@ public class GiocatoreTest {
     }
 
     @Test
-    public void testControlloLogicaPay() {
-        int saldoIniziale = giocatore.getSaldo();
+    void testControlloLogicaPay() {
         // Pay 686 (500 + 100 + 50 + 20 + 10 + 5 + 1)
         giocatore.pay(686);
         assertEquals(1, giocatore.getBanconoteDaCinquecento());

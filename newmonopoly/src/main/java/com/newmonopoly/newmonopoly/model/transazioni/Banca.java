@@ -1,11 +1,7 @@
 package com.newmonopoly.newmonopoly.model.transazioni;
 
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
-import com.newmonopoly.newmonopoly.model.gamer.Token;
-import com.newmonopoly.newmonopoly.model.tabellone.Prigione;
 import com.newmonopoly.newmonopoly.model.tabellone.Proprieta;
-
-import java.util.ArrayList;
 
 public class Banca {
 

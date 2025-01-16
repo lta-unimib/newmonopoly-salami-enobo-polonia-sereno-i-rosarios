@@ -5,24 +5,24 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BanconotaTest {
+class BanconotaTest {
     private Banconota banconota;
 
     @BeforeEach
     public void setUp() { banconota = new Banconota(500, 2); }
 
     @Test
-    public void testGetValore() {
+    void testGetValore() {
         assertEquals(500, banconota.getValore());
     }
 
     @Test
-    public void testGetQuantita() {
+    void testGetQuantita() {
         assertEquals(2, banconota.getQuantita());
     }
 
     @Test
-    public void testsModificaQuantita() {
+    void testsModificaQuantita() {
         banconota.modificaQuantita(-2);
         assertEquals(0, banconota.getQuantita());
         banconota.modificaQuantita(3);

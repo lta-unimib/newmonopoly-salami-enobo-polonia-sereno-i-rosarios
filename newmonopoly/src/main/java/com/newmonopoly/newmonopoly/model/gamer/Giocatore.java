@@ -12,6 +12,8 @@ import java.util.TreeSet;
 @Setter
 public class Giocatore implements Serializable {
 
+    private static final long serialVersionUID = 1905122041950251207L;
+
     private String nome;
     private Map<Integer, Banconota> banconote;
     private int puntiFedelta;
@@ -80,38 +82,31 @@ public class Giocatore implements Serializable {
 
     // Metodi per ottenere la quantità di banconote in un dato momento
     public int getBanconoteDaCinquecento() {
-        int quantita = banconote.get(500).getQuantita();
-        return quantita;
+        return banconote.get(500).getQuantita();
     }
 
     public int getBanconoteDaCento() {
-        int quantita = banconote.get(100).getQuantita();
-        return quantita;
+        return banconote.get(100).getQuantita();
     }
 
     public int getBanconoteDaCinquanta() {
-        int quantita = banconote.get(50).getQuantita();
-        return quantita;
+        return banconote.get(50).getQuantita();
     }
 
     public int getBanconoteDaVenti() {
-        int quantita = banconote.get(20).getQuantita();
-        return quantita;
+        return banconote.get(20).getQuantita();
     }
 
     public int getBanconoteDaDieci() {
-        int quantita = banconote.get(10).getQuantita();
-        return quantita;
+        return banconote.get(10).getQuantita();
     }
 
     public int getBanconoteDaCinque() {
-        int quantita = banconote.get(5).getQuantita();
-        return quantita;
+        return banconote.get(5).getQuantita();
     }
 
     public int getBanconoteDaUno() {
-        int quantita = banconote.get(1).getQuantita();
-        return quantita;
+        return banconote.get(1).getQuantita();
     }
 
     /* classe funzionante creata per controllare che le banconote venissero aggiunte o detratte correttamente

@@ -1,7 +1,13 @@
 package com.newmonopoly.newmonopoly.model.gamer;
 
 
-public class Banconota {
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Banconota implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 2405172041950251807L;
 
     private int valore;
     private int quantita;

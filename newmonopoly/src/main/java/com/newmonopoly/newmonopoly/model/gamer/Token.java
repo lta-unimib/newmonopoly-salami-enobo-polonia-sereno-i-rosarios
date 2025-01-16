@@ -4,9 +4,15 @@ import com.newmonopoly.newmonopoly.model.tabellone.Casella;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.io.Serial;
+import java.io.Serializable;
+
 @Getter
 @Setter
-public class Token {
+public class Token implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 2404872041950251807L;
 
     private Giocatore giocatore;
     private int tokenId;

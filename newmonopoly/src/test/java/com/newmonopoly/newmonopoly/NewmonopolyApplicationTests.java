@@ -8,6 +8,7 @@ class NewmonopolyApplicationTests {
 
 	@Test
 	void contextLoads() {
+		//to be implemented
 	}
 
 }

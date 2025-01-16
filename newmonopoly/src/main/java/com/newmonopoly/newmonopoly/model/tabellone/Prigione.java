@@ -1,9 +1,16 @@
 package com.newmonopoly.newmonopoly.model.tabellone;
 
 import com.newmonopoly.newmonopoly.model.gamer.Token;
+
+import java.io.Serial;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Prigione extends Casella{
+public class Prigione extends Casella implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 2405172141950251807L;
+
     private static Prigione prigione = null;
 
     private ArrayList<Token> prigionieri;
