@@ -1,15 +1,22 @@
 package com.newmonopoly.newmonopoly.model.tabellone;
 
 import java.util.ArrayList;
-
+import lombok.Getter;
+import lombok.Setter;
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
+import com.newmonopoly.newmonopoly.model.transazioni.Pagamenti;
 
 public class Strada extends Proprieta {
     
+    @Getter @Setter
     private int numCase;
+    @Getter @Setter
     private boolean albergo;
+    @Getter @Setter
     private ArrayList<Integer> affitti;
+    @Getter @Setter
     private int costoCasa;
+    @Getter @Setter
     private int costoAlbergo;
 
     public Strada (String nome, Giocatore proprietario, int costo, int ipoteca, int affitto, ArrayList<Integer> affitti, int costoCasa, int costoAlbergo) {
@@ -21,44 +28,17 @@ public class Strada extends Proprieta {
         setCostoAlbergo(costoAlbergo);
     }
 
-    public void setNumCase(int numCase) {
-        this.numCase = numCase;
+    public int calcolaAffitto(Pagamenti strategia) {
+        return strategia.calcolaAffitto(this);
     }
 
-    public void setAlbergo(boolean albergo) {
-        this.albergo = albergo;
-    }
-
-    public void setAffitti(ArrayList<Integer> affitti) {
-        this.affitti = affitti;
-    }
-
-    public void setCostoCasa(int costoCasa) {
-        this.costoCasa = costoCasa;
-    }
-
-    public void setCostoAlbergo(int costoAlbergo) {
-        this.costoAlbergo = costoAlbergo;
-    }
-    
-    public int getNumCase() {
-        return numCase;
-    }
-
-    public boolean getAlbergo() {
+    public boolean hasAlbergo(){
         return albergo;
     }
 
-    public ArrayList<Integer> getAffitti() {
-        return affitti;
-    }
+    
+    //public void aggiungiEdificio()
 
+    //public void rimuoviEdificio()
 
-    public int getCostoCasa() {
-        return costoCasa;
-    }
-
-    public int getCostoAlbergo() {
-        return costoAlbergo;
-    }
 }
