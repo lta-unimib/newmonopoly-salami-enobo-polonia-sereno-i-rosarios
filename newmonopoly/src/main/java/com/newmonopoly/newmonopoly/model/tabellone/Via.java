@@ -5,7 +5,7 @@ public class Via extends Casella {
     private static Via via = null;
 
     public Via() {
-        super("via");
+        super("Via");
     }
 
     public static synchronized Via getVia() {
