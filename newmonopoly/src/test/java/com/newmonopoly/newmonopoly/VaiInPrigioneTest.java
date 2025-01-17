@@ -4,11 +4,13 @@ import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 import com.newmonopoly.newmonopoly.model.gamer.Token;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
 import static com.newmonopoly.newmonopoly.model.tabellone.Prigione.getPrigione;
+import static org.junit.jupiter.api.Assertions.*;
 
-class PrigioneTest {
+import static com.newmonopoly.newmonopoly.model.tabellone.VaiInPrigione.getVaiInPrigione;
+
+class VaiInPrigioneTest {
 
     private Giocatore giocatore;
     private Token pedina;
@@ -20,15 +22,8 @@ class PrigioneTest {
     }
 
     @Test
-    void testNuovoPrigioniero() {
-        getPrigione().nuovoPrigioniero(pedina);
+    void testArresto() {
+        getVaiInPrigione().arresto(pedina);
         assertTrue(getPrigione().checkPrigioniero(pedina));
-    }
-
-    @Test
-    void testRilascioPrigioniero() {
-        getPrigione().nuovoPrigioniero(pedina);
-        getPrigione().rilascioPrigioniero(pedina);
-        assertFalse(getPrigione().checkPrigioniero(pedina));
     }
 }

@@ -10,7 +10,6 @@ import static com.newmonopoly.newmonopoly.model.tabellone.Via.getVia;
 public class Tabellone {
     private static Tabellone tabellone = null;
 
-    private Via via;
     private int difficolta = 1;
     private ArrayList<Casella> caselle;
     private List<Token> pedine;

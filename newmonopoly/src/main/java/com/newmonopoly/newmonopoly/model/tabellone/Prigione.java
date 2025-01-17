@@ -28,13 +28,17 @@ public class Prigione extends Casella implements Serializable {
     }
 
     public void nuovoPrigioniero(Token pedina){
-        if(!this.prigionieri.contains(pedina)){
+        if(!checkPrigioniero(pedina)){
             this.prigionieri.add(pedina);
         }
     }
 
-    public void freedom(Token pedina){
+    public void rilascioPrigioniero(Token pedina){
         this.prigionieri.remove(pedina);
+    }
+
+    public boolean checkPrigioniero(Token pedina) {
+        return this.prigionieri.contains(pedina);
     }
 
 }
