@@ -8,14 +8,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
 
-@Getter
-@Setter
+import com.newmonopoly.newmonopoly.model.tabellone.Proprieta;
+
+
 public class Giocatore implements Serializable {
 
     private static final long serialVersionUID = 1905122041950251207L;
 
+    @Getter @Setter
     private String nome;
+    @Getter @Setter
     private Map<Integer, Banconota> banconote;
+    @Getter @Setter
     private int puntiFedelta;
 
     public Giocatore(String nome) {
@@ -57,14 +61,12 @@ public class Giocatore implements Serializable {
         }
     
         for (Integer valoreBanconota : new TreeSet<>(banconote.keySet()).descendingSet()) {
-    Banconota banconota = banconote.get(valoreBanconota);
-    while (quantita >= valoreBanconota && banconota.getQuantita() > 0) {
-        banconota.modificaQuantita(-1);
-        quantita -= valoreBanconota;
+            Banconota banconota = banconote.get(valoreBanconota);
+            while (quantita >= valoreBanconota && banconota.getQuantita() > 0) {
+                banconota.modificaQuantita(-1);
+                quantita -= valoreBanconota;
+            }
     }
-}
-
-    
         if (quantita > 0) {
             throw new IllegalStateException("Errore: pagamento non completato nonostante saldo sufficiente.");
         }
@@ -77,10 +79,6 @@ public class Giocatore implements Serializable {
             totale += banconota.getValore() * banconota.getQuantita();
         }
         return totale;
-    }
-
-    public String getNome() {
-        return nome;
     }
 
     // Metodi per ottenere la quantità di banconote in un dato momento

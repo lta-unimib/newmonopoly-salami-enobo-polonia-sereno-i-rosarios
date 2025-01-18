@@ -3,6 +3,7 @@ package com.newmonopoly.newmonopoly.model.tabellone;
 import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
+
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 import com.newmonopoly.newmonopoly.model.transazioni.Pagamenti;
 
@@ -36,9 +37,32 @@ public class Strada extends Proprieta {
         return albergo;
     }
 
-    
-    //public void aggiungiEdificio()
+    public void aggiungiEdificio() {
+        //aggiungere controllo che riguarda avere tutte le proprità di quel colore
+        if (getNumCase() < 4) {
+            getProprietario().pay(costoCasa);
+            numCase++;
+        } else if(!hasAlbergo()) {
+            getProprietario().pay(costoAlbergo);
+            albergo = true;
+            numCase=0;
+        }
+        else{
+            throw new IllegalArgumentException("la proprietà ha il numero massimo di edifici");
+        }
+    }
 
-    //public void rimuoviEdificio()
+    public void rimuoviEdificio(){
+        if (hasAlbergo()) {
+            albergo = false;
+            numCase = 4;
+            getProprietario().ricevi(costoAlbergo/2);
+        } else if (numCase != 0) {
+            numCase --;
+            getProprietario().ricevi(costoCasa/2);
+        }
+        else
+        throw new IllegalArgumentException("Il giocatore non possiede alcun edificio");
+    }
 
 }
