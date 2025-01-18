@@ -1,7 +1,7 @@
 package com.newmonopoly.newmonopoly;
 
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
-import com.newmonopoly.newmonopoly.model.tabellone.Proprieta;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Proprieta;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;

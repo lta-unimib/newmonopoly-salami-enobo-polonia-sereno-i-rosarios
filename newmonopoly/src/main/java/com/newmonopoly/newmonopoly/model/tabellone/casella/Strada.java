@@ -1,11 +1,12 @@
-package com.newmonopoly.newmonopoly.model.tabellone;
+package com.newmonopoly.newmonopoly.model.tabellone.casella;
 
 import java.util.ArrayList;
+
 import lombok.Getter;
 import lombok.Setter;
 
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
-import com.newmonopoly.newmonopoly.model.transazioni.Pagamenti;
+import com.newmonopoly.newmonopoly.model.transazioni.IPagamenti;
 
 public class Strada extends Proprieta {
     
@@ -29,7 +30,7 @@ public class Strada extends Proprieta {
         setCostoAlbergo(costoAlbergo);
     }
 
-    public int calcolaAffitto(Pagamenti strategia) {
+    public int calcolaAffitto(IPagamenti strategia) {
         return strategia.calcolaAffitto(this);
     }
 

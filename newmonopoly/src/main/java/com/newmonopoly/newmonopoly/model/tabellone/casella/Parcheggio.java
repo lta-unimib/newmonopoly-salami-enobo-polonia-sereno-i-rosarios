@@ -1,7 +1,7 @@
-package com.newmonopoly.newmonopoly.model.tabellone;
+package com.newmonopoly.newmonopoly.model.tabellone.casella;
 
 
-public class Parcheggio extends Casella{
+public class Parcheggio extends Casella {
 
     private static Parcheggio parcheggio = null;
 

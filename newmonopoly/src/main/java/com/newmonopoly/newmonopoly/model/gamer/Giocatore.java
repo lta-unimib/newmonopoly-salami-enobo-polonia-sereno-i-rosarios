@@ -8,8 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeSet;
 
-import com.newmonopoly.newmonopoly.model.tabellone.Proprieta;
-
 
 public class Giocatore implements Serializable {
 

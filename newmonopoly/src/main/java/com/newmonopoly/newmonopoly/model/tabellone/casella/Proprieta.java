@@ -1,10 +1,12 @@
-package com.newmonopoly.newmonopoly.model.tabellone;
+package com.newmonopoly.newmonopoly.model.tabellone.casella;
 
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
-import com.newmonopoly.newmonopoly.model.transazioni.Pagamenti;
+import com.newmonopoly.newmonopoly.model.transazioni.IPagamenti;
+import lombok.Setter;
 
 public abstract class Proprieta extends Casella {
 
+    @Setter
     private Giocatore proprietario;
     private int costo;
     private int ipoteca;
@@ -12,28 +14,18 @@ public abstract class Proprieta extends Casella {
 
     public Proprieta (String nome, Giocatore proprietario, int costo, int ipoteca, int affitto) {
         super(nome);
-        setProprietario(proprietario);
-        setCosto(costo);
-        setIpoteca(ipoteca);
-        setAffitto(affitto);
-    }
-
-    public abstract int calcolaAffitto(Pagamenti strategia);
-
-    public void setCosto(int costo) {
-        this.costo = costo;
-    }
-
-    public void setIpoteca(int ipoteca) {
-        this.ipoteca = ipoteca;
-    }
-
-    public void setProprietario(Giocatore proprietario) {
         this.proprietario = proprietario;
+        this.costo = costo;
+        this.ipoteca = ipoteca;
+        this.affitto = affitto;
     }
 
-    public void setAffitto(int affitto) {
-        this.affitto = affitto;
+    public abstract int calcolaAffitto(IPagamenti strategia);
+
+    public void economiaCasuale(float random) {
+        costo = (int) Math.floor(getCosto()*random);
+        ipoteca = (int) Math.floor(getIpoteca()*random);
+        affitto = (int) Math.floor(getAffitto()*random);
     }
 
     public Giocatore getProprietario() {

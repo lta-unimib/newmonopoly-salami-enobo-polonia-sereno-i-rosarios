@@ -1,13 +1,13 @@
 package com.newmonopoly.newmonopoly.model.transazioni;
 
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
-import com.newmonopoly.newmonopoly.model.tabellone.Proprieta;
-import com.newmonopoly.newmonopoly.model.tabellone.Societa;
-import com.newmonopoly.newmonopoly.model.tabellone.Stazione;
-import com.newmonopoly.newmonopoly.model.tabellone.Strada;
-import com.newmonopoly.newmonopoly.model.tabellone.Tasse;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Proprieta;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Societa;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Stazione;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Tasse;
 
-public class PagamentiGiocatore implements Pagamenti {
+public class PagamentiGiocatore implements IPagamenti {
 
     @Override
     public int calcolaAffitto(Strada strada) {
