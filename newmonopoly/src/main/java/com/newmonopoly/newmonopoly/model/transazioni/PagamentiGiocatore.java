@@ -19,10 +19,10 @@ public class PagamentiGiocatore implements Pagamenti {
             }
 
             if (numeroCase > 0) {
-                return strada.getAffitti().get(numeroCase - 1);
+                return strada.getAffitti().get(numeroCase);
             }
     
-            return strada.getAffitto();
+            return strada.getAffitti().get(0);
         
     }
 

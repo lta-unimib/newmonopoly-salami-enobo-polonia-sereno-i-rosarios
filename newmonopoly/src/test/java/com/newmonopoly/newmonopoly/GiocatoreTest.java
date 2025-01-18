@@ -78,5 +78,6 @@ class GiocatoreTest {
         assertEquals(0, giocatore.getBanconoteDaCinque());
         assertEquals(4, giocatore.getBanconoteDaUno());
     }
+
 }
 

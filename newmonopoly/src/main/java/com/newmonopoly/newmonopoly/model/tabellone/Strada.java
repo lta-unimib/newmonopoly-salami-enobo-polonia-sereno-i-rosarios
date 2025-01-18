@@ -19,9 +19,12 @@ public class Strada extends Proprieta {
     private int costoCasa;
     @Getter @Setter
     private int costoAlbergo;
+    @Getter @Setter
+    private Colore colore;
 
-    public Strada (String nome, Giocatore proprietario, int costo, int ipoteca, int affitto, ArrayList<Integer> affitti, int costoCasa, int costoAlbergo) {
-        super(nome, proprietario, costo, ipoteca, affitto);
+
+    public Strada (String nome, Giocatore proprietario, int costo, int ipoteca, ArrayList<Integer> affitti, int costoCasa, int costoAlbergo) {
+        super(nome, proprietario, costo, ipoteca);
         setNumCase(0);
         setAlbergo(false);
         setAffitti(affitti);
@@ -39,17 +42,20 @@ public class Strada extends Proprieta {
 
     public void aggiungiEdificio() {
         //aggiungere controllo che riguarda avere tutte le proprità di quel colore
-        if (getNumCase() < 4) {
-            getProprietario().pay(costoCasa);
-            numCase++;
-        } else if(!hasAlbergo()) {
-            getProprietario().pay(costoAlbergo);
-            albergo = true;
-            numCase=0;
-        }
-        else{
-            throw new IllegalArgumentException("la proprietà ha il numero massimo di edifici");
-        }
+        //if (possiedeTutteLeProprietaDelColore()){
+            if (getNumCase() < 4) {
+                getProprietario().pay(costoCasa);
+                numCase++;
+            } else if(!hasAlbergo()) {
+                getProprietario().pay(costoAlbergo);
+                albergo = true;
+                numCase=0;
+            }
+            else{
+                throw new IllegalArgumentException("la proprietà ha il numero massimo di edifici");
+            }
+        
+      //  }
     }
 
     public void rimuoviEdificio(){
@@ -63,6 +69,18 @@ public class Strada extends Proprieta {
         }
         else
         throw new IllegalArgumentException("Il giocatore non possiede alcun edificio");
+    }
+
+
+    public enum Colore {
+        ROSSO,
+        BLU,
+        AZZURRO,
+        GIALLO,
+        ARANCIONE,
+        MARRONE,
+        VIOLA,
+        VERDE
     }
 
 }

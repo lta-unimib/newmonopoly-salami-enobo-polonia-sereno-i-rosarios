@@ -55,7 +55,7 @@ public class Giocatore implements Serializable {
     }
     
 
-    public void pay(int quantita) {
+     public void pay(int quantita) {
         if (getSaldo() < quantita) {
             throw new IllegalArgumentException("Saldo insufficiente per effettuare il pagamento.");
         }
@@ -71,6 +71,8 @@ public class Giocatore implements Serializable {
             throw new IllegalStateException("Errore: pagamento non completato nonostante saldo sufficiente.");
         }
     }
+    
+    
     
 
     public int getSaldo(){
@@ -109,20 +111,5 @@ public class Giocatore implements Serializable {
     public int getBanconoteDaUno() {
         return banconote.get(1).getQuantita();
     }
-
-    /* classe funzionante creata per controllare che le banconote venissero aggiunte o detratte correttamente
-        public String mostraBanconote() {
-            StringBuilder sb = new StringBuilder();
-            sb.append("Banconote di ").append(nome).append(":\n");
-            
-            // Itera attraverso le chiavi (valori delle banconote) in ordine decrescente
-            for (Integer valoreBanconota : new TreeSet<>(banconote.keySet()).descendingSet()) {
-                Banconota banconota = banconote.get(valoreBanconota);
-                sb.append(valoreBanconota).append("$: ").append(banconota.getQuantita()).append(" banconote\n");
-            }
-            return sb.toString();
-        }
-    */
-    
 
 }

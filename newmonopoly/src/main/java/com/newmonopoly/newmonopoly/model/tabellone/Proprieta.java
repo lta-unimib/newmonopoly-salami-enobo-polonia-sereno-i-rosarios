@@ -1,24 +1,22 @@
 package com.newmonopoly.newmonopoly.model.tabellone;
 
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
-import com.newmonopoly.newmonopoly.model.transazioni.Pagamenti;
 
-public abstract class Proprieta extends Casella {
+public class Proprieta extends Casella {
 
     private Giocatore proprietario;
     private int costo;
     private int ipoteca;
     private int affitto;
 
-    public Proprieta (String nome, Giocatore proprietario, int costo, int ipoteca, int affitto) {
+    public Proprieta (String nome, Giocatore proprietario, int costo, int ipoteca) {
         super(nome);
         setProprietario(proprietario);
         setCosto(costo);
         setIpoteca(ipoteca);
-        setAffitto(affitto);
     }
 
-    public abstract int calcolaAffitto(Pagamenti strategia);
+   // public  int calcolaAffitto(Pagamenti strategia);
 
     public void setCosto(int costo) {
         this.costo = costo;
