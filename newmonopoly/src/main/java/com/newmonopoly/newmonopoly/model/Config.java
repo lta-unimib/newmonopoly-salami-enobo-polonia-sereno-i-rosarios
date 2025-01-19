@@ -1,15 +1,13 @@
 package com.newmonopoly.newmonopoly.model;
 
 import com.newmonopoly.newmonopoly.model.gamer.Banconota;
-import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
-
 @Data
-@Builder
 public class Config implements Serializable {
 
     private boolean caselleCasuali;
@@ -17,13 +15,14 @@ public class Config implements Serializable {
     private Map<Integer, Banconota> banconote;
     private Difficolta difficolta;
 
-    @Builder.Default
-    private int numeroGiocatori = 6;
+    private int numeroGiocatori;
 
-    Config() {
+    // Costruttore pubblico
+    public Config() {
+        banconote = new HashMap<>();
+        inizializzaBanconote();
         caselleCasuali = false;
         fluttuazioneEconomica = false;
-        inizializzaBanconote();
         difficolta = Difficolta.EASY;
         numeroGiocatori = 6;
     }
@@ -42,6 +41,6 @@ public class Config implements Serializable {
         banconote.put(10, new Banconota(10, 1));    // 1 banconota da 10
         banconote.put(5, new Banconota(5, 1));      // 1 banconota da 5
         banconote.put(1, new Banconota(1, 5));      // 5 banconote da 1
-        return banconote;
+        return null;
     }
 }
