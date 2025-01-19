@@ -5,4 +5,7 @@ public class Imprevisto extends Casella{
     public Imprevisto(String nome) {
         super("Imprevisto");
     }
+
+
+
 }

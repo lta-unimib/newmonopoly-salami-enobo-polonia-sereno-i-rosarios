@@ -2,6 +2,7 @@ package com.newmonopoly.newmonopoly.model.tabellone;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.newmonopoly.newmonopoly.interfacce.ITabellone;
+import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 import com.newmonopoly.newmonopoly.model.gamer.Token;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Casella;
 import com.newmonopoly.newmonopoly.model.tabellone.strategy.EconomiaStabileStrategy;
@@ -17,10 +18,9 @@ import java.util.List;
 @Data
 public class Tabellone implements ITabellone, Serializable {
 
-
     @JsonIgnore
     private List<Casella> caselle;
-    //private List<Token> pedine;
+    private List<Token> pedine;
 
     @JsonIgnore
     @Builder.Default
@@ -28,13 +28,18 @@ public class Tabellone implements ITabellone, Serializable {
 
     public Tabellone (List<Token> tokensInGame){
         caselle = new ArrayList<>(40);
-        //pedine = tokensInGame;
-        //inizializzaPosizioni(pedine);
+        pedine = tokensInGame;
+        // inizializzaPosizioni(pedine);
     }
 
     @Override
     public Casella getCasella(int numero) {
         return caselle.get(numero);
+    }
+
+    @Override
+    public void muoviGiocatore(Token token, int quantita) {
+        token.setCasella(caselle.get((caselle.indexOf(token.getCasella()) + quantita) % caselle.size()));
     }
 
     public void caselleCasuali() {
@@ -50,4 +55,5 @@ public class Tabellone implements ITabellone, Serializable {
             token.setCasella(getVia());
         }
     }*/
+
 }
