@@ -1,6 +1,6 @@
 package com.newmonopoly.newmonopoly.model.gamer;
 
-import com.newmonopoly.newmonopoly.model.tabellone.Casella;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Casella;
 import lombok.Getter;
 import lombok.Setter;
 

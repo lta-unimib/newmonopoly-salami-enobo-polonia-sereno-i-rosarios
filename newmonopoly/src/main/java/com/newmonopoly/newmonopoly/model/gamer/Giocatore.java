@@ -10,9 +10,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
-import com.newmonopoly.newmonopoly.model.tabellone.Proprieta;
-import com.newmonopoly.newmonopoly.model.tabellone.Strada;
-import com.newmonopoly.newmonopoly.model.tabellone.Strada.Colore;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Proprieta;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada.Colore;
+
 
 
 public class Giocatore implements Serializable {

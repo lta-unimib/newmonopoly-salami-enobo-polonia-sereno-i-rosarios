@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-import static com.newmonopoly.newmonopoly.model.tabellone.Prigione.getPrigione;
+import static com.newmonopoly.newmonopoly.model.tabellone.casella.Prigione.getPrigione;
 
 class PrigioneTest {
 

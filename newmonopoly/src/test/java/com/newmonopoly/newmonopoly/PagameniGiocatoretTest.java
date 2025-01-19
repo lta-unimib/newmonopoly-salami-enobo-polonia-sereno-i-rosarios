@@ -6,16 +6,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 
+import com.newmonopoly.newmonopoly.model.tabellone.casella.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
-import com.newmonopoly.newmonopoly.model.tabellone.Societa;
-import com.newmonopoly.newmonopoly.model.tabellone.Stazione;
-import com.newmonopoly.newmonopoly.model.tabellone.Strada;
-import com.newmonopoly.newmonopoly.model.tabellone.TassaLusso;
-import com.newmonopoly.newmonopoly.model.tabellone.Tasse;
-import com.newmonopoly.newmonopoly.model.tabellone.Strada.Colore;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada.Colore;
 import com.newmonopoly.newmonopoly.model.transazioni.PagamentiGiocatore;
 
 public class PagameniGiocatoretTest {
@@ -40,11 +36,11 @@ public class PagameniGiocatoretTest {
         affitti.add(450);
         affitti.add(625);
         affitti.add(750);
-        strada = new Strada("Via Roma", giocatore2, 140, 70,affitti , 100, 100, Colore.VERDE);
-        strada2 = new Strada("Viale Accademia", null, 140, 70,affitti , 100, 100, Colore.VIOLA);
-        stazione = new Stazione("Stazione Nord", giocatore2, 200,100,25 );
-        societa = new Societa("Società elettrica", giocatore2, 150, 75, 50);
-        tassa = new TassaLusso("tassa di lusso",200);
+        //strada = new Strada("Via Roma", giocatore2, 140, 70,affitti , 100, 100, Colore.VERDE);
+        //strada2 = new Strada("Viale Accademia", null, 140, 70,affitti , 100, 100, Colore.VIOLA);
+        //stazione = new Stazione("Stazione Nord", giocatore2, 200,100,25 );
+        //societa = new Societa("Società elettrica", giocatore2, 150, 75, 50);
+        tassa = new TassaLusso();
     }
 
      @Test
@@ -104,7 +100,7 @@ void testAcquistaProprietaSenzaSaldo() {
     @Test
     void testPagaAffittoStrada() {
         int saldoIniziale = giocatore.getSaldo();
-        int affitto = strada.getAffitti().get(0);
+        int affitto = strada.getAffitto();
         pagamentiGiocatore.pagaAffitto(strada, giocatore);
         assertEquals(giocatore.getSaldo(), saldoIniziale - affitto);  
     }

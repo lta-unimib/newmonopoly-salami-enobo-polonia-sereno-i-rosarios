@@ -1,57 +1,59 @@
 package com.newmonopoly.newmonopoly.model.tabellone;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.newmonopoly.newmonopoly.interfacce.ITabellone;
+import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 import com.newmonopoly.newmonopoly.model.gamer.Token;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Casella;
+import com.newmonopoly.newmonopoly.model.tabellone.strategy.EconomiaStabileStrategy;
+import com.newmonopoly.newmonopoly.model.tabellone.strategy.IFluttuazioneEconomicaCaselleStrategy;
+import lombok.Builder;
+import lombok.Data;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.newmonopoly.newmonopoly.model.tabellone.Via.getVia;
+@Builder
+@Data
+public class Tabellone implements ITabellone, Serializable {
 
-public class Tabellone {
-    private static Tabellone tabellone = null;
-
-    private int difficolta = 1;
-    private ArrayList<Casella> caselle;
+    @JsonIgnore
+    private List<Casella> caselle;
     private List<Token> pedine;
 
-    //Tabellone è Singleton, quando viene chiamata la prima volta getTabellone viene inizializzato
-    //inserendo nell'arrayList pedine i token dei giocatori in gioco.
-    //i giocatori scelgono il loro token quando si sta creando la partita, una volta premuto start game allora
-    //si inizializza il tabellone con le pedine scelte(secondo me la logica dovrebbe essere questa)
+    @JsonIgnore
+    @Builder.Default
+    private transient IFluttuazioneEconomicaCaselleStrategy economia = new EconomiaStabileStrategy();
 
     public Tabellone (List<Token> tokensInGame){
         caselle = new ArrayList<>(40);
         pedine = tokensInGame;
-        inizializzaPosizioni(pedine);
+        // inizializzaPosizioni(pedine);
     }
 
-    public static synchronized Tabellone getTabellone(List<Token> tokensInGame) {
-        if (tabellone == null) {
-            tabellone = new Tabellone(tokensInGame);
+    @Override
+    public Casella getCasella(int numero) {
+        return caselle.get(numero);
+    }
+
+    @Override
+    public void muoviGiocatore(Token token, int quantita) {
+        token.setCasella(caselle.get((caselle.indexOf(token.getCasella()) + quantita) % caselle.size()));
+    }
+
+    public void caselleCasuali() {
+        for (Casella casella : caselle) {
+            economia.economiaCasuale(casella);
         }
-        return tabellone;
     }
 
+    /*
     public void inizializzaPosizioni(List<Token> pedine)
     {
         for(Token token : pedine) {
             token.setCasella(getVia());
         }
-    }
+    }*/
 
-    /// per settaggio difficoltà
-    public void setTabellone(int difficolta) {
-        switch (difficolta){
-            case 1:
-                ///
-
-            default:
-                ///
-        }
-    }
-
-
-    public List<Casella> getCaselle() {
-        return caselle;
-    }
 }

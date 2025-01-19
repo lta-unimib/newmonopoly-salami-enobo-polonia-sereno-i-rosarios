@@ -1,15 +1,10 @@
-package com.newmonopoly.newmonopoly.model.tabellone;
+package com.newmonopoly.newmonopoly.model.tabellone.casella;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.stream.Collectors;
-
 import lombok.Getter;
 import lombok.Setter;
-
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
-import com.newmonopoly.newmonopoly.model.transazioni.Pagamenti;
+import com.newmonopoly.newmonopoly.model.transazioni.IPagamenti;
 
 public class Strada extends Proprieta {
     
@@ -17,7 +12,7 @@ public class Strada extends Proprieta {
     private int numCase;
     @Getter @Setter
     private boolean albergo;
-    @Getter @Setter
+    @Setter
     private ArrayList<Integer> affitti;
     @Getter @Setter
     private int costoCasa;
@@ -27,8 +22,8 @@ public class Strada extends Proprieta {
     private Colore colore;
 
 
-    public Strada (String nome, Giocatore proprietario, int costo, int ipoteca, ArrayList<Integer> affitti, int costoCasa, int costoAlbergo, Colore colore) {
-        super(nome, proprietario, costo, ipoteca);
+    public Strada (String nome, Giocatore proprietario, int costo, int affitto, int ipoteca, ArrayList<Integer> affitti, int costoCasa, int costoAlbergo, Colore colore) {
+        super(nome, proprietario, costo, ipoteca, affitto);
         setNumCase(0);
         setAlbergo(false);
         setAffitti(affitti);
@@ -37,9 +32,10 @@ public class Strada extends Proprieta {
         setColore(colore);
     }
 
-    public int calcolaAffitto(Pagamenti strategia) {
+    /*
+    public int calcolaAffitto(IPagamenti strategia) {
         return strategia.calcolaAffitto(this);
-    }
+    }*/
 
     public boolean hasAlbergo(){
         return albergo;
@@ -49,10 +45,12 @@ public class Strada extends Proprieta {
         if (getProprietario().possiedeTutteLeProprietaDelColore(getColore())){
             if (getNumCase() < 4) {
                 getProprietario().pay(costoCasa);
+                super.setAffitto(this.affitti.get(numCase));
                 numCase++;
             } else if(!hasAlbergo()) {
                 getProprietario().pay(costoAlbergo);
                 albergo = true;
+                super.setAffitto(this.affitti.get(numCase));
                 numCase=0;
             }
             else{
@@ -61,20 +59,20 @@ public class Strada extends Proprieta {
         
        }
     }
-        
-    
 
     public void rimuoviEdificio(){
         if (hasAlbergo()) {
             albergo = false;
             numCase = 4;
+            super.setAffitto(this.affitti.get(numCase-1));
             getProprietario().ricevi(costoAlbergo/2);
         } else if (numCase != 0) {
+            super.setAffitto(this.affitti.get(numCase-1));
             numCase --;
             getProprietario().ricevi(costoCasa/2);
         }
         else
-        throw new IllegalArgumentException("Il giocatore non possiede alcun edificio");
+            throw new IllegalArgumentException("Il giocatore non possiede alcun edificio");
     }
 
 

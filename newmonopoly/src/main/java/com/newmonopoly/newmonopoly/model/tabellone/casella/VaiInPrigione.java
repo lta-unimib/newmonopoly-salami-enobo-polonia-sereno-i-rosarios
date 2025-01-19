@@ -1,9 +1,10 @@
-package com.newmonopoly.newmonopoly.model.tabellone;
+package com.newmonopoly.newmonopoly.model.tabellone.casella;
 
 import com.newmonopoly.newmonopoly.model.gamer.Token;
-import static com.newmonopoly.newmonopoly.model.tabellone.Prigione.getPrigione;
 
-public class VaiInPrigione extends Casella{
+import static com.newmonopoly.newmonopoly.model.tabellone.casella.Prigione.getPrigione;
+
+public class VaiInPrigione extends Casella {
 
     private static VaiInPrigione vaiInPrigione = null;
 

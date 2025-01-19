@@ -1,14 +1,15 @@
 package com.newmonopoly.newmonopoly.model.transazioni;
 
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
-import com.newmonopoly.newmonopoly.model.tabellone.Proprieta;
-import com.newmonopoly.newmonopoly.model.tabellone.Societa;
-import com.newmonopoly.newmonopoly.model.tabellone.Stazione;
-import com.newmonopoly.newmonopoly.model.tabellone.Strada;
-import com.newmonopoly.newmonopoly.model.tabellone.Tasse;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Proprieta;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Societa;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Stazione;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Tasse;
 
-public class PagamentiGiocatore implements Pagamenti {
+public class PagamentiGiocatore implements IPagamenti {
 
+    /*
     @Override
     public int calcolaAffitto(Strada strada) {
             int numeroCase = strada.getNumCase();
@@ -34,7 +35,7 @@ public class PagamentiGiocatore implements Pagamenti {
     @Override
     public int calcolaAffitto(Societa societa) {
         return societa.getAffitto();
-    }
+    }*/
 
     @Override
     public int calcolaTassa(Tasse tassa) {
@@ -51,12 +52,15 @@ public class PagamentiGiocatore implements Pagamenti {
         }
     }
     
-    public void pagaAffitto(Strada strada, Giocatore affittuario){
-        int quantita = calcolaAffitto(strada);
-        affittuario.pay(quantita);
-        strada.getProprietario().ricevi(quantita);
+    public void pagaAffitto(Proprieta proprieta, Giocatore affittuario){
+        int quantita = proprieta.getAffitto();
+        if(proprieta instanceof Strada || proprieta instanceof Stazione || proprieta instanceof Societa) {
+            affittuario.pay(proprieta.getAffitto());
+            proprieta.getProprietario().ricevi(quantita);
+        }
     }
 
+    /*
     public void pagaAffitto(Stazione stazione, Giocatore affittuario){
         int quantita = calcolaAffitto(stazione);
         affittuario.pay(quantita);
@@ -67,7 +71,7 @@ public class PagamentiGiocatore implements Pagamenti {
         int quantita = calcolaAffitto(societa);
         affittuario.pay(quantita);
         societa.getProprietario().ricevi(quantita);
-    }
+    }*/
 
     public void pagaTassa(Tasse tassa, Giocatore contribuente){
         int quantita = calcolaTassa(tassa);
