@@ -15,6 +15,7 @@ import com.newmonopoly.newmonopoly.model.tabellone.Stazione;
 import com.newmonopoly.newmonopoly.model.tabellone.Strada;
 import com.newmonopoly.newmonopoly.model.tabellone.TassaLusso;
 import com.newmonopoly.newmonopoly.model.tabellone.Tasse;
+import com.newmonopoly.newmonopoly.model.tabellone.Strada.Colore;
 import com.newmonopoly.newmonopoly.model.transazioni.PagamentiGiocatore;
 
 public class PagameniGiocatoretTest {
@@ -39,8 +40,8 @@ public class PagameniGiocatoretTest {
         affitti.add(450);
         affitti.add(625);
         affitti.add(750);
-        strada = new Strada("Via Roma", giocatore2, 140, 70,affitti , 100, 100);
-        strada2 = new Strada("Viale Accademia", null, 140, 70,affitti , 100, 100);
+        strada = new Strada("Via Roma", giocatore2, 140, 70,affitti , 100, 100, Colore.VERDE);
+        strada2 = new Strada("Viale Accademia", null, 140, 70,affitti , 100, 100, Colore.VIOLA);
         stazione = new Stazione("Stazione Nord", giocatore2, 200,100,25 );
         societa = new Societa("Società elettrica", giocatore2, 150, 75, 50);
         tassa = new TassaLusso("tassa di lusso",200);

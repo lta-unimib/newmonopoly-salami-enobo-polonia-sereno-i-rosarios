@@ -1,6 +1,10 @@
 package com.newmonopoly.newmonopoly.model.tabellone;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -23,13 +27,14 @@ public class Strada extends Proprieta {
     private Colore colore;
 
 
-    public Strada (String nome, Giocatore proprietario, int costo, int ipoteca, ArrayList<Integer> affitti, int costoCasa, int costoAlbergo) {
+    public Strada (String nome, Giocatore proprietario, int costo, int ipoteca, ArrayList<Integer> affitti, int costoCasa, int costoAlbergo, Colore colore) {
         super(nome, proprietario, costo, ipoteca);
         setNumCase(0);
         setAlbergo(false);
         setAffitti(affitti);
         setCostoCasa(costoCasa);
         setCostoAlbergo(costoAlbergo);
+        setColore(colore);
     }
 
     public int calcolaAffitto(Pagamenti strategia) {
@@ -41,8 +46,7 @@ public class Strada extends Proprieta {
     }
 
     public void aggiungiEdificio() {
-        //aggiungere controllo che riguarda avere tutte le proprità di quel colore
-        //if (possiedeTutteLeProprietaDelColore()){
+        if (getProprietario().possiedeTutteLeProprietaDelColore(getColore())){
             if (getNumCase() < 4) {
                 getProprietario().pay(costoCasa);
                 numCase++;
@@ -55,8 +59,10 @@ public class Strada extends Proprieta {
                 throw new IllegalArgumentException("la proprietà ha il numero massimo di edifici");
             }
         
-      //  }
+       }
     }
+        
+    
 
     public void rimuoviEdificio(){
         if (hasAlbergo()) {

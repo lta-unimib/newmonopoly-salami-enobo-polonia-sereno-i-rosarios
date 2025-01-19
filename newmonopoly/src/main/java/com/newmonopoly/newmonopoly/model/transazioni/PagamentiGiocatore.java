@@ -41,10 +41,13 @@ public class PagamentiGiocatore implements Pagamenti {
        return tassa.getImporto();
     }
 
+
+
     public void acquistaProprieta(Proprieta proprieta, Giocatore acquirente){
         if(acquirente.getSaldo() >= proprieta.getCosto()) {
             acquirente.pay(proprieta.getCosto());
             proprieta.setProprietario(acquirente);
+            acquirente.aggiungiProprieta(proprieta);
         }
     }
     
@@ -81,7 +84,10 @@ public class PagamentiGiocatore implements Pagamenti {
     public void vendiProprieta(int prezzoConcordato, Proprieta proprieta, Giocatore acquirente){
         proprieta.getProprietario().ricevi(prezzoConcordato);
         acquirente.pay(prezzoConcordato);
+        proprieta.getProprietario().rimuoviProprieta(proprieta);
         proprieta.setProprietario(acquirente);
+        acquirente.aggiungiProprieta(proprieta);
+        
     }
 
     public void pagaTassa(int tassa, Giocatore contribuente) {

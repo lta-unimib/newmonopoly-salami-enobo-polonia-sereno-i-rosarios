@@ -4,11 +4,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
 import com.newmonopoly.newmonopoly.model.tabellone.Proprieta;
+import com.newmonopoly.newmonopoly.model.tabellone.Strada;
+import com.newmonopoly.newmonopoly.model.tabellone.Strada.Colore;
 
 
 public class Giocatore implements Serializable {
@@ -21,11 +25,13 @@ public class Giocatore implements Serializable {
     private Map<Integer, Banconota> banconote;
     @Getter @Setter
     private int puntiFedelta;
+    private List<Proprieta> proprieta;
 
     public Giocatore(String nome) {
         this.nome = nome;
         this.banconote = new HashMap<>();
         this.puntiFedelta = 0;
+        this.proprieta = new ArrayList<>();
         inizializzaBanconote();
     }
 
@@ -72,8 +78,6 @@ public class Giocatore implements Serializable {
         }
     }
     
-    
-    
 
     public int getSaldo(){
         int totale = 0;
@@ -81,6 +85,34 @@ public class Giocatore implements Serializable {
             totale += banconota.getValore() * banconota.getQuantita();
         }
         return totale;
+    }
+
+    public boolean possiedeTutteLeProprietaDelColore(Colore colore) {
+    List<Proprieta> proprieta = getProprieta();
+    for (Proprieta p : proprieta) {
+        if (p instanceof Strada) {
+            Strada strada = (Strada) p;
+            if (strada.getColore() != colore) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+     // Metodo per aggiungere una proprietà alla lista del giocatore
+     public void aggiungiProprieta(Proprieta proprieta) {
+        this.proprieta.add(proprieta);
+    }
+
+    // Metodo per rimuovere una proprietà dalla lista del giocatore
+    public void rimuoviProprieta(Proprieta proprieta) {
+        this.proprieta.remove(proprieta);
+    }
+
+    // Metodo per ottenere la lista delle proprietà del giocatore
+    public List<Proprieta> getProprieta() {
+        return proprieta;
     }
 
     // Metodi per ottenere la quantità di banconote in un dato momento
