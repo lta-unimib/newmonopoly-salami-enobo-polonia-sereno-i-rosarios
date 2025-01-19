@@ -8,42 +8,54 @@ type Giocatore = {
 };
 
 const Lobby: React.FC = () => {
-    const { idPartita } = useParams(); // Ottieni ID partita dall'URL
+    const { idPartita } = useParams<{ idPartita: string }>(); // Ottieni ID partita dall'URL
     const [giocatori, setGiocatori] = useState<Giocatore[]>([]);
     const [creatore, setCreatore] = useState<string | null>(null);
+    const [currentUserId, setCurrentUserId] = useState<string>("1234"); // Imposta l'utente corrente (simulazione)
+    const [client, setClient] = useState<Client | null>(null); // Gestisci un unico client condiviso
 
     useEffect(() => {
-        const client = new Client({
+        const wsClient = new Client({
             brokerURL: "ws://localhost:8080/ws", // URL WebSocket
             onConnect: () => {
-                // Sottoscrizione alla lista giocatori
-                client.subscribe(`/topic/partita/${idPartita}/giocatori`, (message) => {
+                console.log("Connesso al WebSocket!");
+
+                // Sottoscrizione per ricevere la lista dei giocatori
+                wsClient.subscribe(`/topic/partita/${idPartita}/giocatori`, (message) => {
                     const { giocatori, creatore } = JSON.parse(message.body);
                     setGiocatori(giocatori);
                     setCreatore(creatore);
                 });
             },
+            onStompError: (frame) => {
+                console.error("Errore STOMP:", frame);
+            },
+            onWebSocketError: (error) => {
+                console.error("Errore WebSocket:", error);
+            },
         });
 
-        client.activate();
+        wsClient.activate();
+        setClient(wsClient); // Salva il client condiviso nello stato
 
+        // Pulizia: disattiva il WebSocket quando il componente si smonta
         return () => {
-            client.deactivate(); // Pulizia quando il componente si smonta
+            if (wsClient) wsClient.deactivate();
         };
     }, [idPartita]);
 
     const handleAvviaPartita = () => {
-        // Notifica il server per iniziare la partita
-        const client = new Client({
-            brokerURL: "ws://localhost:8080/ws",
-            onConnect: () => {
-                client.publish({
-                    destination: `/app/partita/${idPartita}/start`,
-                });
-            },
-        });
+        if (!client) return; // Prevenire errori se il client non è pronto
 
-        client.activate();
+        try {
+            // Pubblica un messaggio per avviare la partita
+            client.publish({
+                destination: `/app/partita/${idPartita}/start`,
+            });
+            console.log("Partita avviata!");
+        } catch (error) {
+            console.error("Errore durante l'avvio della partita:", error);
+        }
     };
 
     return (
@@ -56,7 +68,8 @@ const Lobby: React.FC = () => {
                 ))}
             </ul>
 
-            {creatore === "currentUserId" && ( // Mostra il pulsante solo al creatore
+            {/* Mostra il pulsante solo se l'utente corrente è il creatore */}
+            {creatore === currentUserId && (
                 <button onClick={handleAvviaPartita}>Avvia Partita</button>
             )}
         </div>
