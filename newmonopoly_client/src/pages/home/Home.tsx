@@ -1,6 +1,6 @@
 import React from 'react'
-import CreaPartita from "./CreaPartita.tsx";
-import AccediPartita from "./AccediPartita.tsx";
+import CreaPartita from "./CreaPartita";
+import AccediPartita from "./AccediPartita";
 import { useState } from 'react';
 
 const Home = () => {

@@ -1,14 +1,12 @@
 import IBanconota from "./IBanconota";
 
 export enum Difficolta {
-    EASY = "EASY",
-    MEDIUM = "MEDIUM",
-    HARD = "HARD"
+    FACILE = "FACILE",
+    MEDIA = "MEDIA",
+    DIFFICILE = "DIFFICILE"
 }
 
 export default interface IConfigurazione {
     difficolta: Difficolta,
-    soldiIniziali: Map<number, IBanconota>;
     numeroGiocatori: number,
-    // countDadiUguali: number,
 }
