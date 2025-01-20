@@ -1,6 +1,7 @@
 package com.newmonopoly.newmonopoly.model.servizi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 import com.newmonopoly.newmonopoly.model.AbstractGame;
 import com.newmonopoly.newmonopoly.model.Config;
 import com.newmonopoly.newmonopoly.model.Game;
@@ -56,9 +57,11 @@ public class FactoryGame {
 
     public AbstractGame creaPartita(Config config) throws IOException {
         Tabellone tabellone = creaTabellone(config);
+        Giocatore giocatore = config.getAdmin();
 
         return Game.builder()
                 .tabellone(tabellone)
+                .players(new ArrayList<>(List.of(giocatore)))
                 .config(config)
                 .build();
     }

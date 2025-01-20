@@ -26,11 +26,12 @@ public class Tabellone implements ITabellone, Serializable {
     @Builder.Default
     private transient IFluttuazioneEconomicaCaselleStrategy economia = new EconomiaStabileStrategy();
 
-    public Tabellone (List<Token> tokensInGame){
-        caselle = new ArrayList<>(40);
-        pedine = tokensInGame;
+/*
+    public Tabellone (List<Casella> caselle, List<Token> tokensInGame){
+        caselle = new ArrayList<>(caselle);
+        pedine = new ArrayList<>(tokensInGame);
         // inizializzaPosizioni(pedine);
-    }
+    }*/
 
     @Override
     public Casella getCasella(int numero) {

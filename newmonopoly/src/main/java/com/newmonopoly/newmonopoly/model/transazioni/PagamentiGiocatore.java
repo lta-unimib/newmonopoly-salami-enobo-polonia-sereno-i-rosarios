@@ -54,7 +54,8 @@ public class PagamentiGiocatore implements IPagamenti {
     
     public void pagaAffitto(Proprieta proprieta, Giocatore affittuario){
         int quantita = proprieta.getAffitto();
-        if(proprieta instanceof Strada || proprieta instanceof Stazione || proprieta instanceof Societa) {
+        if(proprieta instanceof Strada || proprieta instanceof Stazione || 
+        proprieta instanceof Societa) {
             affittuario.pay(proprieta.getAffitto());
             proprieta.getProprietario().ricevi(quantita);
         }

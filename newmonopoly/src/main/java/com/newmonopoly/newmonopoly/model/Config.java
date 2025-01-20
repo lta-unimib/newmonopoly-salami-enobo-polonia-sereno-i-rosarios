@@ -2,9 +2,8 @@ package com.newmonopoly.newmonopoly.model;
 
 import com.newmonopoly.newmonopoly.model.gamer.Banconota;
 import lombok.Data;
-
+import com.newmonopoly.newmonopoly.model.gamer.Admin;
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
 
 @Data
@@ -14,13 +13,13 @@ public class Config implements Serializable {
     private boolean fluttuazioneEconomica;
     private Map<Integer, Banconota> banconote;
     private Difficolta difficolta;
+    private Admin admin;
 
     private int numeroGiocatori;
 
     // Costruttore pubblico
     public Config() {
-        banconote = new HashMap<>();
-        inizializzaBanconote();
+        banconote = inizializzaBanconote();    
         caselleCasuali = false;
         fluttuazioneEconomica = false;
         difficolta = Difficolta.EASY;
@@ -31,6 +30,10 @@ public class Config implements Serializable {
         EASY,
         MEDIUM,
         HARD
+    }
+
+    public Admin getAdmin() {
+        return admin;
     }
 
     protected Map<Integer, Banconota> inizializzaBanconote() {

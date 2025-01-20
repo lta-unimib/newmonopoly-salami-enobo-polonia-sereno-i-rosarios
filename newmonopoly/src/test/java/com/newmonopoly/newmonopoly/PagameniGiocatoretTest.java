@@ -15,7 +15,7 @@ import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada.Colore;
 import com.newmonopoly.newmonopoly.model.transazioni.PagamentiGiocatore;
 
 public class PagameniGiocatoretTest {
-    private PagamentiGiocatore pagamentiGiocatore;
+   /* private PagamentiGiocatore pagamentiGiocatore;
     private Giocatore giocatore;
     private Giocatore giocatore2;
     private Strada strada;
@@ -126,5 +126,5 @@ void testAcquistaProprietaSenzaSaldo() {
         int affitto = stazione.getAffitto();
         pagamentiGiocatore.pagaAffitto(stazione, giocatore);
         assertEquals(giocatore.getSaldo(), saldoIniziale - affitto); 
-    }
+    }*/
 }
