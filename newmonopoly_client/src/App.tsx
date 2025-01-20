@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import CreaPartita from "./pages/home/CreaPartita";
+import Home from "./pages/home/Home";
 import Lobby from "./pages/home/Lobby";
 import AccediPartita from "./pages/home/AccediPartita"; // Nuova pagina per accedere alla partita
 
@@ -26,7 +26,7 @@ const App = () => {
                         partitaCreata ? (
                             <Navigate to="/accedi-partita" /> // Redirezione automatica se la partita è già creata
                         ) : (
-                            <CreaPartita />
+                            <Home />
                         )
                     }
                 />

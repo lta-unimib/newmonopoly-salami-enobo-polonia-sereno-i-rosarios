@@ -9,4 +9,7 @@ export enum Difficolta {
 export default interface IConfigurazione {
     difficolta: Difficolta,
     numeroGiocatori: number,
+    caselleCasuali: boolean,
+    fluttuazioneEconomica: boolean,
+    // banconote = HashMap<>();
 }

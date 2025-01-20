@@ -1,86 +1,81 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { NavigateFunction } from "react-router-dom";
+import IConfigurazione, { Difficolta } from "../../interfaces/IConfigurazione";
 
-const CreaPartita = () => {
-    const difficolta = ["Facile", "Medio", "Difficile"];
-    const token = ["pedina1", "pedina2", "pedina3", "pedina4"];
+interface CreaPartitaProps {
+    nickname: string;
+    navigate: NavigateFunction; // Deve essere passato come prop
+}
 
-    const [nickname, setNickname] = useState("");
-    const [selectedDifficolta, setSelectedDifficolta] = useState(difficolta[0]);
-    const [selectedToken, setSelectedToken] = useState(token[0]);
+interface State {
+    configurazione: IConfigurazione;
+    selectedDifficolta: string;
+}
 
-    // Hook per navigare tra le pagine
-    const navigate = useNavigate();
+class CreaPartita extends React.Component<CreaPartitaProps, State> {
+    difficolta = ["Facile", "Medio", "Difficile"];
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    constructor(props: CreaPartitaProps) {
+        super(props);
+
+        this.state = {
+            configurazione: {
+                difficolta: Difficolta.FACILE,
+                numeroGiocatori: 6,
+                caselleCasuali: false,
+                fluttuazioneEconomica: false,
+            },
+            selectedDifficolta: this.difficolta[0],
+        };
+    }
+
+    handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Stampo i dati per il debug
+        // Debug dei dati
         console.log({
-            nickname,
-            difficolta: selectedDifficolta,
-            token: selectedToken,
+            difficolta: this.state.selectedDifficolta,
         });
 
-        // Naviga alla pagina della lobby dopo il submit
-        navigate("/lobby", {
+        // Navigazione alla pagina della lobby
+        this.props.navigate("/lobby", {
             state: {
-                nickname,
-                difficolta: selectedDifficolta,
-                token: selectedToken,
+                nickname: this.props.nickname,
+                difficolta: this.state.selectedDifficolta,
             },
         });
     };
 
-    return (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <div className="flex flex-col gap-4 mt-6">
-                    <label>
-                        Inserisci il tuo nickname:
-                        <input
-                            type="text"
-                            required
-                            value={nickname}
-                            onChange={(e) => setNickname(e.target.value)}
-                        />
-                    </label>
+    handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        this.setState({ selectedDifficolta: e.target.value });
+    };
 
-                    <div>
-                        <span>Seleziona la difficoltà:</span>
-                        <select
-                            id="difficoltaDropdown"
-                            value={selectedDifficolta}
-                            onChange={(e) => setSelectedDifficolta(e.target.value)}
-                        >
-                            {difficolta.map((i, index) => (
-                                <option key={index} value={i}>
-                                    {i}
-                                </option>
-                            ))}
-                        </select>
+    render() {
+        return (
+            <div>
+                <form onSubmit={this.handleSubmit}>
+                    <div className="flex flex-col gap-4 mt-6">
+                        <div>
+                            <span>Seleziona la difficoltà:</span>
+                            <select
+                                id="difficoltaDropdown"
+                                value={this.state.selectedDifficolta}
+                                onChange={this.handleChange}
+                            >
+                                {this.difficolta.map((i, index) => (
+                                    <option key={index} value={i}>
+                                        {i}
+                                    </option>
+                                ))}
+                            </select>
+                        </div>
+
+                        <button type="submit">Crea Lobby</button>
                     </div>
-
-                    <div>
-                        <span>Scegli la pedina:</span>
-                        <select
-                            id="tokenDropdown"
-                            value={selectedToken}
-                            onChange={(e) => setSelectedToken(e.target.value)}
-                        >
-                            {token.map((tk, index) => (
-                                <option key={index} value={tk}>
-                                    {tk}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
-                    <button type="submit">Crea Partita</button>
-                </div>
-            </form>
-        </div>
-    );
-};
+                </form>
+            </div>
+        );
+    }
+}
 
 export default CreaPartita;

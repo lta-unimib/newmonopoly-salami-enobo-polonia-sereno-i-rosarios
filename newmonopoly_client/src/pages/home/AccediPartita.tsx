@@ -7,6 +7,7 @@ const AccediPartita: React.FC = () => {
     const [idPartita, setIdPartita] = useState("");
     const [isConnecting, setIsConnecting] = useState(false);
     const navigate = useNavigate();
+    
 
     // Recupera l'ID della partita da localStorage all'avvio
     useEffect(() => {

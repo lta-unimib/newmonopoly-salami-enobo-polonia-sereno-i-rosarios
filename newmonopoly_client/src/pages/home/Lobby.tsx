@@ -8,11 +8,15 @@ type Giocatore = {
 };
 
 const Lobby: React.FC = () => {
+    const token = ["pedina1", "pedina2", "pedina3", "pedina4"];
+
     const { idPartita } = useParams<{ idPartita: string }>(); // Ottieni ID partita dall'URL
     const [giocatori, setGiocatori] = useState<Giocatore[]>([]);
     const [creatore, setCreatore] = useState<string | null>(null);
     const [currentUserId, setCurrentUserId] = useState<string>("1234"); // Imposta l'utente corrente (simulazione)
     const [client, setClient] = useState<Client | null>(null); // Gestisci un unico client condiviso
+    
+    const [selectedToken, setSelectedToken] = useState(token[0]);
 
     useEffect(() => {
         const wsClient = new Client({
@@ -57,7 +61,7 @@ const Lobby: React.FC = () => {
             console.error("Errore durante l'avvio della partita:", error);
         }
     };
-
+    
     return (
         <div>
             <h1>Lobby</h1>
@@ -72,6 +76,22 @@ const Lobby: React.FC = () => {
             {creatore === currentUserId && (
                 <button onClick={handleAvviaPartita}>Avvia Partita</button>
             )}
+            <form onSubmit={handleAvviaPartita}>
+                <div>
+                    <span>Scegli la pedina:</span>
+                    <select
+                        id="tokenDropdown"
+                        value={selectedToken}
+                        onChange={(e) => setSelectedToken(e.target.value)}
+                    >
+                        {token.map((tk, index) => (
+                            <option key={index} value={tk}>
+                                {tk}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+            </form>
         </div>
     );
 };
