@@ -12,6 +12,8 @@ import java.util.TreeSet;
 
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Proprieta;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Stazione;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Societa;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada.Colore;
 
 
@@ -89,31 +91,45 @@ public class Giocatore implements Serializable {
     }
 
     public boolean possiedeTutteLeProprietaDelColore(Colore colore) {
-    List<Proprieta> proprieta = getProprieta();
-    for (Proprieta p : proprieta) {
-        if (p instanceof Strada) {
-            Strada strada = (Strada) p;
-            if (strada.getColore() != colore) {
-                return false;
-            }
+    for (Proprieta p : this.proprieta) {
+    if (p instanceof Strada) {
+        Strada strada = (Strada) p;
+        if (strada.getColore() != colore) {
+            return false;
         }
     }
+    }
     return true;
-}
+    }
 
-     // Metodo per aggiungere una proprietà alla lista del giocatore
-     public void aggiungiProprieta(Proprieta proprieta) {
+    public List<Proprieta> getStazioni(){
+        List<Proprieta> stazioni = new ArrayList<>();
+        for(Proprieta p : this.proprieta){
+            if(p instanceof Stazione){
+                stazioni.add(p);
+            }
+        }
+    return stazioni;
+    }
+
+    public List<Proprieta> getSocieta(){
+        List<Proprieta> societa = new ArrayList<>();
+        for(Proprieta p : this.proprieta){
+            if(p instanceof Societa){
+                societa.add(p);
+            }
+        }
+        return societa;
+    }
+
+    // Metodo per aggiungere una proprietà alla lista del giocatore
+    public void aggiungiProprieta(Proprieta proprieta) {
         this.proprieta.add(proprieta);
     }
 
     // Metodo per rimuovere una proprietà dalla lista del giocatore
     public void rimuoviProprieta(Proprieta proprieta) {
         this.proprieta.remove(proprieta);
-    }
-
-    // Metodo per ottenere la lista delle proprietà del giocatore
-    public List<Proprieta> getProprieta() {
-        return proprieta;
     }
 
     // Metodi per ottenere la quantità di banconote in un dato momento
@@ -144,5 +160,4 @@ public class Giocatore implements Serializable {
     public int getBanconoteDaUno() {
         return banconote.get(1).getQuantita();
     }
-
 }

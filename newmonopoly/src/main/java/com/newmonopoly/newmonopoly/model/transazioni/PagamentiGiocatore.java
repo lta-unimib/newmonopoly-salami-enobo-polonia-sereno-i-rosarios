@@ -21,6 +21,17 @@ public class PagamentiGiocatore implements IPagamenti {
             acquirente.pay(proprieta.getCosto());
             proprieta.setProprietario(acquirente);
             acquirente.aggiungiProprieta(proprieta);
+
+            if(proprieta instanceof Stazione){
+                for(Proprieta p : acquirente.getStazioni()){
+                    //chiama metodo per modificare affitto in stazioni in base allla lunghezza della lista getStazioni
+                }
+            }
+            if(proprieta instanceof Societa){
+                for(Proprieta p : acquirente.getSocieta()){
+                    //chiama metodo per modificare affitto in stazioni in base allla lunghezza della lista getStazioni
+                }
+            }
         }
     }
     
