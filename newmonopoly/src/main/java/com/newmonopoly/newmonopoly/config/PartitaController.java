@@ -15,16 +15,16 @@ import java.io.IOException;
 @RequestMapping("/api/partite")
 public class PartitaController {
 
-    private Game partitaCorrente; // Memorizza la partita in corso
+    private Game partita; // Memorizza la partita in corso
 
-    @PostMapping("/crea")
+    @PostMapping("/partita")
     public ResponseEntity<String> creaPartita(@RequestBody Config config) {
         try {
             // Crea una nuova partita usando FactoryGame
             AbstractGame nuovaPartita = FactoryGame.getInstance().creaPartita(config);
 
             // Imposta la partita corrente
-            this.partitaCorrente = (Game) nuovaPartita;
+            this.partita = (Game) nuovaPartita;
 
             return ResponseEntity.ok("Partita creata con successo!");
         } catch (IOException e) {
@@ -33,23 +33,13 @@ public class PartitaController {
         }
     }
 
-    @GetMapping("/corrente")
-    public ResponseEntity<Game> getPartitaCorrente() {
-        if (partitaCorrente == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(null); // Nessuna partita in corso
-        } else {
-            return ResponseEntity.ok(partitaCorrente); // Torna la partita corrente al client
-        }
-    }
-
     @PostMapping("/termina")
     public ResponseEntity<String> terminaPartita() {
-        if (partitaCorrente == null) {
+        if (partita == null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("Nessuna partita è attualmente in corso.");
         } else {
-            partitaCorrente = null; // Termina (rimuove) la partita in corso
+            partita = null; // Termina (rimuove) la partita in corso
             return ResponseEntity.ok("Partita terminata con successo!");
         }
     }

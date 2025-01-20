@@ -20,8 +20,6 @@ const Home = () => {
         console.log({
             nickname,
         });
-
-        // Naviga alla pagina della lobby dopo il submit
     };
 
   return (
@@ -46,9 +44,7 @@ const Home = () => {
             )}
         </div>
 
-        {opzionePartita === opzioniPartita[1]  ? (
-            <button>Accedi a Partita Esistente</button>
-        ) : opzionePartita === opzioniPartita[0] &&
+        {opzionePartita === opzioniPartita[0] &&
         <CreaPartita nickname={nickname} navigate={navigate} /> }
     </div>
   )
