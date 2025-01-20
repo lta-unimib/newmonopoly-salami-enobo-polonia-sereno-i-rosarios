@@ -12,7 +12,7 @@ export default class StompController {
     static idPartita: string;
 
     static creaPartita(configuration: IConfigurazione): Promise<string> {
-        return fetch(URL + "/partita", {
+        return fetch(URL + "/partite", {
             method: "POST",
             body: JSON.stringify(configuration),
             headers: {
