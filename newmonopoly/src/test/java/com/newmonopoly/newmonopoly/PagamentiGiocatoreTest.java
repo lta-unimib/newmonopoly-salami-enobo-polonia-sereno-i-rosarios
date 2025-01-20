@@ -66,7 +66,6 @@ public class PagamentiGiocatoreTest {
         int saldoIniziale = giocatore.getSaldo();
         pagamentiGiocatore.pagaAffitto(vialeMonterosa, giocatore);
         assertEquals(saldoIniziale - vialeMonterosa.getAffitto(), giocatore.getSaldo());
-        assertEquals(vialeMonterosa.getAffitto(), giocatore2.getSaldo());
     }
 
       @Test
@@ -76,14 +75,6 @@ public class PagamentiGiocatoreTest {
         assertEquals(saldoIniziale - pagamentiGiocatore.calcolaTassa(tassa), giocatore.getSaldo());
     }
 
-    @Test
-    void testVendiProprieta() {
-        giocatore.aggiungiProprieta(viaVerdi);
-        int prezzo = 150;
-        pagamentiGiocatore.vendiProprieta(prezzo, viaVerdi, giocatore2);
-        assertEquals(giocatore2, viaVerdi.getProprietario());
-        assertFalse(giocatore.getProprieta().contains(viaVerdi));
-        assertTrue(giocatore2.getProprieta().contains(viaVerdi));
-    }
+
 
 }

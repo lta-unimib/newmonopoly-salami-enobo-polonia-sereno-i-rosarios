@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import lombok.Getter;
 import lombok.Setter;
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
-import com.newmonopoly.newmonopoly.model.transazioni.IPagamenti;
 
 public class Strada extends Proprieta {
     

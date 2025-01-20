@@ -4,7 +4,6 @@ import com.newmonopoly.newmonopoly.model.transazioni.IPagamenti;
 
 public class TassaLusso extends Tasse {
 
-    private int importoLusso;
 
     public TassaLusso(){
         super("Tassa di Lusso", 200);

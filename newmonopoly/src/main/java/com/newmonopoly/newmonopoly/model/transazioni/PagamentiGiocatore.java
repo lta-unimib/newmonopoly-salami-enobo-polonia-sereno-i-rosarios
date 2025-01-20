@@ -9,34 +9,6 @@ import com.newmonopoly.newmonopoly.model.tabellone.casella.Tasse;
 
 public class PagamentiGiocatore implements IPagamenti {
 
-    /*
-    @Override
-    public int calcolaAffitto(Strada strada) {
-            int numeroCase = strada.getNumCase();
-            int numeroAffitti = strada.getAffitti().size();
-            
-            if (strada.hasAlbergo() == true) {
-                return strada.getAffitti().get(numeroAffitti - 1);
-            }
-
-            if (numeroCase > 0) {
-                return strada.getAffitti().get(numeroCase);
-            }
-    
-            return strada.getAffitti().get(0);
-        
-    }
-
-    @Override
-    public int calcolaAffitto(Stazione stazione) {
-        return stazione.getAffitto();
-    }
-
-    @Override
-    public int calcolaAffitto(Societa societa) {
-        return societa.getAffitto();
-    }*/
-
     @Override
     public int calcolaTassa(Tasse tassa) {
        return tassa.getImporto();
@@ -52,6 +24,7 @@ public class PagamentiGiocatore implements IPagamenti {
         }
     }
     
+    //Per stazione e societa, gestire il possedimento di più proprietà dello stesso tipo
     public void pagaAffitto(Proprieta proprieta, Giocatore affittuario){
         int quantita = proprieta.getAffitto();
         if(proprieta instanceof Strada || proprieta instanceof Stazione || 
@@ -60,19 +33,6 @@ public class PagamentiGiocatore implements IPagamenti {
             proprieta.getProprietario().ricevi(quantita);
         }
     }
-
-    /*
-    public void pagaAffitto(Stazione stazione, Giocatore affittuario){
-        int quantita = calcolaAffitto(stazione);
-        affittuario.pay(quantita);
-        stazione.getProprietario().ricevi(quantita);
-    }
-
-    public void pagaAffitto(Societa societa, Giocatore affittuario){
-        int quantita = calcolaAffitto(societa);
-        affittuario.pay(quantita);
-        societa.getProprietario().ricevi(quantita);
-    }*/
 
     public void pagaTassa(Tasse tassa, Giocatore contribuente){
         int quantita = calcolaTassa(tassa);

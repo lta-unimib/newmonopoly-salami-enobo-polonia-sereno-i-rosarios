@@ -1,9 +1,15 @@
 package com.newmonopoly.newmonopoly;
 
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada.Colore;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 class GiocatoreTest {
 
@@ -77,6 +83,37 @@ class GiocatoreTest {
         assertEquals(0, giocatore.getBanconoteDaDieci());
         assertEquals(0, giocatore.getBanconoteDaCinque());
         assertEquals(4, giocatore.getBanconoteDaUno());
+    }
+    @Test
+    void testPossiedeTutteLeProprietaDelColore() {
+        ArrayList<Integer> affitti = new ArrayList<>(Arrays.asList(50, 250, 750, 925, 1100));
+        Strada strada1 = new Strada("Viale Monterosa", null, 220, 18, 110, affitti, 150, 200, Colore.ROSSO);
+        Strada strada2 = new Strada("Via Verdi", null, 120, 8, 60, affitti, 50, 100, Colore.ROSSO);
+        Strada strada3 = new Strada("Corso Raffaello", null, 350, 35, 175, affitti, 200, 300, Colore.ROSSO);
+        
+        Giocatore giocatore = new Giocatore("Test");
+        giocatore.aggiungiProprieta(strada1);
+        giocatore.aggiungiProprieta(strada2);
+        giocatore.aggiungiProprieta(strada3);
+        
+        assertTrue(giocatore.possiedeTutteLeProprietaDelColore(Colore.ROSSO), 
+            "Il giocatore dovrebbe possedere tutte le proprietà del colore ROSSO.");
+    }
+
+    @Test
+    void testNonPossiedeTutteLeProprietaDelColore() {
+        ArrayList<Integer> affitti = new ArrayList<>(Arrays.asList(50, 250, 750, 925, 1100));
+        Strada strada1 = new Strada("Viale Monterosa", null, 220, 18, 110, affitti, 150, 200, Colore.ROSSO);
+        Strada strada2 = new Strada("Via Verdi", null, 120, 8, 60, affitti, 50, 100, Colore.ROSSO);
+        Strada strada3 = new Strada("Corso Raffaello", null, 350, 35, 175, affitti, 200, 300, Colore.VERDE);
+        
+        Giocatore giocatore = new Giocatore("Test");
+        giocatore.aggiungiProprieta(strada1);
+        giocatore.aggiungiProprieta(strada2);
+        giocatore.aggiungiProprieta(strada3);
+        
+        assertFalse(giocatore.possiedeTutteLeProprietaDelColore(Colore.ROSSO), 
+            "Il giocatore non dovrebbe possedere tutte le proprietà del colore ROSSO.");
     }
 
 }
