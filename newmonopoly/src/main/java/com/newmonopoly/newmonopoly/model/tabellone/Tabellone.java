@@ -42,6 +42,11 @@ public class Tabellone implements ITabellone, Serializable {
         token.setCasella(caselle.get((caselle.indexOf(token.getCasella()) + quantita) % caselle.size()));
     }
 
+    @Override
+    public void visitaCasella(Token token, int casellaDaVisitare) {
+        // avanza di una casella (valore int casellaDaVisitare)
+    }
+
     public void caselleCasuali() {
         for (Casella casella : caselle) {
             economia.economiaCasuale(casella);
