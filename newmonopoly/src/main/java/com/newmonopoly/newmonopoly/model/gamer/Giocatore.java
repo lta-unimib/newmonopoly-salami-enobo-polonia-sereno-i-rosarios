@@ -28,6 +28,7 @@ public class Giocatore implements Serializable {
     private Map<Integer, Banconota> banconote;
     @Getter @Setter
     private int puntiFedelta;
+    @Getter @Setter
     private List<Proprieta> proprieta;
 
     public Giocatore(String nome) {

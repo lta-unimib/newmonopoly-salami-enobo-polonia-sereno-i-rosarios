@@ -1,11 +1,14 @@
 package com.newmonopoly.newmonopoly.model.transazioni;
 
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
+import com.newmonopoly.newmonopoly.model.tabellone.Dado;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Proprieta;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Societa;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Stazione;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Tasse;
+
+import java.util.List;
 
 public class PagamentiGiocatore implements IPagamenti {
 
@@ -22,26 +25,28 @@ public class PagamentiGiocatore implements IPagamenti {
             proprieta.setProprietario(acquirente);
             acquirente.aggiungiProprieta(proprieta);
 
-            if(proprieta instanceof Stazione){
-                for(Proprieta p : acquirente.getStazioni()){
-                    //chiama metodo per modificare affitto in stazioni in base allla lunghezza della lista getStazioni
-                }
-            }
-            if(proprieta instanceof Societa){
-                for(Proprieta p : acquirente.getSocieta()){
-                    //chiama metodo per modificare affitto in stazioni in base allla lunghezza della lista getStazioni
+            if(proprieta instanceof Stazione) {
+                for (Proprieta p : acquirente.getStazioni()) {
+                    if (p instanceof Stazione stazione) {
+                        stazione.aggiornaAffittoStazione();
+                    }
+
                 }
             }
         }
     }
-    
-    //Per stazione e societa, gestire il possedimento di più proprietà dello stesso tipo
+
     public void pagaAffitto(Proprieta proprieta, Giocatore affittuario){
         int quantita = proprieta.getAffitto();
-        if(proprieta instanceof Strada || proprieta instanceof Stazione || 
-        proprieta instanceof Societa) {
+        if(proprieta instanceof Strada || proprieta instanceof Stazione) {
             affittuario.pay(proprieta.getAffitto());
             proprieta.getProprietario().ricevi(quantita);
+        }
+        //se è una società il valore si basa sul risultato dei dadi
+        else if(proprieta instanceof Societa societa) {
+            quantita = societa.calcolaAffittoSocieta();
+            affittuario.pay(quantita);
+            societa.getProprietario().ricevi(quantita);
         }
     }
 

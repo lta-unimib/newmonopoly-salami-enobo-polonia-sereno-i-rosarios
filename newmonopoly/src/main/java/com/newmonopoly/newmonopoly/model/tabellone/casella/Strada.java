@@ -22,7 +22,7 @@ public class Strada extends Proprieta {
 
 
     public Strada (String nome, Giocatore proprietario, int costo, int affitto, int ipoteca, ArrayList<Integer> affitti, int costoCasa, int costoAlbergo, Colore colore) {
-        super(nome, proprietario, costo, ipoteca, affitto);
+        super(nome, proprietario, costo, ipoteca, affitti.get(0));
         setNumCase(0);
         setAlbergo(false);
         setAffitti(affitti);
@@ -30,11 +30,6 @@ public class Strada extends Proprieta {
         setCostoAlbergo(costoAlbergo);
         setColore(colore);
     }
-
-    /*
-    public int calcolaAffitto(IPagamenti strategia) {
-        return strategia.calcolaAffitto(this);
-    }*/
 
     public boolean hasAlbergo(){
         return albergo;

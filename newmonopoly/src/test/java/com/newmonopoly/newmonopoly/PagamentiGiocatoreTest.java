@@ -36,11 +36,12 @@ public class PagamentiGiocatoreTest {
         ArrayList<Integer> affittiVialeMonterosa = new ArrayList<>(Arrays.asList(50, 250, 750, 925, 1100));
         ArrayList<Integer> affittiViaVerdi = new ArrayList<>(Arrays.asList(30, 150, 450, 625, 750));
         ArrayList<Integer> affittiCorsoRaffaello = new ArrayList<>(Arrays.asList(90, 400, 1000, 1200, 1400));
+        ArrayList<Integer> affittiStazione = new ArrayList<>(Arrays.asList(25, 50, 75, 100));
 
         vialeMonterosa = new Strada("Viale Monterosa", null, 220, 18, 110, affittiVialeMonterosa, 150, 200, Colore.ROSSO);
         viaVerdi = new Strada("Via Verdi", null, 120, 8, 60, affittiViaVerdi, 50, 100, Colore.VERDE);
         corsoRaffaello = new Strada("Corso Raffaello", null, 350, 35, 175, affittiCorsoRaffaello, 200, 300, Colore.VIOLA);
-        stazione = new Stazione("Stazione Nord", giocatore2, 200, 100, 25);
+        stazione = new Stazione("Stazione Nord", giocatore2, 200, 100, 25, affittiStazione);
         societa = new Societa("Società elettrica", giocatore2, 150, 75, 50);
         tassa = new TassaLusso();
     }
