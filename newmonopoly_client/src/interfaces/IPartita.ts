@@ -6,8 +6,8 @@ export default interface IPartita{
     // admin: string,
     tabellone: {
         caselle: ICasella[],
-        probabilita: ICasella[],
-        imprevisti: ICasella[]
+        probabilita: [],
+        imprevisti: []
     },
     config: IConfigurazione,
     giocatori: IGiocatore[],

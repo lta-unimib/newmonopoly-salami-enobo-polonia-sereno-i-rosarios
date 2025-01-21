@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CreaPartita from "./CreaPartita";
-import Tabellone from "../../components/Tabellone";
-import caselleData from "../../data/caselle.json";
-import IGiocatore from "../../interfaces/IGiocatore";
+// import Tabellone from "../../components/Tabellone";
+// import caselleData from "../../data/caselle.json";
+// import IGiocatore from "../../interfaces/IGiocatore";
 
 const Home = () => {
   const [opzionePartita, setOpzionePartita] = useState("");
@@ -29,21 +29,22 @@ const Home = () => {
     // console.log({ nickname });
   };
 
-  const giocatore: IGiocatore = {
-    nome: nickname,
-    conto: new Map([[1, { valore: 500, quantita: 1 }]]),
-    casellaCorrente: { nome: "Partenza", id: 1 },
-    proprietaPossedute: [
-      { nome: "Proprietà 1", id: 2, proprietario: nickname, costoBase: 100, ipoteca: 50, affitto: 10 },
-      { nome: "Proprietà 2", id: 3, proprietario: nickname, costoBase: 200, ipoteca: 100, affitto: 20 },
-    ],
-    puntiFedelta: 10,
-  };
+  // Test
+  // const giocatore: IGiocatore = {
+  //   nome: nickname,
+  //   conto: new Map([[1, { valore: 500, quantita: 1 }]]),
+  //   casellaCorrente: { nome: "Partenza", id: 1 },
+  //   proprietaPossedute: [
+  //     { nome: "Proprietà 1", id: 2, proprietario: nickname, costoBase: 100, ipoteca: 50, affitto: 10 },
+  //     { nome: "Proprietà 2", id: 3, proprietario: nickname, costoBase: 200, ipoteca: 100, affitto: 20 },
+  //   ],
+  //   puntiFedelta: 10,
+  // };
 
-  const caselleConId = caselleData.map((casella, index) => ({
-    id: index,
-    ...casella,
-  }));
+  // const caselleConId = caselleData.map((casella, index) => ({
+  //   id: index,
+  //   ...casella,
+  // }));
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
@@ -86,7 +87,7 @@ const Home = () => {
       {opzionePartita === opzioniPartita[0] && (
         <CreaPartita nickname={nickname} navigate={navigate} admin={true} />
       )}
-      <Tabellone caselle={caselleConId} giocatori={[giocatore]} />
+      {/* <Tabellone caselle={caselleConId} giocatori={[giocatore]} /> */}
     </div>
   );
 };

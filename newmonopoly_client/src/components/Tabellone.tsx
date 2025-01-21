@@ -32,7 +32,7 @@ const Tabellone: React.FC<TabelloneProps> = ({ caselle, giocatori }) => {
 
     return (
         <div className="">
-            <h2 className="text-2xl text-center font-bold mb-6">Tabellone</h2>
+            <h2 className="text-4xl text-center font-bold mb-6">NewMonopoly</h2>
             <div className="flex justify-center text-sm">
                 <div className="relative w-fill ">
                     {/* Top row (11 caselle) */}
