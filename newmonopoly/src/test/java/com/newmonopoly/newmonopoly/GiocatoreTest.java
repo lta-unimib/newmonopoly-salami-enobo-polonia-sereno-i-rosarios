@@ -84,6 +84,34 @@ class GiocatoreTest {
         assertEquals(0, giocatore.getBanconoteDaCinque());
         assertEquals(4, giocatore.getBanconoteDaUno());
     }
+
+    @Test
+    void testCambioBanconoteCorrettoConResto() {
+        giocatore.pay(120);
+        assertEquals(1, giocatore.getBanconoteDaCinquecento()); 
+        assertEquals(7, giocatore.getBanconoteDaCento());      
+        assertEquals(2, giocatore.getBanconoteDaCinquanta());  
+        assertEquals(2, giocatore.getBanconoteDaVenti()); 
+        assertEquals(2, giocatore.getBanconoteDaDieci());  
+        assertEquals(1, giocatore.getBanconoteDaCinque());     
+        assertEquals(5, giocatore.getBanconoteDaUno());        
+    }
+
+     @Test
+    void testCambioBanconoteCorrettoConResto2() {
+        giocatore.pay(4);
+        assertEquals(2, giocatore.getBanconoteDaCinquecento()); 
+        assertEquals(4, giocatore.getBanconoteDaCento());      
+        assertEquals(1, giocatore.getBanconoteDaCinquanta());  
+        assertEquals(1, giocatore.getBanconoteDaVenti());   
+        assertEquals(1, giocatore.getBanconoteDaDieci());  
+        assertEquals(0, giocatore.getBanconoteDaCinque());  
+        assertEquals(6, giocatore.getBanconoteDaUno());      
+    }
+
+
+
+
     @Test
     void testPossiedeTutteLeProprietaDelColore() {
         ArrayList<Integer> affitti = new ArrayList<>(Arrays.asList(50, 250, 750, 925, 1100));

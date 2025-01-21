@@ -63,25 +63,45 @@ public class Giocatore implements Serializable {
             }
         }
     }
-    
 
-     public void pay(int quantita) {
+    public void pay(int quantita) {
         if (getSaldo() < quantita) {
             throw new IllegalArgumentException("Saldo insufficiente per effettuare il pagamento.");
         }
-    
-        for (Integer valoreBanconota : new TreeSet<>(banconote.keySet()).descendingSet()) {
+
+        TreeSet<Integer> banconoteOrdinate = new TreeSet<>(banconote.keySet()); // Ordinamento crescente
+
+        // Primo controllo: verifica se esiste una banconota esatta per il valore richiesto
+        if (banconote.containsKey(quantita) && banconote.get(quantita).getQuantita() > 0) {
+            banconote.get(quantita).modificaQuantita(-1); // Usa una banconota esatta
+            return;
+        }
+
+        // Secondo controllo: controlla la banconota più grande immediatamente successiva
+        for (Integer valoreBanconota : banconoteOrdinate) {
+            Banconota banconota = banconote.get(valoreBanconota);
+            if (valoreBanconota > quantita && banconota.getQuantita() > 0) {
+                banconota.modificaQuantita(-1); // Usa la banconota
+                int resto = valoreBanconota - quantita;
+                ricevi(resto); // Restituisci il resto con banconote più piccole (se possibile)
+                return;
+            }
+        }
+
+        // Terzo controllo: combina banconote di valore inferiore
+        for (Integer valoreBanconota : banconoteOrdinate.descendingSet()) {
             Banconota banconota = banconote.get(valoreBanconota);
             while (quantita >= valoreBanconota && banconota.getQuantita() > 0) {
                 banconota.modificaQuantita(-1);
                 quantita -= valoreBanconota;
             }
-    }
+        }
+
+        // Gestione eccezioni: se ci sono rimanenti non coperti
         if (quantita > 0) {
-            throw new IllegalStateException("Errore: pagamento non completato nonostante saldo sufficiente.");
+            throw new IllegalArgumentException("Impossibile completare il pagamento con le banconote disponibili.");
         }
     }
-    
 
     public int getSaldo(){
         int totale = 0;
