@@ -97,7 +97,7 @@ class GiocatoreTest {
         assertEquals(5, giocatore.getBanconoteDaUno());        
     }
 
-     @Test
+    @Test
     void testCambioBanconoteCorrettoConResto2() {
         giocatore.pay(4);
         assertEquals(2, giocatore.getBanconoteDaCinquecento()); 

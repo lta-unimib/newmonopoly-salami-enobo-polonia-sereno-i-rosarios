@@ -68,38 +68,46 @@ public class Giocatore implements Serializable {
         if (getSaldo() < quantita) {
             throw new IllegalArgumentException("Saldo insufficiente per effettuare il pagamento.");
         }
-
-        TreeSet<Integer> banconoteOrdinate = new TreeSet<>(banconote.keySet()); // Ordinamento crescente
-
-        // Primo controllo: verifica se esiste una banconota esatta per il valore richiesto
-        if (banconote.containsKey(quantita) && banconote.get(quantita).getQuantita() > 0) {
-            banconote.get(quantita).modificaQuantita(-1); // Usa una banconota esatta
+        if (utilizzaBanconotaEsatta(quantita)) {
             return;
         }
+        if (utilizzaBanconotaMaggiore(quantita)) {
+            return;
+        }
+        combinaBanconote(quantita);
+        if (quantita > 0) {
+            throw new IllegalArgumentException("Impossibile completare il pagamento con le banconote disponibili.");
+        }
+    }
 
-        // Secondo controllo: controlla la banconota più grande immediatamente successiva
-        for (Integer valoreBanconota : banconoteOrdinate) {
+    private boolean utilizzaBanconotaEsatta(int quantita) {
+        if (banconote.containsKey(quantita) && banconote.get(quantita).getQuantita() > 0) {
+            banconote.get(quantita).modificaQuantita(-1); // Usa una banconota esatta
+            return true;
+        }
+        return false;
+    }
+
+    private boolean utilizzaBanconotaMaggiore(int quantita) {
+        for (Integer valoreBanconota : new TreeSet<>(banconote.keySet())) { // Ordinamento crescente
             Banconota banconota = banconote.get(valoreBanconota);
             if (valoreBanconota > quantita && banconota.getQuantita() > 0) {
                 banconota.modificaQuantita(-1); // Usa la banconota
                 int resto = valoreBanconota - quantita;
-                ricevi(resto); // Restituisci il resto con banconote più piccole (se possibile)
-                return;
+                ricevi(resto); // Restituisci il resto con banconote più piccole
+                return true;
             }
         }
+        return false;
+    }
 
-        // Terzo controllo: combina banconote di valore inferiore
-        for (Integer valoreBanconota : banconoteOrdinate.descendingSet()) {
+    private void combinaBanconote(int quantita) {
+        for (Integer valoreBanconota : new TreeSet<>(banconote.keySet()).descendingSet()) { // Ordinamento decrescente
             Banconota banconota = banconote.get(valoreBanconota);
             while (quantita >= valoreBanconota && banconota.getQuantita() > 0) {
                 banconota.modificaQuantita(-1);
                 quantita -= valoreBanconota;
             }
-        }
-
-        // Gestione eccezioni: se ci sono rimanenti non coperti
-        if (quantita > 0) {
-            throw new IllegalArgumentException("Impossibile completare il pagamento con le banconote disponibili.");
         }
     }
 
