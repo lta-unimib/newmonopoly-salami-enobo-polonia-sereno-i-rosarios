@@ -14,7 +14,6 @@ public class Config implements Serializable {
     private Map<Integer, Banconota> banconote;
     private Difficolta difficolta;
     private Admin admin;
-
     private int numeroGiocatori;
 
     // Costruttore pubblico

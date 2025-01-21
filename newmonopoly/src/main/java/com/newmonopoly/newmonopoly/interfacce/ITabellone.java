@@ -18,6 +18,6 @@ public interface ITabellone extends Serializable {
 
     void muoviGiocatore(Token token, int quantita);
 
-    void applicaEffetto(Token token, int casellaDaVisitare);
+    //void applicaEffetto(Token token, int casellaDaVisitare);
 
 }

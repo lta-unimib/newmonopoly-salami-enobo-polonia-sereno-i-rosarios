@@ -1,4 +1,4 @@
-package com.newmonopoly.newmonopoly.model.servizi;
+package com.newmonopoly.newmonopoly.model.factory;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;

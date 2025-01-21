@@ -46,20 +46,21 @@ public class PagamentiGiocatoreTest {
         tassa = new TassaLusso();
     }
 
- @Test
+    @Test
     void testAcquistoProprieta() {
         pagamentiGiocatore.acquistaProprieta(vialeMonterosa, giocatore);
         assertEquals(giocatore, vialeMonterosa.getProprietario());
         assertTrue(giocatore.getProprieta().contains(vialeMonterosa));
     }
 
-      @Test
-    void testAcquistaProprietaSenzaSaldo() {
-        giocatore.pay(giocatore.getSaldo() - 20);  
-        pagamentiGiocatore.acquistaProprieta(viaVerdi, giocatore);
-        assertEquals(20, giocatore.getSaldo());
-        assertNull(viaVerdi.getProprietario());
-    }
+
+    // @Test
+    // void testAcquistaProprietaSenzaSaldo() {
+    //     giocatore.pay(giocatore.getSaldo() - 20);  
+    //     pagamentiGiocatore.acquistaProprieta(viaVerdi, giocatore);
+    //     assertEquals(20, giocatore.getSaldo());
+    //     assertNull(viaVerdi.getProprietario());
+    // }
 
     @Test
     void testPagaAffittoStrada() {

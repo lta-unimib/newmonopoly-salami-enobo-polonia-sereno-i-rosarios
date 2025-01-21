@@ -14,18 +14,20 @@ export default class StompController {
     static client: CompatClient;
     static idPartita: string;
 
-    static async creaPartita(configuration: IConfigurazione): Promise<IPartita> {
-        const res = await fetch(URL + "/partita", {
+    static creaPartita(configuration: IConfigurazione): Promise<IPartita> {
+        return fetch(URL + "/partita", {
             method: "POST",
             body: JSON.stringify(configuration),
             headers: {
                 'Content-Type': 'application/json'
             }
-        });
-        if (res.status === 200) {
-            return res.json();
-        }
-        throw new Error("Impossibile creare una partita");
+        })
+            .then((res) => {
+                if (res.status === 200) {
+                    return res.json()
+                }
+                throw new Error("Impossibile creare una partita")
+            })
     }
 
     static accediPartita(nickname: string, isImprenditore: boolean) {
