@@ -56,13 +56,18 @@ public class PagamentiGiocatore implements IPagamenti {
     }
 
 
-    //gestire vendita e  ipoteca in caso di presenza di edifici (case e alberghi)
     public void ipotecaProprieta(Proprieta proprieta){
+        if(proprieta instanceof Strada && ((Strada) proprieta).getNumCase()>0 || ((Strada) proprieta).hasAlbergo()){
+            throw new IllegalArgumentException("Non puoi ipotecare la proprieta, devi prima rimuovere gli edifici");
+        }
         proprieta.getProprietario().ricevi(proprieta.getIpoteca());
         proprieta.setProprietario(null);
     }
 
     public void vendiProprieta(int prezzoConcordato, Proprieta proprieta, Giocatore acquirente){
+        if(proprieta instanceof Strada && ((Strada) proprieta).getNumCase()>0 || ((Strada) proprieta).hasAlbergo()){
+            throw new IllegalArgumentException("Non puoi vendere la proprieta, devi prima rimuovere gli edifici");
+        }
         proprieta.getProprietario().ricevi(prezzoConcordato);
         acquirente.pay(prezzoConcordato);
         proprieta.getProprietario().rimuoviProprieta(proprieta);
