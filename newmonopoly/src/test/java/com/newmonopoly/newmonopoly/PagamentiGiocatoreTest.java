@@ -69,7 +69,7 @@ public class PagamentiGiocatoreTest {
         assertEquals(saldoIniziale - vialeMonterosa.getAffitto(), giocatore.getSaldo());
     }
 
-      @Test
+    @Test
     void testPagaTassa() {
         int saldoIniziale = giocatore.getSaldo();
         pagamentiGiocatore.pagaTassa(tassa, giocatore);
