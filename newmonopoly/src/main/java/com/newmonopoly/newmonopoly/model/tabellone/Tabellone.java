@@ -6,7 +6,7 @@ import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 import com.newmonopoly.newmonopoly.model.gamer.Token;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Casella;
 import com.newmonopoly.newmonopoly.model.tabellone.strategy.EconomiaStabileStrategy;
-import com.newmonopoly.newmonopoly.model.tabellone.strategy.IFluttuazioneEconomicaCaselleStrategy;
+import com.newmonopoly.newmonopoly.model.tabellone.strategy.IFluttuazioneEconomicaStrategy;
 import lombok.Builder;
 import lombok.Data;
 
@@ -14,8 +14,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Builder
 @Data
+@Builder
 public class Tabellone implements ITabellone, Serializable {
 
     @JsonIgnore
@@ -24,7 +24,7 @@ public class Tabellone implements ITabellone, Serializable {
 
     @JsonIgnore
     @Builder.Default
-    private transient IFluttuazioneEconomicaCaselleStrategy economia = new EconomiaStabileStrategy();
+    private transient IFluttuazioneEconomicaStrategy economia = new EconomiaStabileStrategy();
 
 /*
     public Tabellone (List<Casella> caselle, List<Token> tokensInGame){

@@ -3,10 +3,12 @@ package com.newmonopoly.newmonopoly.model;
 import com.newmonopoly.newmonopoly.interfacce.ITabellone;
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 import lombok.Builder;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 import java.util.ArrayList;
 
+@Data
 @SuperBuilder
 public abstract class AbstractGame {
 

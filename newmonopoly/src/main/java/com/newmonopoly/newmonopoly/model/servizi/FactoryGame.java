@@ -7,6 +7,7 @@ import com.newmonopoly.newmonopoly.model.Config;
 import com.newmonopoly.newmonopoly.model.Game;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Casella;
 import com.newmonopoly.newmonopoly.model.tabellone.Tabellone;
+import com.newmonopoly.newmonopoly.model.tabellone.carte.Mazzo;
 import com.newmonopoly.newmonopoly.model.tabellone.strategy.FluttuazioneStrategy;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.FileCopyUtils;
@@ -54,6 +55,8 @@ public class FactoryGame {
 
         return listaCaselle;
     }
+
+    public Mazzo 
 
     public AbstractGame creaPartita(Config config) throws IOException {
         Tabellone tabellone = creaTabellone(config);

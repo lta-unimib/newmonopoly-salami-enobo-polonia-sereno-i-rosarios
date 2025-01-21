@@ -20,6 +20,10 @@ public class PartitaController {
     @PostMapping("/partita")
     public ResponseEntity<String> creaPartita(@RequestBody Config config) {
         try {
+            if (partitaCorrente != null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Una partita è già in corso. Termina la partita corrente per crearne una nuova.");
+            }
             // Crea una nuova partita usando FactoryGame
             AbstractGame nuovaPartita = FactoryGame.getInstance().creaPartita(config);
 

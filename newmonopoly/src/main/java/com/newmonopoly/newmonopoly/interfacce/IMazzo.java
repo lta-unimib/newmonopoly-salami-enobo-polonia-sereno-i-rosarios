@@ -13,7 +13,7 @@ public interface IMazzo extends Serializable {
 
     void usaCarta(Token token);
 
-    void randomCarte();
+    void economiaCasuale();
 
     Carta nextProbabilita();
 

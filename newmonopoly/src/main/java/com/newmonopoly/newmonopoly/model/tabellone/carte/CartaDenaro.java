@@ -1,6 +1,5 @@
 package com.newmonopoly.newmonopoly.model.tabellone.carte;
 
-import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 import com.newmonopoly.newmonopoly.model.gamer.Token;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,7 +21,7 @@ public class CartaDenaro extends Carta {
     }
 
     @Override
-    public void randomizzaCarta(float m){
+    public void economiaCasuale(float m){
         denaro = (int) Math.floor(denaro * m);
     }
 
