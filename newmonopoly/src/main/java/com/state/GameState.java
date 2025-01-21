@@ -1,4 +1,4 @@
-package com.stati;
+package com.state;
 
 import java.io.Serializable;
 
@@ -14,9 +14,9 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
 @JsonSubTypes({
-    @JsonSubTypes.Type(value = Lobby.class, name = "Lobby")
+    @JsonSubTypes.Type(value = LobbyState.class, name = "Lobby")
 })
-public abstract class StatoPartita implements Serializable{
+public abstract class GameState implements Serializable{
     
     @JsonProperty("type")
     public String getTipo() {
@@ -26,10 +26,10 @@ public abstract class StatoPartita implements Serializable{
     @JsonIgnore
     AbstractGame abstractGame;
 
-    protected StatoPartita() {}
+    protected GameState() {}
 
-    public void esegui(Join join){}
+    public void handleEvent(Join join){}
 
-    public void esegui(){}
+    public void handleEvent(){}
    
 }

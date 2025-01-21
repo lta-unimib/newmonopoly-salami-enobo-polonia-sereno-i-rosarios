@@ -1,11 +1,11 @@
-package com.stati;
+package com.state;
 
 import com.newmonopoly.azioni.Join;
 
-public class Lobby extends StatoPartita{
+public class LobbyState extends GameState{
 
     @Override
-    public void esegui(Join join) {
+    public void handleEvent(Join join) {
         try{
             abstractGame.addPlayer(join.getGiocatore());
         } catch (Exception e) {

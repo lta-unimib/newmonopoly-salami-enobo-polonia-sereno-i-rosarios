@@ -1,8 +1,8 @@
-package com.stati;
+package com.state;
 
-public class Start extends StatoPartita{
+public class StartState extends GameState{
     @Override
-    public void esegui() {
+    public void handleEvent() {
         try{
             //startGame
         } catch (Exception e) {

@@ -1,5 +1,6 @@
 package com.newmonopoly.newmonopoly.model;
 
+import com.newmonopoly.newmonopoly.interfacce.IMazzo;
 import com.newmonopoly.newmonopoly.interfacce.ITabellone;
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 import lombok.Builder;
@@ -15,6 +16,7 @@ public abstract class AbstractGame {
     @Builder.Default
     protected ArrayList<Giocatore> players = new ArrayList<>();
     protected ITabellone tabellone;
+    protected IMazzo mazzo;
     protected Config config;
 
     public abstract void addPlayer(Giocatore giocatore);

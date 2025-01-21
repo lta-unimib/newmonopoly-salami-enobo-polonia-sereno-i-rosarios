@@ -2,11 +2,13 @@ package com.newmonopoly.newmonopoly.model.servizi;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
+import com.newmonopoly.newmonopoly.interfacce.IMazzo;
 import com.newmonopoly.newmonopoly.model.AbstractGame;
 import com.newmonopoly.newmonopoly.model.Config;
 import com.newmonopoly.newmonopoly.model.Game;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Casella;
 import com.newmonopoly.newmonopoly.model.tabellone.Tabellone;
+import com.newmonopoly.newmonopoly.model.tabellone.carte.Carta;
 import com.newmonopoly.newmonopoly.model.tabellone.carte.Mazzo;
 import com.newmonopoly.newmonopoly.model.tabellone.strategy.FluttuazioneStrategy;
 import org.springframework.core.io.ClassPathResource;
@@ -16,6 +18,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class FactoryGame {
@@ -56,15 +59,34 @@ public class FactoryGame {
         return listaCaselle;
     }
 
-    public Mazzo 
+    public Mazzo creaMazzo(Tabellone tabellone, Config config) throws IOException {
+        Mazzo mazzo = Mazzo.builder().build();
+        if(config.getDifficolta() == Config.Difficolta.HARD) {
+            mazzo = Mazzo.builder().economia(FluttuazioneStrategy.builder().build()).build();
+        }
+        mazzo.setImprevisto(new LinkedList<>(List.of(creaCarte("imprevisti.json"))));
+        mazzo.setProbabilita(new LinkedList<>(List.of(creaCarte("imprevisti.json"))));
+        mazzo.getImprevisto().forEach(i -> i.setT(tabellone));
+        mazzo.getProbabilita().forEach(p -> p.setT(tabellone));
+        return mazzo;
+    }
+
+    public Carta[] creaCarte(String nomeFile) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        byte[] data = FileCopyUtils.copyToByteArray(new ClassPathResource(nomeFile).getInputStream());
+        String json = new String(data, StandardCharsets.UTF_8);
+        return mapper.reader().readValue(json, Carta[].class);
+    }
 
     public AbstractGame creaPartita(Config config) throws IOException {
         Tabellone tabellone = creaTabellone(config);
         Giocatore giocatore = config.getAdmin();
+        IMazzo mazzo = creaMazzo(tabellone, config);
 
         return Game.builder()
                 .tabellone(tabellone)
                 .players(new ArrayList<>(List.of(giocatore)))
+                .mazzo(mazzo)
                 .config(config)
                 .build();
     }
