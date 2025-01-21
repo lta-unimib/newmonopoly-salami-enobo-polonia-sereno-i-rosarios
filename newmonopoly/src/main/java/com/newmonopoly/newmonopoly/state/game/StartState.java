@@ -1,4 +1,4 @@
-package com.state;
+package com.newmonopoly.newmonopoly.state.game;
 
 public class StartState extends GameState{
     @Override

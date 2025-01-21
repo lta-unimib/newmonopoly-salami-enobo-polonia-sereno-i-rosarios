@@ -1,14 +1,11 @@
 package com.newmonopoly.newmonopoly.model.transazioni;
 
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
-import com.newmonopoly.newmonopoly.model.tabellone.Dado;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Proprieta;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Societa;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Stazione;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Tasse;
-
-import java.util.List;
 
 public class PagamentiGiocatore implements IPagamenti {
 

@@ -1,6 +1,6 @@
-package com.state;
+package com.newmonopoly.newmonopoly.state.game;
 
-import com.newmonopoly.azioni.Join;
+import com.newmonopoly.newmonopoly.eventi.Join;
 
 public class LobbyState extends GameState{
 
