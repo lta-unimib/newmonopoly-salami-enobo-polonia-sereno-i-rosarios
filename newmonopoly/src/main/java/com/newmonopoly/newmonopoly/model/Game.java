@@ -1,6 +1,7 @@
 package com.newmonopoly.newmonopoly.model;
 
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
+import com.newmonopoly.newmonopoly.state.game.GameState;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
@@ -24,4 +25,10 @@ public class Game extends AbstractGame{
         giocatore.setBanconote(config.inizializzaBanconote());
         players.add(giocatore);
     }
+
+    @Override
+    public void setStato(GameState nuovaStato) {
+
+    }
+
 }

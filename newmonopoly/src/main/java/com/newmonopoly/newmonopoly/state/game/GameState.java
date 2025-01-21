@@ -34,4 +34,8 @@ public abstract class GameState implements Serializable{
 
     public void handleEvent(){}
 
+    public void handleEvent(AcquistaProprieta acquistaProprieta) {
+
+    }
+
 }
