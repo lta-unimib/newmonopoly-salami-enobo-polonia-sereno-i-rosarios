@@ -3,13 +3,16 @@ import {ICasellaProprieta} from "./ICasellaProprieta";
 export enum Colore {
     ROSSO = "red",
     BLU = "blue",
-    AZZURRO = "light-blue",
+    AZZURRO = "lightblue",
     GIALLO = "yellow",
     ARANCIONE = "orange",
     MARRONE = "brown",
     VIOLA = "purple",
     VERDE = "green"
-}
+} 
+
+
+export type statoICasellaStrada = "StradaAcquistata" | "StradaIpotecata" | "StradaNonAcquistata"
 
 export interface ICasellaStrada extends ICasellaProprieta{
     type: "Strada",
@@ -18,7 +21,10 @@ export interface ICasellaStrada extends ICasellaProprieta{
     costoAlbergo: number,
     costoCasa: number,
     hasAlbergo: boolean,
-    numeroCase: number
+    numeroCase: number,
+    stato: {
+        type: statoICasellaStrada
+    }
 }
 
 export default ICasellaStrada;

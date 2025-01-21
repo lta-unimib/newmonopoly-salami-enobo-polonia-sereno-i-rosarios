@@ -5,16 +5,17 @@ import StompController from "../../application/stompController";
 
 interface CreaPartitaProps {
     nickname: string;
-    navigate: NavigateFunction; // Deve essere passato come prop
+    admin: boolean;
+    navigate: NavigateFunction;
 }
 
 interface State {
     configurazione: IConfigurazione;
-    selectedDifficolta: string;
+    selectedDifficolta: Difficolta;  // Cambia la tipizzazione
 }
 
 class CreaPartita extends React.Component<CreaPartitaProps, State> {
-    difficolta = ["Facile", "Medio", "Difficile"];
+    difficolta = [Difficolta.FACILE, Difficolta.MEDIA, Difficolta.DIFFICILE];  // Usa l'enum Difficolta
 
     constructor(props: CreaPartitaProps) {
         super(props);
@@ -22,33 +23,32 @@ class CreaPartita extends React.Component<CreaPartitaProps, State> {
         this.state = {
             configurazione: {
                 admin: this.props.nickname,
-                difficolta: Difficolta.FACILE,
+                difficolta: Difficolta.FACILE,  // Imposta l'enum
                 numeroGiocatori: 6,
             },
-            selectedDifficolta: this.difficolta[0],
+            selectedDifficolta: Difficolta.FACILE,  // Usa l'enum
         };
     }
 
     handleSet = (ca: (config: IConfigurazione) => IConfigurazione) => {
         const config = this.state.configurazione;
-        this.setState({configurazione: ca(config)})
-    }
+        this.setState({ configurazione: ca(config) });
+    };
 
     handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        // Debug dei dati
-        console.log({
-            difficolta: this.state.selectedDifficolta,
-        });
+        // console.log({
+        //     difficolta: this.state.selectedDifficolta,
+        // });
 
-        StompController.creaPartita(this.state.configurazione);
+        // StompController.creaPartita(this.state.configurazione);
 
-        // Navigazione alla pagina della lobby
         this.props.navigate("/lobby", {
             state: {
                 nickname: this.props.nickname,
-                difficolta: this.state.selectedDifficolta,
+                admin: true,
+                difficolta: this.state.selectedDifficolta,  // Passa l'enum Difficolta
             },
         });
     };
@@ -57,32 +57,46 @@ class CreaPartita extends React.Component<CreaPartitaProps, State> {
         this.handleSet((config) => {
             config.difficolta = event.target.value as Difficolta;
             return config;
-        })
-    }
-
+        });
+        this.setState({
+            selectedDifficolta: event.target.value as Difficolta,  // Aggiorna anche lo stato locale
+        });
+    };
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <div className="flex flex-col gap-4 mt-6">
-                        <div>
-                            <span>Seleziona la difficoltà:</span>
-                            <select
-                                id="difficoltaDropdown"
-                                value={this.state.configurazione.difficolta}
-                                onChange={this.handleChangeDifficolta}
-                            >
-                                {this.difficolta.map((i, index) => (
-                                    <option key={index} value={i}>
-                                        {i}
-                                    </option>
-                                ))}
-                            </select>
-                        </div>
-
-                        <button type="submit">Crea Lobby</button>
+            <div className="max-w-lg mx-auto p-6 bg-white shadow-lg rounded-lg mt-8">
+                <h2 className="text-2xl font-bold mb-6 text-center">
+                    Crea una nuova partita
+                </h2>
+                <form onSubmit={this.handleSubmit} className="space-y-6">
+                    <div>
+                        <label
+                            htmlFor="difficoltaDropdown"
+                            className="block text-lg font-medium text-gray-700"
+                        >
+                            Seleziona la difficoltà:
+                        </label>
+                        <select
+                            id="difficoltaDropdown"
+                            value={this.state.configurazione.difficolta}
+                            onChange={this.handleChangeDifficolta}
+                            className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        >
+                            {this.difficolta.map((difficolta, index) => (
+                                <option key={index} value={difficolta}>
+                                    {difficolta}
+                                </option>
+                            ))}
+                        </select>
                     </div>
+
+                    <button
+                        type="submit"
+                        className="w-full py-3 px-4 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 transition duration-200"
+                    >
+                        Crea Lobby
+                    </button>
                 </form>
             </div>
         );

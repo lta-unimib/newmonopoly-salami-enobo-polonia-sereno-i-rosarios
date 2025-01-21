@@ -3,10 +3,11 @@ import IConfigurazione from "./IConfigurazione";
 import IGiocatore from "./IGiocatore";
 
 export default interface IPartita{
+    // admin: string,
     tabellone: {
         caselle: ICasella[],
-        probabilita: [],
-        imprevisti: []
+        probabilita: ICasella[],
+        imprevisti: ICasella[]
     },
     config: IConfigurazione,
     giocatori: IGiocatore[],
