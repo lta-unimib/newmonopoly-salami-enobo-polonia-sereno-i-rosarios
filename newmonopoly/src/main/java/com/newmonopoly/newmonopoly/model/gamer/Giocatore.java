@@ -143,6 +143,15 @@ public class Giocatore implements Serializable {
     // Metodo per aggiungere una proprietà alla lista del giocatore
     public void aggiungiProprieta(Proprieta proprieta) {
         this.proprieta.add(proprieta);
+        proprieta.setProprietario(this);
+    }
+
+    public void acquistaProprieta(Proprieta proprieta, Giocatore venditore, int importo){
+        if (venditore != null){
+            venditore.ricevi(importo);
+        }
+        this.pay(importo);
+        aggiungiProprieta(proprieta);
     }
 
     // Metodo per rimuovere una proprietà dalla lista del giocatore
