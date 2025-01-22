@@ -1,6 +1,8 @@
 package com.newmonopoly.newmonopoly.model.tabellone.casella;
 
+import lombok.experimental.SuperBuilder;
 
+@SuperBuilder
 public class Parcheggio extends Casella {
 
     private static Parcheggio parcheggio = null;

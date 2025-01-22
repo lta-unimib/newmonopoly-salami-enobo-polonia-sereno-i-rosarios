@@ -1,9 +1,9 @@
 import IBanconota from "./IBanconota";
 
 export enum Difficolta {
-    FACILE = "Facile",
-    MEDIA = "Medio",
-    DIFFICILE = "Difficile"
+    EASY = "EASY",
+    MEDIUM = "MEDIUM",
+    HARD = "HARD"
 }
 
 export default interface IConfigurazione {

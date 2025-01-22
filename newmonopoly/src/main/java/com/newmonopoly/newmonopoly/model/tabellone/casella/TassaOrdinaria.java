@@ -2,7 +2,12 @@ package com.newmonopoly.newmonopoly.model.tabellone.casella;
 
 import com.newmonopoly.newmonopoly.model.transazioni.IPagamenti;
 
-public class TassaOrdinaria extends Tasse {
+import lombok.Data;
+import lombok.experimental.SuperBuilder;
+
+@Data
+@SuperBuilder
+public class TassaOrdinaria extends Tassa {
 
     public TassaOrdinaria(){
         super("Tassa di Ordinaria", 100);

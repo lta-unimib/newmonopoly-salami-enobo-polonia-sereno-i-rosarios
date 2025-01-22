@@ -65,7 +65,7 @@ public class FactoryGame {
             mazzo = Mazzo.builder().economia(FluttuazioneStrategy.builder().build()).build();
         }
         mazzo.setImprevisto(new LinkedList<>(List.of(creaCarte("imprevisti.json"))));
-        mazzo.setProbabilita(new LinkedList<>(List.of(creaCarte("imprevisti.json"))));
+        mazzo.setProbabilita(new LinkedList<>(List.of(creaCarte("probabilita.json"))));
         mazzo.getImprevisto().forEach(i -> i.setT(tabellone));
         mazzo.getProbabilita().forEach(p -> p.setT(tabellone));
         return mazzo;

@@ -1,16 +1,16 @@
 import React from 'react';
-import {ICasellaImprevisto} from "../../interfaces/caselle/ICasellaImprevisto";
+import {ICasellaImprevisti} from "../../interfaces/caselle/ICasellaImprevisti";
 
 interface State {
 
 }
 
 interface Props {
-    casella: ICasellaImprevisto;
+    casella: ICasellaImprevisti;
     children?: React.ReactNode;
 }
 
-export class Imprevisto extends React.Component<Props, State> {
+export class Imprevisti extends React.Component<Props, State> {
     render() {
         return <div className="text-center">
             <div className="">

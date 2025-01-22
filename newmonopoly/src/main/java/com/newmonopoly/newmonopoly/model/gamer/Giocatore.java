@@ -24,7 +24,7 @@ public class Giocatore implements Serializable {
 
     @Getter @Setter
     private String nome;
-    @Getter @Setter
+    @Setter
     private Map<Integer, Banconota> banconote;
     @Getter @Setter
     private int puntiFedelta;
@@ -36,17 +36,6 @@ public class Giocatore implements Serializable {
         this.banconote = new HashMap<>();
         this.puntiFedelta = 0;
         this.proprieta = new ArrayList<>();
-        inizializzaBanconote();
-    }
-
-    private void inizializzaBanconote() {
-        banconote.put(500, new Banconota(500, 2));  // 2 banconote da 500
-        banconote.put(100, new Banconota(100, 4));  // 4 banconote da 100
-        banconote.put(50, new Banconota(50, 1));    // 1 banconota da 50
-        banconote.put(20, new Banconota(20, 1));    // 1 banconota da 20
-        banconote.put(10, new Banconota(10, 1));    // 1 banconota da 10
-        banconote.put(5, new Banconota(5, 1));      // 1 banconota da 5
-        banconote.put(1, new Banconota(1, 5));      // 5 banconote da 1
     }
 
     public void ricevi(int quantita) {

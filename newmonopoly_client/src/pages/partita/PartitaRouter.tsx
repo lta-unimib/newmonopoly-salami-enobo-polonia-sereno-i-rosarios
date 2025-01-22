@@ -20,7 +20,7 @@ const partitaEsempio: IPartita = {
     },
     config: {
       admin: "adminGiocatore",
-      difficolta: Difficolta.FACILE, // Facile, Medio, Difficile
+      difficolta: Difficolta.EASY, // Facile, Medio, Difficile
       numeroGiocatori: 4
     },
     giocatori: [

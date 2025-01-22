@@ -16,12 +16,12 @@ export type statoICasellaStrada = "StradaAcquistata" | "StradaIpotecata" | "Stra
 
 export interface ICasellaStrada extends ICasellaProprieta{
     type: "Strada",
-    affitti: number[],
     colore: Colore,
     costoAlbergo: number,
     costoCasa: number,
     hasAlbergo: boolean,
     numeroCase: number,
+    affitti: number[],
     stato: {
         type: statoICasellaStrada
     }

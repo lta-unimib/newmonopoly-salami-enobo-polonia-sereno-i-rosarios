@@ -1,6 +1,6 @@
 import ICasella from "../../interfaces/caselle/ICasella";
 import React from "react";
-import {Imprevisto} from "./Imprevisto";
+import {Imprevisti} from "./Imprevisti";
 import {Strada} from "./Strada";
 import {Societa} from "./Societa";
 import {Stazione} from "./Stazione";
@@ -13,7 +13,7 @@ import Via from "./Via";
 import CasellaSingleton from "./CasellaSingleton";
 
 const translate = {
-    "Imprevisto": (props: any, giocatoriJsx: React.ReactNode) => <Imprevisto casella={props}>{giocatoriJsx} </Imprevisto>,
+    "Imprevisti": (props: any, giocatoriJsx: React.ReactNode) => <Imprevisti casella={props}>{giocatoriJsx} </Imprevisti>,
     "Strada": (props: any, giocatoriJsx: React.ReactNode, ca: () => {}) => <Strada casella={props} caHover={ca}> {giocatoriJsx} </Strada>,
     "Societa": (props: any, giocatoriJsx: React.ReactNode, ca: () => {}) => <Societa caHover={ca} casella={props}>{giocatoriJsx}</Societa>,
     "Stazione": (props: any, giocatoriJsx: React.ReactNode, ca: () => {}) => <Stazione caHover={ca} casella={props}>{giocatoriJsx}</Stazione>,

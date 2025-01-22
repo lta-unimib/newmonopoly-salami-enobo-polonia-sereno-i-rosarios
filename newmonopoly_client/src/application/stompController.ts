@@ -14,20 +14,29 @@ export default class StompController {
     static client: CompatClient;
     static idPartita: string;
 
-    static creaPartita(configuration: IConfigurazione): Promise<IPartita> {
-        return fetch(URL + "/partita", {
-            method: "POST",
-            body: JSON.stringify(configuration),
-            headers: {
-                'Content-Type': 'application/json'
+    static async creaPartita(configuration: IConfigurazione): Promise<IPartita> {
+        try {
+            const res = await fetch(URL + "/partita", {
+                method: "POST",
+                body: JSON.stringify(configuration),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+    
+            // Log dettagliato della risposta
+            console.log("Stato HTTP:", res.status);
+            console.log("Contenuto della risposta:", await res.text());
+    
+            if (res.status === 200) {
+                return res.json(); // Parse JSON solo se il codice è 200
             }
-        })
-            .then((res) => {
-                if (res.status === 200) {
-                    return res.json()
-                }
-                throw new Error("Impossibile creare una partita")
-            })
+    
+            throw new Error("Impossibile creare una partita"); // Se il codice non è 200, lancia un errore
+        } catch (error) {
+            console.error("Errore durante la creazione della partita:", error);
+            throw error;
+        }
     }
 
     static accediPartita(nickname: string, isImprenditore: boolean) {

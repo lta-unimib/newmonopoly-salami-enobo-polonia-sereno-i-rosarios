@@ -15,7 +15,7 @@ interface State {
 }
 
 class CreaPartita extends React.Component<CreaPartitaProps, State> {
-    difficolta = [Difficolta.FACILE, Difficolta.MEDIA, Difficolta.DIFFICILE];  // Usa l'enum Difficolta
+    difficolta = [Difficolta.EASY, Difficolta.MEDIUM, Difficolta.HARD];  // Usa l'enum Difficolta
 
     constructor(props: CreaPartitaProps) {
         super(props);
@@ -23,10 +23,10 @@ class CreaPartita extends React.Component<CreaPartitaProps, State> {
         this.state = {
             configurazione: {
                 admin: this.props.nickname,
-                difficolta: Difficolta.FACILE,  // Imposta l'enum
+                difficolta: Difficolta.EASY as Difficolta,  // Imposta l'enum
                 numeroGiocatori: 6,
             },
-            selectedDifficolta: Difficolta.FACILE,  // Usa l'enum
+            selectedDifficolta: Difficolta.EASY as Difficolta,  // Usa l'enum
         };
     }
 
@@ -48,7 +48,7 @@ class CreaPartita extends React.Component<CreaPartitaProps, State> {
             state: {
                 nickname: this.props.nickname,
                 admin: true,
-                difficolta: this.state.selectedDifficolta,  // Passa l'enum Difficolta
+                difficolta: this.state.selectedDifficolta as Difficolta,  // Passa l'enum Difficolta
             },
         });
     };

@@ -5,20 +5,20 @@ import com.newmonopoly.newmonopoly.model.tabellone.casella.Proprieta;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Societa;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Stazione;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada;
-import com.newmonopoly.newmonopoly.model.tabellone.casella.Tasse;
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Tassa;
 
 public class PagamentiGiocatore implements IPagamenti {
 
     @Override
-    public int calcolaTassa(Tasse tassa) {
+    public int calcolaTassa(Tassa tassa) {
        return tassa.getImporto();
     }
 
 
 
     public void acquistaProprieta(Proprieta proprieta, Giocatore acquirente){
-        if(acquirente.getSaldo() >= proprieta.getCosto()) {
-            acquirente.pay(proprieta.getCosto());
+        if(acquirente.getSaldo() >= proprieta.getCostoBase()) {
+            acquirente.pay(proprieta.getCostoBase());
             proprieta.setProprietario(acquirente);
             acquirente.aggiungiProprieta(proprieta);
 
@@ -47,7 +47,7 @@ public class PagamentiGiocatore implements IPagamenti {
         }
     }
 
-    public void pagaTassa(Tasse tassa, Giocatore contribuente){
+    public void pagaTassa(Tassa tassa, Giocatore contribuente){
         int quantita = calcolaTassa(tassa);
         contribuente.pay(quantita);
     }

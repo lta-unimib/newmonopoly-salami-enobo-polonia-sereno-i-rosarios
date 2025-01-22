@@ -1,5 +1,7 @@
 package com.newmonopoly.newmonopoly.model.tabellone.casella;
+import lombok.experimental.SuperBuilder;
 
+@SuperBuilder
 public class Via extends Casella {
 
     private static Via via = null;

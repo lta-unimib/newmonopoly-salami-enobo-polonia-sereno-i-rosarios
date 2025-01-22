@@ -19,7 +19,7 @@ const Lobby: React.FC<Props> = ({ setGiocatore }) => {
   const [creatore, setCreatore] = useState<IAdmin | null>(null);
   const [selectedToken, setSelectedToken] = useState(token[0]);
   const [isImprenditore, setIsImprenditore] = useState<boolean>(false);
-  const [difficolta, setDifficolta] = useState<Difficolta>(Difficolta.FACILE);
+  const [difficolta, setDifficolta] = useState<Difficolta>(Difficolta.EASY);
 
   const { nickname, admin, difficolta: difficoltaFromState } = state || {};
 
@@ -72,19 +72,20 @@ const navigate = useNavigate();
 
     const configurazione: IConfigurazione = {
       admin: creatore.nome,
-      difficolta: difficolta,
+      difficolta: difficolta as Difficolta,
       numeroGiocatori: giocatori.length,
     };
-
+    
     StompController.creaPartita(configurazione)
-    .then((partita: IPartita) => {
-      // Notifichiamo gli observer e navighiamo alla pagina della partita
-      Observer.notify(partita);
-      navigate("/partita", { state: { nickname, isImprenditore, partita } });
-    })
-    .catch((err) => {
-      console.error("Errore durante la creazione della partita:", err);
-    });
+    // StompController.creaPartita(configurazione)
+    // .then((partita: IPartita) => {
+    //   // Notifichiamo gli observer e navighiamo alla pagina della partita
+    //   Observer.notify(partita);
+    //   navigate("/partita", { state: { nickname, isImprenditore, partita } });
+    // })
+    // .catch((err) => {
+    //   console.error("Errore durante la creazione della partita:", err);
+    // });
 
   console.log("Partita avviata con configurazione:", configurazione);
 };
@@ -137,7 +138,7 @@ const navigate = useNavigate();
           </select>
         </div>
 
-        {difficolta === Difficolta.DIFFICILE && (
+        {difficolta === Difficolta.HARD && (
           <div className="imprenditore_checkbox">
             <label className="flex items-center space-x-2">
               <input

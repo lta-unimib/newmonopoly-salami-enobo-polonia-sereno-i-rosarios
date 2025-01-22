@@ -22,7 +22,7 @@ public class Game extends AbstractGame{
         if(players.contains(giocatore)){
             //giocatoregiàentrato
         }
-        giocatore.setBanconote(config.inizializzaBanconote());
+        giocatore.setBanconote(config.getBanconote());
         players.add(giocatore);
     }
 
