@@ -62,8 +62,4 @@ public abstract class GameState implements Serializable{
 
     public void handleEvent(VendiProprieta vendiProprieta){}
 
-    public void handleEvent(EventoAvviaAsta EventoAvviaAsta){}
-
-    public void handleEvent(EventoTerminaAsta eventoTerminaAsta){}
-
 }

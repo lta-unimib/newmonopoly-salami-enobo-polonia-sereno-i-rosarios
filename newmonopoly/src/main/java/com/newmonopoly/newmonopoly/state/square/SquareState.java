@@ -1,6 +1,8 @@
 package com.newmonopoly.newmonopoly.state.square;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.newmonopoly.newmonopoly.eventi.casella.EventoCasella;
+import com.newmonopoly.newmonopoly.eventi.casella.PassaggioVuoto;
 import com.newmonopoly.newmonopoly.eventi.casella.Ricevi;
 import com.newmonopoly.newmonopoly.eventi.gamer.*;
 
@@ -12,6 +14,14 @@ public interface SquareState extends Serializable {
     @JsonProperty("type")
     default String getTipo(){
         return getClass().getSimpleName();
+    }
+
+    default EventoCasella arrivo() {
+        return PassaggioVuoto.builder().build();
+    }
+
+    default EventoCasella passaggio() {
+        return PassaggioVuoto.builder().build();
     }
 
     default void handleEvent(AcquistaProprieta acquistaProprieta) {}

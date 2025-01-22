@@ -1,5 +1,6 @@
-/*package com.newmonopoly.newmonopoly.eventi;
+package com.newmonopoly.newmonopoly.eventi.casella;
 
+import com.newmonopoly.newmonopoly.eventi.casella.EventoCasella;
 import com.newmonopoly.newmonopoly.state.game.GameState;
 import lombok.Builder;
 
@@ -10,4 +11,4 @@ public class PassaggioVuoto implements EventoCasella {
     public void accettaStato(GameState gameState) {
         gameState.handleEvent(this);
     }
-}*/
+}
