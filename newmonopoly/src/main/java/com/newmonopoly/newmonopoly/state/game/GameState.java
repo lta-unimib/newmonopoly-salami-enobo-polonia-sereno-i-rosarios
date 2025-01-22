@@ -6,7 +6,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.newmonopoly.newmonopoly.eventi.*;
+import com.newmonopoly.newmonopoly.eventi.casella.PagaAffitto;
+import com.newmonopoly.newmonopoly.eventi.casella.Ricevi;
+import com.newmonopoly.newmonopoly.eventi.gamer.*;
 import com.newmonopoly.newmonopoly.model.AbstractGame;
 
 import lombok.Data;
@@ -34,8 +36,30 @@ public abstract class GameState implements Serializable{
 
     public void handleEvent(){}
 
-    public void handleEvent(AcquistaProprieta acquistaProprieta) {
+    public void handleEvent(AcquistaProprieta acquistaProprieta) {}
 
-    }
+    public void handleEvent(PagaAffitto pagaAffitto) {}
+
+    public void handleEvent(Ricevi ricevi){}
+
+    public void hadleEvent(EventoIpoteca ipoteca) {}
+
+    public void handleEvent(UpgradaTerreno upgradaTerreno) {}
+
+    public void handleEvent(DowngradaTerreno downgradaTerreno) {}
+
+    public void handleEvent(EntraInPartita entraInPartita) {}
+
+    public void handleEvent(EventoLanciaDadi eventoLanciaDadi) {}
+
+    public void handleEvent(EventoOfferta eventoOfferta){}
+
+    public void handleEvent(EventoPaga eventoPaga){}
+
+    public void handleEvent(EventoVaiInPrigione eventoVaiInPrigione){}
+
+    public void handleEvent(TerminaTurno terminaTurno){}
+
+    public void handleEvent(VendiProprieta vendiProprieta){}
 
 }

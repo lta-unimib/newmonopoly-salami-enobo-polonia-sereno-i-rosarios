@@ -1,4 +1,4 @@
-package com.newmonopoly.newmonopoly.eventi;
+package com.newmonopoly.newmonopoly.eventi.gamer;
 
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 
@@ -16,5 +16,5 @@ public abstract class EventoGiocatore {
     protected EventoGiocatore(){}
 
     public abstract void accept(SquareState squareState);
-    public abstract void accept(GameState gameState);
+    public abstract void accettaStato(GameState gameState);
 }

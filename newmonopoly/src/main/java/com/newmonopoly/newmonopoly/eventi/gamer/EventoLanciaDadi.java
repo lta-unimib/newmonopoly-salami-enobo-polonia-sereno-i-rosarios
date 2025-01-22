@@ -1,11 +1,9 @@
-package com.newmonopoly.newmonopoly.eventi;
+package com.newmonopoly.newmonopoly.eventi.gamer;
 
 import com.newmonopoly.newmonopoly.state.game.GameState;
 import com.newmonopoly.newmonopoly.state.square.SquareState;
-import lombok.experimental.SuperBuilder;
 
-@SuperBuilder
-public class AcquistaProprieta extends EventoGiocatore {
+public class EventoLanciaDadi extends EventoGiocatore {
 
     @Override
     public void accept(SquareState squareState) {
@@ -13,7 +11,7 @@ public class AcquistaProprieta extends EventoGiocatore {
     }
 
     @Override
-    public void accept(GameState gameState) {
+    public void accettaStato(GameState gameState) {
         gameState.handleEvent(this);
     }
 }

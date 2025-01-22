@@ -1,4 +1,4 @@
-package com.newmonopoly.newmonopoly.eventi;
+package com.newmonopoly.newmonopoly.eventi.casella;
 
 import com.newmonopoly.newmonopoly.state.game.GameState;
 
