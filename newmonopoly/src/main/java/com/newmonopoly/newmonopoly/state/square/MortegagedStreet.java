@@ -6,9 +6,9 @@ import lombok.experimental.SuperBuilder;
 
 @Data
 @SuperBuilder
-public class MortegedStreet extends StreetState {
+public class MortegagedStreet extends StreetState {
 
-    protected MortegedStreet() {}
+    protected MortegagedStreet() {}
 
     @Override
     public void handleEvent(EventoIpoteca rimuoviIpoteca) {

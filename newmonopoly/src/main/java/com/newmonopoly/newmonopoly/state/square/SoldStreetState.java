@@ -17,7 +17,7 @@ public class SoldStreetState extends StreetState {
     public void handleEvent(EventoIpoteca ipoteca) {
         strada.getProprietario().ricevi(strada.getIpoteca());
         strada.setStato(
-                MortegedStreet
+                MortegagedStreet
                         .builder()
                         .strada(strada)
                         .build());

@@ -37,4 +37,8 @@ public interface SquareState extends Serializable {
     default void handleEvent(TerminaTurno terminaTurno){}
 
     default void handleEvent(VendiProprieta vendiProprieta){}
+
+    default void handleEvent(EventoAvviaAsta EventoAvviaAsta){}
+
+    default void handleEvent(EventoTerminaAsta eventoTerminaAsta){}
 }
