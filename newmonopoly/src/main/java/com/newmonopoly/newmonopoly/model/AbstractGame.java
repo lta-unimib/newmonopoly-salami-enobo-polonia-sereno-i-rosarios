@@ -23,4 +23,6 @@ public abstract class AbstractGame {
 
     public abstract void addPlayer(Giocatore giocatore);
     public abstract void setStato(GameState nuovaStato);
+    public abstract Giocatore getGiocatoreByName(String name);
+
 }

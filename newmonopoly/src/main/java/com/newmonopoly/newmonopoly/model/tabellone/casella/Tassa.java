@@ -28,7 +28,4 @@ public abstract class Tassa extends Casella {
         importo = (int) Math.floor(getImporto()*random);
     }
 
-    public int getImporto() {
-        return importo;
-    }
 }

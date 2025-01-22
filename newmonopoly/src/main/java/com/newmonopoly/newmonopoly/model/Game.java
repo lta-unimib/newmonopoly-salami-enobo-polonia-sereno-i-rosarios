@@ -5,6 +5,8 @@ import com.newmonopoly.newmonopoly.state.game.GameState;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
+import java.util.Iterator;
+
 @Data
 @SuperBuilder
 public class Game extends AbstractGame{
@@ -28,7 +30,15 @@ public class Game extends AbstractGame{
 
     @Override
     public void setStato(GameState nuovaStato) {
+    }
 
+    public synchronized Giocatore getGiocatoreByName(String name) {
+        Iterator<Giocatore> iter = players.iterator();
+        Giocatore g = null;
+        while (iter.hasNext() && (g == null || !g.getNome().equals(name))) {
+            g = iter.next();
+        }
+        return g;
     }
 
 }
