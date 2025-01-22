@@ -26,7 +26,7 @@ public abstract class Carta implements Serializable {
 
     protected String testo;
     @JsonIgnore
-    protected ITabellone t;
+    protected ITabellone tabellone;
 
     protected Carta(){}
 

@@ -24,18 +24,15 @@ export default class StompController {
                 },
             });
     
-            // Log dettagliato della risposta
-            console.log("Stato HTTP:", res.status);
-            console.log("Contenuto della risposta:", await res.text());
-    
-            if (res.status === 200) {
-                return res.json(); // Parse JSON solo se il codice è 200
+            if (!res.ok) {
+                const errorMessage = await res.text();
+                throw new Error(`Errore server: ${errorMessage}`);
             }
     
-            throw new Error("Impossibile creare una partita"); // Se il codice non è 200, lancia un errore
-        } catch (error) {
-            console.error("Errore durante la creazione della partita:", error);
-            throw error;
+            return await res.json();
+        } catch (error: any) {
+            console.error("Errore durante la creazione della partita:", error.message);
+            throw new Error("Impossibile creare una partita. Dettagli: " + error.message);
         }
     }
 

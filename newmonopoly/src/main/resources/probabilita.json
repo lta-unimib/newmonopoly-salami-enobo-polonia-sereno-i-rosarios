@@ -1,24 +1,26 @@
 [
   {
-    "type": "CartaEsciGratisPrigione",
-    "testo": "Esci gratis di prigione bre"
-  },
-  {
-    "type": "CartaModificaDenaro",
+    "type": "CartaDenaro",
     "testo": "Multa per eccesso di velocità. Paga 15€",
     "denaro": -15
   },
   {
-    "type": "CartaMuoviPosizioneACasella",
+    "type": "CartaPosizione",
     "testo": "Avanza fino al Parco Della Vittoria.",
     "casella": {
-      "type": "Terreno",
-      "nome": "Parco della Vittoria"
+      "type": "Strada",
+      "nome": "Parco della Vittoria",
+      "costoBase": 400,
+      "costoCasa": 200,
+      "costoAlbergo": 200,
+      "colore": "blue",
+      "ipoteca": 200,
+      "affitti": [50, 200, 600, 1400, 1700, 2000]
     }
   },
   {
-    "type": "CartaMuoviPosizioneIntero",
+    "type": "CartaSpostamento",
     "testo": "Avanza di 5 caselle.",
-    "movimento": 5
+    "spostamento": 5
   }
 ]

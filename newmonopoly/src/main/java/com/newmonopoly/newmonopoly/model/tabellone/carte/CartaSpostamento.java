@@ -2,6 +2,11 @@ package com.newmonopoly.newmonopoly.model.tabellone.carte;
 
 import com.newmonopoly.newmonopoly.model.gamer.Token;
 
+import lombok.Data;
+import lombok.experimental.SuperBuilder;
+
+@Data
+@SuperBuilder
 public class CartaSpostamento extends Carta{
 
     int spostamento;
@@ -9,7 +14,7 @@ public class CartaSpostamento extends Carta{
 
     @Override
     public boolean effettoCarta(Token token) {
-        t.muoviGiocatore(token, spostamento);
+        tabellone.muoviGiocatore(token, spostamento);
         return true;
     }
 }

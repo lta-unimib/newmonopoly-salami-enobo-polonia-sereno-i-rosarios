@@ -66,8 +66,8 @@ public class FactoryGame {
         }
         mazzo.setImprevisto(new LinkedList<>(List.of(creaCarte("imprevisti.json"))));
         mazzo.setProbabilita(new LinkedList<>(List.of(creaCarte("probabilita.json"))));
-        mazzo.getImprevisto().forEach(i -> i.setT(tabellone));
-        mazzo.getProbabilita().forEach(p -> p.setT(tabellone));
+        mazzo.getImprevisto().forEach(i -> i.setTabellone(tabellone));
+        mazzo.getProbabilita().forEach(p -> p.setTabellone(tabellone));
         return mazzo;
     }
 
