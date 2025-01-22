@@ -41,10 +41,10 @@ const navigate = useNavigate();
 
       if (admin) {
         const adminPlayer: IAdmin = {
-          id: "admin",
+          // id: "admin",
           nome: nickname,
           conto: new Map([[1, { valore: 500, quantita: 1 }]]),
-          casellaCorrente: { nome: "Partenza", id: 1 },
+          casellaCorrente: { type: 'Via', nome: "Partenza", id: 1 },
           proprietaPossedute: [],
           puntiFedelta: 10,
         };
@@ -55,7 +55,7 @@ const navigate = useNavigate();
       const nuovoGiocatore: IGiocatore = {
         nome: nickname,
         conto: new Map([[1, { valore: 500, quantita: 1 }]]),
-        casellaCorrente: { nome: "Partenza", id: 1 },
+        casellaCorrente: { type: 'Via', nome: "Partenza", id: 1 },
         proprietaPossedute: [],
         puntiFedelta: 10,
       };
@@ -71,11 +71,11 @@ const navigate = useNavigate();
     if (!nickname || !creatore) return;
 
     const configurazione: IConfigurazione = {
-      admin: creatore.nome,
+      admin: creatore,
       difficolta: difficolta as Difficolta,
       numeroGiocatori: giocatori.length,
     };
-    
+    console.log("Request Body:", JSON.stringify(configurazione, null, 2));
     StompController.creaPartita(configurazione)
     // StompController.creaPartita(configurazione)
     // .then((partita: IPartita) => {
@@ -153,7 +153,7 @@ const navigate = useNavigate();
           </div>
         )}
 
-        {creatore?.id === "admin" && admin && (
+        { admin && (
           <button
             type="submit"
             className="w-full py-3 px-4 bg-green-500 text-white font-bold rounded-lg hover:bg-green-600 transition duration-200"

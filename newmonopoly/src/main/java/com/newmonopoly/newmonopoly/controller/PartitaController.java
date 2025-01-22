@@ -1,13 +1,20 @@
 package com.newmonopoly.newmonopoly.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.newmonopoly.newmonopoly.eventi.gamer.EntraInPartita;
 import com.newmonopoly.newmonopoly.model.AbstractGame;
 import com.newmonopoly.newmonopoly.model.Game;
 import com.newmonopoly.newmonopoly.model.factory.FactoryGame;
+import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
+import com.newmonopoly.newmonopoly.model.gamer.Imprenditore;
 import com.newmonopoly.newmonopoly.model.Config;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
@@ -41,26 +48,38 @@ public class PartitaController {
     }
 
 
-//     private void scriviSuJson(String chiave, String valore) {
-//     ObjectMapper mapper = new ObjectMapper(); // Oggetto Jackson per gestire il JSON
-//     Map<String, String> dati = new HashMap<>();
+    @MessageMapping("/partita/entra")
+    public void entraInPartita(
+            @Payload AddPlayer body,
+            SimpMessageHeaderAccessor head
+    ) {
+        AbstractGame partita = this.partita;
+        if (partita != null) {
+            // try {
+                Giocatore g;
 
-//     try {
-//         // Leggi il file esistente (se esiste)
-//         File file = new File("debug.json");
-//         if (file.exists()) {
-//             dati = mapper.readValue(file, Map.class); // Converte il file JSON in una mappa
-//         }
+                // if(Boolean.TRUE.equals(body.getIsImprenditore())) {
+                    // g = Imprenditore.builder().nick(body.getNickname()).idSessione(head.getSessionId()).build();
+                // } else {
+                    g = Giocatore.builder()
+                            .nome(body.getNickname())
+                            .idSessione(head.getSessionId())
+                            .build();
+                // }
 
-//         // Aggiungi o aggiorna la nuova chiave-valore
-//         dati.put(chiave, valore);
-
-//         // Scrivi di nuovo sul file JSON
-//         mapper.writerWithDefaultPrettyPrinter().writeValue(file, dati);
-//     } catch (IOException e) {
-//         e.printStackTrace(); // In caso di errori
-//     }
-// }
+                EntraInPartita azione = EntraInPartita.builder()
+                        .giocatore(g)
+                        .build();
+                // partita.onAzioneGiocatore(azione);
+                // partita.registraGiocatore(head.getSessionId(), partita.getGiocatoreByName(body.getNickname()));
+            // } catch (PartitaPienaException e) {
+            //     Map<String, Object> headers = new HashMap<>();
+            //     headers.put("nickname", body.getNickname());
+            //     MessageBrokerSingleton.getInstance().getTemplate()
+            //             .convertAndSend("/topic/partit/Partita piena", headers);
+            // }
+        }
+    }
 
     @PostMapping("/termina")
     public ResponseEntity<String> terminaPartita() {

@@ -2,6 +2,7 @@ package com.newmonopoly.newmonopoly.model.gamer;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Proprieta;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Stazione;
@@ -17,7 +19,7 @@ import com.newmonopoly.newmonopoly.model.tabellone.casella.Societa;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada.Colore;
 
 
-
+@SuperBuilder
 public class Giocatore implements Serializable {
 
     private static final long serialVersionUID = 1905122041950251207L;
@@ -30,6 +32,8 @@ public class Giocatore implements Serializable {
     private int puntiFedelta;
     @Getter @Setter
     private List<Proprieta> proprieta;
+    @JsonIgnore
+    private String idSessione;
 
     public Giocatore(String nome) {
         this.nome = nome;

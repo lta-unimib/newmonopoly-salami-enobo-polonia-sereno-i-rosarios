@@ -1,4 +1,5 @@
 export interface ICasella {
+    type: string,
     nome: string;
     id: number
 }

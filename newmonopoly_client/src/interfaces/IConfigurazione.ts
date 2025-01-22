@@ -1,3 +1,4 @@
+import IAdmin from "./IAdmin";
 import IBanconota from "./IBanconota";
 
 export enum Difficolta {
@@ -7,7 +8,7 @@ export enum Difficolta {
 }
 
 export default interface IConfigurazione {
-    admin: string,
+    admin: IAdmin,
     difficolta: Difficolta,
     numeroGiocatori: number,
 }

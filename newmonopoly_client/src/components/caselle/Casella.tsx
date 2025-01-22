@@ -25,27 +25,34 @@ const translate = {
     "Via": (props: any, giocatoriJsx: React.ReactNode) => <Via casella={props}>{giocatoriJsx}</Via>
 }
 
-type Props = ICasella & {rotate?: number}
+type Props = ICasella
 
-export class Casella extends React.Component<Props, {
-    hover: boolean
-}>{
+export class Casella extends React.Component<Props>{
 
     constructor(props: Props) {
         super(props);
-        this.state = {
-            hover: false
-        }
     }
 
     render() {
+        if ("type" in this.props) {
+            console.log("Tipo della casella:", this.props.type);
+        } else {
+            console.warn("Proprietà 'type' non trovata nei dati forniti:", this.props);
+        }
+
+        if (!CasellaSingleton.casellaGiocatore[this.props.id]) {
+            console.warn("Nessun giocatore trovato per la casella:", this.props.id);
+        }
+
+        console.log("CasellaSingleton.casellaGiocatore:", CasellaSingleton.casellaGiocatore);
+
 
         const giocatoriJsx = <>
             <div className=''>
             {
                 CasellaSingleton.casellaGiocatore[this.props.id]?.map(el => {
                         const pedina = CasellaSingleton.pedinaGiocatore[el];
-                        return <div title={el} style={{backgroundColor: ''}}></div>
+                        return <div title={el} style={{backgroundColor: ''}}>{pedina}</div>
                     }
                 )
             }
@@ -53,7 +60,7 @@ export class Casella extends React.Component<Props, {
 
         </>
         //@ts-ignore
-        return translate[this.props.type](this.props, giocatoriJsx, () => this.setState({hover: !this.state.hover}))
+        return translate[this.props.type](this.props, giocatoriJsx)
     }
 
 }

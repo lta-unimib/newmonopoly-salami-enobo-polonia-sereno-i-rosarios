@@ -14,7 +14,7 @@ export default class StompController {
     static client: CompatClient;
     static idPartita: string;
 
-    static async creaPartita(configuration: IConfigurazione): Promise<IPartita> {
+    static async creaPartita(configuration: IConfigurazione): Promise<String> {
         try {
             const res = await fetch(URL + "/partita", {
                 method: "POST",
@@ -29,7 +29,7 @@ export default class StompController {
                 throw new Error(`Errore server: ${errorMessage}`);
             }
     
-            return await res.json();
+            return await res.text();
         } catch (error: any) {
             console.error("Errore durante la creazione della partita:", error.message);
             throw new Error("Impossibile creare una partita. Dettagli: " + error.message);
@@ -43,7 +43,7 @@ export default class StompController {
             client.subscribe("/topic/partita/" , (res) =>
                 Observer.notify(JSON.parse(res.body) as IPartita)
             )
-            console.log("qui", isImprenditore);
+            console.log("qui", {nickname: nickname, isImprenditore: isImprenditore});
             client.send("/app/partita/entra", {},
                 JSON.stringify({nickname: nickname, isImprenditore: isImprenditore})
             )

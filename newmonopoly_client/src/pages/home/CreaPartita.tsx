@@ -22,7 +22,14 @@ class CreaPartita extends React.Component<CreaPartitaProps, State> {
 
         this.state = {
             configurazione: {
-                admin: this.props.nickname,
+                admin: {
+                    // id: 'admin',
+                    nome: this.props.nickname,
+                    conto: new Map([[1, { valore: 500, quantita: 1 }]]),
+                    casellaCorrente: { type: 'Via', nome: "Partenza", id: 1 },
+                    proprietaPossedute: [],
+                    puntiFedelta: 0,
+                  },
                 difficolta: Difficolta.EASY as Difficolta,  // Imposta l'enum
                 numeroGiocatori: 6,
             },
