@@ -6,15 +6,15 @@ import lombok.experimental.SuperBuilder;
 
 @Data
 @SuperBuilder
-public class MortegagedStreet extends StreetState {
+public class MortgagedStreet extends StreetState {
 
-    protected MortegagedStreet() {}
+    protected MortgagedStreet() {}
 
     @Override
     public void handleEvent(EventoIpoteca rimuoviIpoteca) {
         try {
             strada.getProprietario().ricevi(strada.getIpoteca());
-            strada.setStato(SoldStreetState.builder().strada(strada).build());
+            strada.setStato(PurchasedStreetState.builder().strada(strada).build());
         }catch (IllegalArgumentException ignored){
         }
     }

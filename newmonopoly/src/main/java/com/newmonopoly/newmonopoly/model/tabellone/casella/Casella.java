@@ -21,7 +21,7 @@ import com.newmonopoly.newmonopoly.state.square.SquareState;
         @JsonSubTypes.Type(value = Societa.class, name = "Societa"),
         @JsonSubTypes.Type(value = Stazione.class, name = "Stazione"),
         @JsonSubTypes.Type(value = Via.class, name = "Via"),
-        @JsonSubTypes.Type(value = Imprevisti.class, name = "Imprevisti"),
+        @JsonSubTypes.Type(value = Imprevisto.class, name = "Imprevisto"),
         @JsonSubTypes.Type(value = Probabilita.class, name = "Probabilita"),
         @JsonSubTypes.Type(value = Prigione.class, name = "Prigione"),
         @JsonSubTypes.Type(value = Parcheggio.class, name = "Parcheggio"),

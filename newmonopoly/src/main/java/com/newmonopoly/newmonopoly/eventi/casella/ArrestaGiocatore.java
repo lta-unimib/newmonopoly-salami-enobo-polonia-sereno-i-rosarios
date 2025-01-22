@@ -1,4 +1,11 @@
 package com.newmonopoly.newmonopoly.eventi.casella;
 
-public class ArrestaGiocatore {
+import com.newmonopoly.newmonopoly.state.game.GameState;
+
+public class ArrestaGiocatore implements EventoCasella {
+
+    @Override
+    public void accettaStato(GameState gameState) {
+        gameState.handleEvent(this);
+    }
 }

@@ -1,9 +1,11 @@
 package com.newmonopoly.newmonopoly.eventi.casella;
 
 import com.newmonopoly.newmonopoly.state.game.GameState;
+import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
-public class EventoAttesaLancioDadi implements EventoCasella {
-
+@Data@SuperBuilder
+public class PescaProbabilita implements EventoCasella {
     @Override
     public void accettaStato(GameState gameState) {
         gameState.handleEvent(this);

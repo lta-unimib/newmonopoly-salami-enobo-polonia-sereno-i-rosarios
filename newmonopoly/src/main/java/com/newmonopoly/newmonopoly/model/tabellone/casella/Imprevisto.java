@@ -6,14 +6,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
-public class Imprevisti extends Casella{
+public class Imprevisto extends Casella{
 
-    public Imprevisti() {
+    public Imprevisto() {
         super("Imprevisti");
     }
 
     @JsonCreator
-    public Imprevisti(@JsonProperty("nome") String nome) {
+    public Imprevisto(@JsonProperty("nome") String nome) {
         super(nome);  // Se vuoi passare il nome al costruttore della classe base
     }
 

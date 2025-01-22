@@ -6,9 +6,10 @@ import com.newmonopoly.newmonopoly.eventi.gamer.EventoIpoteca;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.SuperBuilder;
 
 @EqualsAndHashCode(callSuper = true)
-@Builder
+@SuperBuilder
 @Data
 public class PurchasedStation extends StationState{
 
@@ -16,13 +17,13 @@ public class PurchasedStation extends StationState{
 
     @Override
     public void handleEvent(EventoIpoteca eventoIpoteca){
-        s.getProprietario().ricevi(s.getIpoteca());
-        s.setStato(MortgagedStation.builder().build());
+        stazione.getProprietario().ricevi(stazione.getIpoteca());
+        stazione.setStato(PurchasedStation.builder().stazione(stazione).build());
     }
 
     @Override
     public EventoCasella arrivo(){
-        return PagaAffitto.builder().proprieta(s).build();
+        return PagaAffitto.builder().proprieta(stazione).build();
     }
 
 }

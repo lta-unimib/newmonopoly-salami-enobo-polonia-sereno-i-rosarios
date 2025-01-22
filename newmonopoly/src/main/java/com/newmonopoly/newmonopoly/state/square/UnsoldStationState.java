@@ -17,13 +17,13 @@ public class UnsoldStationState extends StationState{
 
     @Override
     public void handleEvent(AcquistaProprieta acquistaProprieta){
-        acquistaProprieta.getGiocatore().aggiungiProprieta(s);
-        s.setStato(PurchasedStation.builder().build());
+        acquistaProprieta.getGiocatore().aggiungiProprieta(stazione);
+        stazione.setStato(PurchasedStation.builder().build());
     }
 
     @Override
     public EventoCasella arrivo(){
-        return RequestPurchase.builder().proprieta(s).build();
+        return RequestPurchase.builder().proprieta(stazione).build();
     }
 
 }

@@ -3,20 +3,22 @@ package com.newmonopoly.newmonopoly.state.square;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.newmonopoly.newmonopoly.eventi.gamer.EventoTerminaAsta;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Stazione;
+import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
+@Data
+@SuperBuilder
 public abstract class StationState implements SquareState {
 
     @JsonIgnore
-    protected Stazione s;
+    protected Stazione stazione;
 
-    protected StationState() {
-
-    }
+    protected StationState() {}
 
     @Override
     public void handleEvent(EventoTerminaAsta eventoTerminaAsta){
-        s.setStato(PurchasedStation.builder().build());
-        eventoTerminaAsta.getGiocatore().acquistaProprieta(s, s.getProprietario(), eventoTerminaAsta.getAsta().getOffertaAttuale());
+        stazione.setStato(PurchasedStation.builder().build());
+        eventoTerminaAsta.getGiocatore().acquistaProprieta(stazione, stazione.getProprietario(), eventoTerminaAsta.getAsta().getOffertaAttuale());
     }
     
 }

@@ -9,15 +9,15 @@ import org.slf4j.LoggerFactory;
 
 @Data
 @SuperBuilder
-public class SoldStreetState extends StreetState {
+public class PurchasedStreetState extends StreetState {
 
-    protected SoldStreetState() {}
+    protected PurchasedStreetState() {}
 
     @Override
     public void handleEvent(EventoIpoteca ipoteca) {
         strada.getProprietario().ricevi(strada.getIpoteca());
         strada.setStato(
-                MortegagedStreet
+                MortgagedStreet
                         .builder()
                         .strada(strada)
                         .build());
@@ -28,7 +28,7 @@ public class SoldStreetState extends StreetState {
         try {
             strada.aggiungiEdificio();
         } catch (IllegalArgumentException e) {
-            LoggerFactory.getLogger(SoldStreetState.class).error("Errore di modifica denaro");
+            LoggerFactory.getLogger(PurchasedStreetState.class).error("Errore di modifica denaro");
             // Non è necessario gestire ulteriormente l'eccezione
         }
     }

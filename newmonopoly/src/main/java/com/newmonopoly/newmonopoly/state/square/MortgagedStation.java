@@ -13,8 +13,8 @@ public class MortgagedStation extends StationState{
     @Override
     public void handleEvent(EventoIpoteca fineIpoteca){
         try{
-            s.getProprietario().pay(s.getIpoteca());
-            s.setStato(PurchasedStation.builder().s(s).build());
+            stazione.getProprietario().pay(stazione.getIpoteca());
+            stazione.setStato(PurchasedStation.builder().stazione(stazione).build());
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }
