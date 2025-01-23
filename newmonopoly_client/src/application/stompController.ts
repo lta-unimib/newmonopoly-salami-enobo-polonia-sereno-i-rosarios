@@ -83,10 +83,6 @@ export default class StompController {
             client.subscribe(`/topic/lobby`, (res) => {
                 const giocatori = JSON.parse(res.body);
 
-                // if(giocatori.includes(nickname)) {
-                //     console.error("Nickname duplicato");
-                //     return;
-                // }
                 onLobbyUpdated(giocatori);  // Invoca la funzione per aggiornare la lista
             });
             client.send("/app/lobby/entra", {}, JSON.stringify({

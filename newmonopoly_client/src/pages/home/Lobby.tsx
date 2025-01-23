@@ -34,10 +34,10 @@ const Lobby: React.FC<Props> = ({ setGiocatore }) => {
 
 const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   localStorage.setItem("lobbyCreata", JSON.stringify(lobbyCreata));
+  useEffect(() => {
+    localStorage.setItem("lobbyCreata", JSON.stringify(lobbyCreata));
     
-  // }, [lobbyCreata]);
+  }, [lobbyCreata]);
 
   // useEffect(() => {
   //   localStorage.setItem("partitaCreata", JSON.stringify(partitaCreata));
@@ -110,6 +110,7 @@ const navigate = useNavigate();
     
     // Invia al server il comando per iniziare la partita
     setPartitaCreata(true)
+    navigate("/partita", { state: { nickname, giocatori } });
 
     // StompController.creaPartita(configurazione)
     
@@ -119,18 +120,20 @@ const navigate = useNavigate();
 };
 
   useEffect(() => {
-    console.log('ecco')
-    StompController.onPartitaCreata((isCreata) => {
+    
+    if(ready) {
+      StompController.onPartitaCreata((isCreata) => {
         setPartitaCreata(isCreata);
-    });
-    navigate("/partita", { state: { nickname, giocatori } });
+      });
+      navigate("/partita", { state: { nickname, giocatori } });
+    }
   }, [partitaCreata, ready]);
 
-  useEffect(() => {
-    if (partitaCreata) {
-        console.log("Partita creata, reindirizzamento in corso...");
-    }
-  }, [partitaCreata, navigate, nickname, giocatori]);
+  // useEffect(() => {
+  //   if (partitaCreata) {
+  //       console.log("Partita creata, reindirizzamento in corso...");
+  //   }
+  // }, [partitaCreata, navigate, nickname, giocatori]);
   
 
   return (

@@ -78,10 +78,10 @@ const Partita = () =>  {
       }));
     
       // Utilizziamo una funzione di aggiornamento basata sul valore precedente
-      SetIgiocatori(prevIgiocatori => [...prevIgiocatori, ...nuoviGiocatori]);
+      // SetIgiocatori(prevIgiocatori => [...prevIgiocatori, ...nuoviGiocatori]);
     
       console.log("Igiocatori aggiornati: ", nuoviGiocatori);
-
+      SetIgiocatori(nuoviGiocatori)
       // StompController.accediPartita(giocatori)
 
     
