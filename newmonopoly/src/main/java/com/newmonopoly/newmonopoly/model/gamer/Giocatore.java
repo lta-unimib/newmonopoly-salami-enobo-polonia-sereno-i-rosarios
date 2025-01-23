@@ -61,27 +61,37 @@ public class Giocatore implements Serializable {
     }
 
     public void pay(int quantita) {
+        // Controllo saldo e punti sufficienti
         if (getSaldo() < quantita && convertiPuntiInDenaro(puntiFedelta) < quantita) {
             throw new IllegalArgumentException("Saldo e punti insufficienti per effettuare il pagamento.");
         }
-        if(puntiFedelta > 0 || getSaldo() > quantita) {
-            int resto= quantita - convertiPuntiInDenaro(puntiFedelta);
-
-            if(resto > 0) {
-                if (utilizzaBanconotaEsatta(resto)) {
-                    return;
-             }
-
-                if (utilizzaBanconotaMaggiore(resto)) {
+    
+        int importoPagatoConPuntiFedelta = 0;
+        if (puntiFedelta > 0) {
+            // Calcola quanto è possibile pagare con i punti fedeltà
+            importoPagatoConPuntiFedelta = Math.min(convertiPuntiInDenaro(puntiFedelta), quantita);
+            quantita -= importoPagatoConPuntiFedelta; // Riduci l'importo totale
+            puntiFedelta -= convertiDenaroInPunti(importoPagatoConPuntiFedelta); // Riduci i punti
+        }
+    
+        // Gestione del resto con banconote
+        if (quantita > 0) {
+            if (utilizzaBanconotaEsatta(quantita)) {
                 return;
             }
-            combinaBanconote(resto);
+    
+            if (utilizzaBanconotaMaggiore(quantita)) {
+                return;
+            }
+    
+            combinaBanconote(quantita);
+    
             if (quantita > 0) {
                 throw new IllegalArgumentException("Impossibile completare il pagamento con le banconote disponibili.");
             }
         }
-        }
     }
+    
 
     private boolean utilizzaBanconotaEsatta(int quantita) {
         if (banconote.containsKey(quantita) && banconote.get(quantita).getQuantita() > 0) {
@@ -120,6 +130,10 @@ public class Giocatore implements Serializable {
 
     public int convertiPuntiInDenaro(int punti){
         return punti * 50;
+    }
+
+    public int convertiDenaroInPunti(int denaro){
+        return (int) denaro / 50;
     }
 
     public int getSaldo(){

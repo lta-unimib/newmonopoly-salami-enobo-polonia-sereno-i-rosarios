@@ -1,148 +1,120 @@
 package com.newmonopoly.newmonopoly;
 
+import com.newmonopoly.newmonopoly.model.gamer.Banconota;
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada.Colore;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 class GiocatoreTest {
 
-    // private Giocatore giocatore;
+    private Giocatore giocatore;
 
-    // @BeforeEach
-    // public void setUp() {
-    //     giocatore = new Giocatore("User");
-    // }
+    @BeforeEach
+    void setUp() {
+        Map<Integer, Banconota> banconote = new HashMap<>();
+        banconote.put(500, new Banconota(500, 2));
+        banconote.put(100, new Banconota(100, 5));
+        banconote.put(50, new Banconota(50, 10));
+        giocatore = Giocatore.builder()
+                .nome("Player1")
+                .banconote(banconote)
+                .puntiFedelta(3)
+                .build();
+    }
 
-    // @Test
-    // void testGetSaldo() {
-    //     assertEquals(1490, giocatore.getSaldo());
-    // }
+    @Test
+    void testRicevi() {
+        giocatore.ricevi(150);
+        assertEquals(11, giocatore.getBanconoteDaCinquanta());
+    }
 
-    // @Test
-    // void testPaySuccess() {
-    //     int saldoIniziale = giocatore.getSaldo();
-    //     int importoDaPagare = 150;
-    //     giocatore.pay(importoDaPagare);
-    //     assertEquals(saldoIniziale - importoDaPagare, giocatore.getSaldo(), 
-    //         "Il saldo dovrebbe essere ridotto correttamente.");
-    // }
+    @Test
+    void testPay() {
+        giocatore.pay(550);
+        assertEquals(1, giocatore.getBanconoteDaCinquecento());
+        assertEquals(6, giocatore.getBanconoteDaCento());
+        assertEquals(10, giocatore.getBanconoteDaCinquanta());
+        assertEquals(0, giocatore.getPuntiFedelta());
+    }
 
-    // // @Test
-    // // void testPayExactAmount() {
-    // //     int importoDaPagare = giocatore.getSaldo();
-    // //     giocatore.pay(importoDaPagare);
-    // //     assertEquals(0, giocatore.getSaldo(), "Il saldo dovrebbe essere 0 dopo aver pagato l'intero importo.");
-    // // }
+    @Test
+    void testAggiungiPuntiFedelta() {
+        giocatore.aggiungiPuntiFedelta(200);
+        assertEquals(7, giocatore.getPuntiFedelta());
+    }
 
-    // @Test
-    // void testPayInsufficientSaldo() {
-    //     int importoDaPagare = giocatore.getSaldo() + 100;  // Supera il saldo disponibile
-    //     Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-    //         giocatore.pay(importoDaPagare);
-    //     });
-    //     assertEquals("Saldo insufficiente per effettuare il pagamento.", exception.getMessage(), 
-    //         "Dovrebbe essere lanciata un'eccezione per saldo insufficiente.");
-    // }
-
-    // @Test
-    // void testRicevi() {
-    //     int saldoIniziale = giocatore.getSaldo();
-    //     // Ricevi 1350
-    //     giocatore.ricevi(1350);
-    //     assertEquals(saldoIniziale + 1350, giocatore.getSaldo());
-    // }
-
-    // @Test
-    // void testControlloLogicaRicevi() {
-    //     // Ricevi 686 (500 + 100 + 50 + 20 + 10 + 5 + 1)
-    //     giocatore.ricevi(686);
-    //     assertEquals(3, giocatore.getBanconoteDaCinquecento());
-    //     assertEquals(5, giocatore.getBanconoteDaCento());
-    //     assertEquals(2, giocatore.getBanconoteDaCinquanta());
-    //     assertEquals(2, giocatore.getBanconoteDaVenti());
-    //     assertEquals(2, giocatore.getBanconoteDaDieci());
-    //     assertEquals(2, giocatore.getBanconoteDaCinque());
-    //     assertEquals(6, giocatore.getBanconoteDaUno());
-    // }
-
-    // // @Test
-    // // void testControlloLogicaPay() {
-    // //     // Pay 686 (500 + 100 + 50 + 20 + 10 + 5 + 1)
-    // //     giocatore.pay(686);
-    // //     assertEquals(1, giocatore.getBanconoteDaCinquecento());
-    // //     assertEquals(3, giocatore.getBanconoteDaCento());
-    // //     assertEquals(0, giocatore.getBanconoteDaCinquanta());
-    // //     assertEquals(0, giocatore.getBanconoteDaVenti());
-    // //     assertEquals(0, giocatore.getBanconoteDaDieci());
-    // //     assertEquals(0, giocatore.getBanconoteDaCinque());
-    // //     assertEquals(4, giocatore.getBanconoteDaUno());
-    // // }
-
-    // @Test
-    // void testCambioBanconoteCorrettoConResto() {
-    //     giocatore.pay(120);
-    //     assertEquals(1, giocatore.getBanconoteDaCinquecento()); 
-    //     assertEquals(7, giocatore.getBanconoteDaCento());      
-    //     assertEquals(2, giocatore.getBanconoteDaCinquanta());  
-    //     assertEquals(2, giocatore.getBanconoteDaVenti()); 
-    //     assertEquals(2, giocatore.getBanconoteDaDieci());  
-    //     assertEquals(1, giocatore.getBanconoteDaCinque());     
-    //     assertEquals(5, giocatore.getBanconoteDaUno());        
-    // }
-
-    // @Test
-    // void testCambioBanconoteCorrettoConResto2() {
-    //     giocatore.pay(4);
-    //     assertEquals(2, giocatore.getBanconoteDaCinquecento()); 
-    //     assertEquals(4, giocatore.getBanconoteDaCento());      
-    //     assertEquals(1, giocatore.getBanconoteDaCinquanta());  
-    //     assertEquals(1, giocatore.getBanconoteDaVenti());   
-    //     assertEquals(1, giocatore.getBanconoteDaDieci());  
-    //     assertEquals(0, giocatore.getBanconoteDaCinque());  
-    //     assertEquals(6, giocatore.getBanconoteDaUno());      
-    // }
+    
+    @Test
+    void testPossiedeTutteLeProprietaDelColore() {
+        Strada strada1 = Strada.builder()
+        .nome("Viale dei Giardini")
+        .colore(Strada.Colore.green)
+        .costoCasa(200)
+        .costoAlbergo(500)
+        .albergo(false)
+        .numCase(0)
+        .build();
+        Strada strada2 = Strada.builder().nome("Viale dei Giardini")
+        .colore(Strada.Colore.green)
+        .costoCasa(200)
+        .costoAlbergo(500)
+        .albergo(false)
+        .numCase(0)
+        .build();
+        giocatore.aggiungiProprieta(strada1);
+        giocatore.aggiungiProprieta(strada2);
+        assertTrue(giocatore.possiedeTutteLeProprietaDelColore(Colore.green));
+        assertFalse(giocatore.possiedeTutteLeProprietaDelColore(Colore.blue));
+    }
 
 
+    @Test
+    void testGetSaldo() {
+        assertEquals(2000, giocatore.getSaldo());
+    }
 
+    @Test
+    void testAggiungiProprieta() {
+     Strada strada = Strada.builder()
+        .nome("Viale dei Giardini")
+        .colore(Strada.Colore.green)
+        .costoCasa(200)
+        .costoAlbergo(500)
+        .albergo(false)
+        .numCase(0)
+        .build();
+        giocatore.aggiungiProprieta(strada);
 
-    // @Test
-    // void testPossiedeTutteLeProprietaDelColore() {
-    //     ArrayList<Integer> affitti = new ArrayList<>(Arrays.asList(50, 250, 750, 925, 1100));
-    //     Strada strada1 = new Strada("Viale Monterosa", null, 220, 18, 110, affitti, 150, 200, Colore.red);
-    //     Strada strada2 = new Strada("Via Verdi", null, 120, 8, 60, affitti, 50, 100, Colore.red);
-    //     Strada strada3 = new Strada("Corso Raffaello", null, 350, 35, 175, affitti, 200, 300, Colore.red);
-        
-    //     Giocatore giocatore = new Giocatore("Test");
-    //     giocatore.aggiungiProprieta(strada1);
-    //     giocatore.aggiungiProprieta(strada2);
-    //     giocatore.aggiungiProprieta(strada3);
-        
-    //     assertTrue(giocatore.possiedeTutteLeProprietaDelColore(Colore.red), 
-    //         "Il giocatore dovrebbe possedere tutte le proprietà del colore red.");
-    // }
+        assertTrue(giocatore.getProprieta().contains(strada));
+        assertEquals(1, giocatore.getProprieta().size());
+    }
 
-    // @Test
-    // void testNonPossiedeTutteLeProprietaDelColore() {
-    //     ArrayList<Integer> affitti = new ArrayList<>(Arrays.asList(50, 250, 750, 925, 1100));
-    //     Strada strada1 = new Strada("Viale Monterosa", null, 220, 18, 110, affitti, 150, 200, Colore.red);
-    //     Strada strada2 = new Strada("Via Verdi", null, 120, 8, 60, affitti, 50, 100, Colore.red);
-    //     Strada strada3 = new Strada("Corso Raffaello", null, 350, 35, 175, affitti, 200, 300, Colore.green);
-        
-    //     Giocatore giocatore = new Giocatore("Test");
-    //     giocatore.aggiungiProprieta(strada1);
-    //     giocatore.aggiungiProprieta(strada2);
-    //     giocatore.aggiungiProprieta(strada3);
-        
-    //     assertFalse(giocatore.possiedeTutteLeProprietaDelColore(Colore.red), 
-    //         "Il giocatore non dovrebbe possedere tutte le proprietà del colore red.");
-    // }
+    @Test
+    void testAcquistaProprieta() {
+        Strada strada = Strada.builder()
+        .nome("Viale dei Giardini")
+        .colore(Strada.Colore.green)
+        .costoCasa(200)
+        .costoAlbergo(500)
+        .albergo(false)
+        .numCase(0)
+        .build();
+        Giocatore venditore = Giocatore.builder()
+                .nome("Venditore")
+                .banconote(new HashMap<>())
+                .build();
 
+        giocatore.acquistaProprieta(strada, venditore, 300);
+
+        assertTrue(giocatore.getProprieta().contains(strada));
+        assertFalse(venditore.getProprieta().contains(strada));
+        assertEquals(1850, giocatore.getSaldo());
+    }
 }
-
