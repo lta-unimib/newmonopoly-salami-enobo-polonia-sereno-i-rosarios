@@ -1,5 +1,6 @@
 package com.newmonopoly.newmonopoly.eventi.casella;
 
+import com.newmonopoly.newmonopoly.model.tabellone.casella.Proprieta;
 import com.newmonopoly.newmonopoly.state.game.GameState;
 import lombok.Builder;
 import lombok.experimental.SuperBuilder;
@@ -9,7 +10,7 @@ import lombok.Data;
 @Builder
 public class Ricevi implements EventoCasella {
 
-    protected int importo;
+    protected Proprieta proprieta;
 
     public Ricevi() {}
 

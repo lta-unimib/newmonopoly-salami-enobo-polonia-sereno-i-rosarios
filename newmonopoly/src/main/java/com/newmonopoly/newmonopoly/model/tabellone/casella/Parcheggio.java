@@ -1,20 +1,17 @@
 package com.newmonopoly.newmonopoly.model.tabellone.casella;
 
+import com.newmonopoly.newmonopoly.state.square.ParkingState;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
 @SuperBuilder
 public class Parcheggio extends Casella {
 
-    private static Parcheggio parcheggio = null;
-
-    public Parcheggio() {
-        super("Parcheggio");
+    protected Parcheggio(){
+        stato = ParkingState.builder().parcheggio(this).build();
     }
 
-    public static synchronized Parcheggio getParcheggio() {
-        if (parcheggio == null) {
-            parcheggio = new Parcheggio();
-        }
-        return parcheggio;
-    }
 }

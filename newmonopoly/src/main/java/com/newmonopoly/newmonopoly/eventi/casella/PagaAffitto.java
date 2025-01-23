@@ -10,7 +10,8 @@ import lombok.experimental.SuperBuilder;
 @Data
 @Builder
 public class PagaAffitto implements EventoCasella {
-    public PagaAffitto() {}
+
+    private PagaAffitto() {}
 
     protected Proprieta proprieta;
 
