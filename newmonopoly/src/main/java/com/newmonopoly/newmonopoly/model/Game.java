@@ -13,9 +13,11 @@ import java.util.Iterator;
 @SuperBuilder
 public class Game extends AbstractGame{
 
+    /*
     protected Game(AbstractGameBuilder<?, ?> builder){
         super(builder);
     }
+     */
 
     @Override
     public synchronized void addPlayer(Giocatore giocatore) {

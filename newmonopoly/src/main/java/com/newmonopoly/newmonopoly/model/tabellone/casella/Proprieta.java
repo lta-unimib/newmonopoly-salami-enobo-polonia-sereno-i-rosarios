@@ -1,53 +1,45 @@
 package com.newmonopoly.newmonopoly.model.tabellone.casella;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
-import com.newmonopoly.newmonopoly.model.transazioni.IPagamenti;
+import com.newmonopoly.newmonopoly.model.tabellone.strategy.PayStrategy;
 
 import lombok.Data;
-import lombok.Setter;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @SuperBuilder
 public abstract class Proprieta extends Casella {
 
-    private Giocatore proprietario;
     private int costoBase;
     private int ipoteca;
     private int affitto;
 
-    public Proprieta(String nome, Giocatore proprietario, int costoBase, int ipoteca, int affitto) {
-        super(nome);
-        this.proprietario = proprietario;
-        this.costoBase = costoBase;
-        this.ipoteca = ipoteca;
-        setAffitto(affitto);
+    protected Proprieta() {
     }
-    // public  int calcolaAffitto(Pagamenti strategia);
 
+    @JsonIgnore
+    private Giocatore proprietario;
 
-    /*public abstract int calcolaAffitto(IPagamenti strategia);*/
+    @JsonProperty("proprietario")
+    public String getNomeProprietario() {
+        if (proprietario != null){
+            return proprietario.getNome();
+        }
+        return null;
+    }
+
+    public abstract int calcolaAffitto(PayStrategy payStrategy);
+
+    public void rinizializza(){};
 
     public void economiaCasuale(float random) {
         costoBase = (int) Math.floor(getCostoBase()*random);
         ipoteca = (int) Math.floor(getIpoteca()*random);
         affitto = (int) Math.floor(getAffitto()*random);
-    }
-
-    public Giocatore getProprietario() {
-        return proprietario;
-    }
-
-    public int getCostoBase() {
-        return costoBase;
-    }
-
-    public int getIpoteca() {
-        return ipoteca;
-    }
-
-    public int getAffitto() {
-        return affitto;
     }
 
 

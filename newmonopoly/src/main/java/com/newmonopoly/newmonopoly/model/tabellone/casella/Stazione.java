@@ -1,31 +1,31 @@
 package com.newmonopoly.newmonopoly.model.tabellone.casella;
 
+import com.newmonopoly.newmonopoly.model.tabellone.strategy.PayStrategy;
 import com.newmonopoly.newmonopoly.model.transazioni.IPagamenti;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada.Colore;
 
+import com.newmonopoly.newmonopoly.state.square.UnsoldStationState;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
 import lombok.experimental.SuperBuilder;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @SuperBuilder
 public class Stazione extends Proprieta {
 
-    @Setter
     private ArrayList<Integer> affitti;
     private String type = "Stazione";
 
-    // public Stazione (String nome, Giocatore proprietario, int costoBase, int ipoteca, int affitto, ArrayList<Integer> affitti) {
-    //     super(nome, proprietario, costoBase, ipoteca, affitti.get(0));
-    //     setAffitti(affitti);
-    // }
-     @JsonCreator
+    /*
+    @JsonCreator
     public Stazione(
         @JsonProperty("nome") String nome,
         @JsonProperty("proprietario") Giocatore proprietario,
@@ -36,6 +36,8 @@ public class Stazione extends Proprieta {
             super(nome, proprietario, costo, ipoteca, affitti.get(0));
             setAffitti(affitti);
     }
+    */
+
 
     public void aggiornaAffittoStazione(){
             int numeroStazioniPossedute = getProprietario().getStazioni().size();
@@ -43,6 +45,16 @@ public class Stazione extends Proprieta {
                 setAffitto(affitti.get(numeroStazioniPossedute - 1));
             }
         }
+
+    @Override
+    public int calcolaAffitto(PayStrategy payStrategy) {
+        return payStrategy.calcolaPagamento(this);
     }
+
+    @Override
+    public void rinizializza(){
+        setStato(UnsoldStationState.builder().stazione(this).build());
+    }
+}
 
 

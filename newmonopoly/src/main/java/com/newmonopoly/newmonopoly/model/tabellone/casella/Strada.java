@@ -2,10 +2,10 @@ package com.newmonopoly.newmonopoly.model.tabellone.casella;
 
 import java.util.ArrayList;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.newmonopoly.newmonopoly.model.tabellone.strategy.PayStrategy;
+import com.newmonopoly.newmonopoly.state.square.UnsoldStreetState;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -16,16 +16,22 @@ import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 @Data
 @SuperBuilder
 public class Strada extends Proprieta {
+
+
+    @Builder.Default
     private String type = "Strada";
     private Colore colore;
     private int costoAlbergo;
     private int costoCasa;
     private boolean albergo;
     private int numCase;
+    private int maxCase = 4;
+
+    @JsonIgnore
     private ArrayList<Integer> affitti;
 
-
-     @JsonCreator
+    /*
+    @JsonCreator
     public Strada(
         @JsonProperty("nome") String nome,
         @JsonProperty("proprietario") Giocatore proprietario,
@@ -43,6 +49,13 @@ public class Strada extends Proprieta {
             setCostoCasa(costoCasa);
             setCostoAlbergo(costoAlbergo);
             setColore(colore);
+    }
+
+     */
+
+    public Strada() {
+        stato = UnsoldStreetState.builder().strada(this).build();
+        affitti = new ArrayList<>();
     }
 
     public boolean hasAlbergo(){
@@ -93,6 +106,17 @@ public class Strada extends Proprieta {
         brown,
         purple,
         green
+    }
+
+    @Override
+    public int calcolaAffitto(PayStrategy payStrategy) {
+        return payStrategy.calcolaPagamento(this);
+    }
+
+    public void rinizializza(){
+        numCase = 0;
+        albergo = false;
+        setStato(UnsoldStreetState.builder().strada(this).build());
     }
 
 }

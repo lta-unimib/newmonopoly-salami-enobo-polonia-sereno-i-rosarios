@@ -46,7 +46,7 @@ public abstract class Casella implements Serializable, GameStateObserver {
     protected ArrayList<GameObserver> subscribers = new ArrayList<>();
     protected SquareState stato;
 
-    protected Casella (String nome) {
+    protected Casella () {
         // this.nome = nome;
         subscribers = new ArrayList<>();
     }
