@@ -35,7 +35,7 @@ public class PagamentiGiocatore implements IPagamenti {
     }
 
     @Override
-    public double pagaAffitto(Proprieta proprieta, Giocatore affittuario){
+    public int pagaAffitto(Proprieta proprieta, Giocatore affittuario){
         int quantita = proprieta.getAffitto();
         if(proprieta instanceof Strada || proprieta instanceof Stazione) {
             affittuario.pay(proprieta.getAffitto());

@@ -7,7 +7,7 @@ import com.newmonopoly.newmonopoly.model.tabellone.casella.Tassa;
 public interface IPagamenti {
     //int calcolaAffitto(Strada strada);
     
-    double pagaAffitto(Proprieta proprieta, Giocatore affittuario);
+    int pagaAffitto(Proprieta proprieta, Giocatore affittuario);
     int calcolaTassa(Tassa tassa);
     void pagaTassa(Tassa tassa, Giocatore contribuente);
 }
