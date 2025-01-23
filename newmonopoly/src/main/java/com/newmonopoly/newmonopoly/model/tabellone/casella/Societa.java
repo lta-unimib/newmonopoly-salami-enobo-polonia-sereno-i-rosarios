@@ -40,5 +40,4 @@ public class Societa extends Proprieta {
         return risultatoDadi * moltiplicatore;
     }
 
-
 }

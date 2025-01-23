@@ -8,7 +8,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
-@Data@Builder
+@Data
+@SuperBuilder
 public class ImprevistoState implements SquareState{
 
     @JsonIgnore

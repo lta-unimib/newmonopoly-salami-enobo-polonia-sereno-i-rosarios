@@ -3,18 +3,16 @@ package com.newmonopoly.newmonopoly.model.tabellone.casella;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import com.newmonopoly.newmonopoly.state.square.ImprevistoState;
+import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
+@Data
 @SuperBuilder
 public class Imprevisti extends Casella{
 
-    public Imprevisti() {
-        super("Imprevisti");
-    }
-
-    @JsonCreator
-    public Imprevisti(@JsonProperty("nome") String nome) {
-        super(nome);  // Se vuoi passare il nome al costruttore della classe base
+    protected Imprevisti() {
+        stato = ImprevistoState.builder().imprevisto(this).build();
     }
 
 
