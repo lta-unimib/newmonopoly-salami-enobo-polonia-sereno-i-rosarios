@@ -9,7 +9,6 @@ interface State {
 interface Props {
     casella: ICasellaSocieta,
     children?: React.ReactNode;
-    caHover: () => {}
 }
 
 export class Societa extends React.Component<Props, State> {
@@ -21,7 +20,7 @@ export class Societa extends React.Component<Props, State> {
         }
         return <div className='text-center' style={style}>
             {/* <div className="" onMouseLeave={this.props.caHover} onMouseEnter={this.props.caHover} aria-disabled={this.props.casella.stato.type === "SocietaIpotecata"}> */}
-            <div className="" onMouseLeave={this.props.caHover} onMouseEnter={this.props.caHover}>
+            <div className="">
                 <div className="">{this.props.casella.nome}</div>
                 <i className='' />
                 <div className="">{this.props.casella.costoBase}</div>

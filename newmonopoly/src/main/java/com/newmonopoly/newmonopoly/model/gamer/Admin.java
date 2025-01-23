@@ -1,5 +1,8 @@
 package com.newmonopoly.newmonopoly.model.gamer;
 
+import lombok.experimental.SuperBuilder;
+
+@SuperBuilder
 public class Admin extends Giocatore{
 
     public Admin() {

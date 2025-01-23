@@ -70,7 +70,7 @@ export default class Partita extends React.Component<Props, State> implements Ob
   constructor(props: Props) {
     super(props);
     this.state = {
-      partita: undefined,
+      partita: this.props.partita,
     };
   }
 
@@ -88,6 +88,7 @@ export default class Partita extends React.Component<Props, State> implements Ob
   }
 
   render() {
+    console.log("Porcaccio", this.state.partita)
     if (!this.state.partita) {
       return (
         <div className="flex items-center justify-center h-screen">
@@ -108,7 +109,7 @@ export default class Partita extends React.Component<Props, State> implements Ob
           giocatori={this.state.partita.giocatori}
         /> */}
       <Optionsbar partita={this.props.partita} nickname={this.props.nickname} />
-      {/* <Tabellone caselle={caselleConId} giocatori={giocatori} /> */}
+      <Tabellone caselle={caselleConId} giocatori={giocatori} />
       </div>
     );
   }

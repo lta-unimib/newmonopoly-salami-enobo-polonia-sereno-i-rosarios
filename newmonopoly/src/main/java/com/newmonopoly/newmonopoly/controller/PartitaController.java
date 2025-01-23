@@ -9,17 +9,21 @@ import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 import com.newmonopoly.newmonopoly.model.gamer.Imprenditore;
 import com.newmonopoly.newmonopoly.model.Config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -29,12 +33,34 @@ import java.util.Map;
 public class PartitaController {
 
     private Game partita; // Memorizza la partita in corso
+    private final SimpMessagingTemplate messagingTemplate;
+    private List<String> lobbyGiocatori = new ArrayList<>();
 
     // @RequestMapping(value = "/partita", method = RequestMethod.OPTIONS)
     // public ResponseEntity<?> handleOptions() {
     //     // Risposta vuota per la richiesta OPTIONS
     //     return ResponseEntity.ok().build();
     // }
+
+    @Autowired
+    public PartitaController(SimpMessagingTemplate messagingTemplate) {
+        this.messagingTemplate = messagingTemplate;
+    }
+
+    @MessageMapping("/lobby/entra")
+    public void entraInLobby(@Payload AddPlayer body, SimpMessageHeaderAccessor head) {
+        String nuovoGiocatore = body.getNickname();
+
+        synchronized (lobbyGiocatori) {
+            if (!lobbyGiocatori.contains(nuovoGiocatore) && lobbyGiocatori.size() < 6) {
+                lobbyGiocatori.add(nuovoGiocatore);
+                System.out.println("Giocatore aggiunto alla lobby: " + nuovoGiocatore);
+            } 
+        }
+
+        // Notifica tutti i client con la lista aggiornata dei giocatori
+        messagingTemplate.convertAndSend("/topic/lobby", lobbyGiocatori);
+    }
 
     @PostMapping(value = "/partita")
     public ResponseEntity<String> creaPartita(@RequestBody Config config) throws IOException {
@@ -58,14 +84,14 @@ public class PartitaController {
             // try {
                 Giocatore g;
 
-                // if(Boolean.TRUE.equals(body.getIsImprenditore())) {
-                    // g = Imprenditore.builder().nick(body.getNickname()).idSessione(head.getSessionId()).build();
-                // } else {
+                if(Boolean.TRUE.equals(body.getIsImprenditore())) {
+                    g = Imprenditore.builder().nome(body.getNickname()).idSessione(head.getSessionId()).build();
+                } else {
                     g = Giocatore.builder()
                             .nome(body.getNickname())
                             .idSessione(head.getSessionId())
                             .build();
-                // }
+                }
 
                 EntraInPartita azione = EntraInPartita.builder()
                         .giocatore(g)

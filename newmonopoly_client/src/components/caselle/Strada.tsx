@@ -10,7 +10,6 @@ interface State {
 interface Props {
     casella: ICasellaStrada,
     children?: React.ReactNode;
-    caHover: () => void;
 }
 
 export class Strada extends React.Component<Props, State> {
@@ -31,7 +30,7 @@ export class Strada extends React.Component<Props, State> {
 
         // console.log(this.props.casella.colore)
 
-        return <div  onMouseLeave={this.props.caHover} onMouseEnter={this.props.caHover}>
+        return <div>
             {/* <div className = "" aria-disabled={this.props.casella.stato.type === "StradaIpotecata"}> */}
             <div className = "text-center"  style={{ backgroundColor: `${this.props.casella.colore}` }}>
                 <div className=''>

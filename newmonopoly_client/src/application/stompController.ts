@@ -3,6 +3,7 @@ import websocket from "websocket"
 import IConfigurazione from "../interfaces/IConfigurazione";
 import { Observer } from "./Observer";
 import IPartita from "../interfaces/IPartita";
+import IGiocatore from "../interfaces/IGiocatore";
 
 Object.assign(global, {WebSocket: websocket.w3cwebsocket})
 
@@ -48,5 +49,29 @@ export default class StompController {
                 JSON.stringify({nickname: nickname, isImprenditore: isImprenditore})
             )
         })
+    }
+
+    static entraLobby(nickname: string, onLobbyUpdated: (giocatori: any[]) => void) {
+        const client = Stomp.client(WS_URL + "/stomp");
+        this.client = client;
+    
+        client.connect({}, () => {
+            console.log("Connesso al WebSocket per la lobby!");
+    
+            // Sottoscrivi il client al topic della lobby
+            client.subscribe(`/topic/lobby`, (res) => {
+                const giocatori = JSON.parse(res.body);
+                console.log("Lista giocatori aggiornata:", giocatori);
+                onLobbyUpdated(giocatori);  // Invoca la funzione per aggiornare la lista
+            });
+    
+            // Invia un messaggio per aggiungere il giocatore alla lobby
+            console.log("Invio il messaggio per entrare nella lobby:", nickname);
+            client.send("/app/lobby/entra", {}, JSON.stringify({
+                nickname: nickname
+            }));
+        }, (err: any) => {
+            console.error("Errore nella connessione WebSocket:", err);
+        });
     }
 }

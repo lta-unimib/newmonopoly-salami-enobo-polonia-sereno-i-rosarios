@@ -15,15 +15,25 @@ const Lobby: React.FC<Props> = ({ setGiocatore }) => {
   const { state } = useLocation();
   const token = ["pedina1", "pedina2", "pedina3", "pedina4"];
 
-  const [giocatori, setGiocatori] = useState<IGiocatore[]>([]);
+  const [giocatori, setGiocatori] = useState<any[]>([]);
   const [creatore, setCreatore] = useState<IAdmin | null>(null);
   const [selectedToken, setSelectedToken] = useState(token[0]);
   const [isImprenditore, setIsImprenditore] = useState<boolean>(false);
   const [difficolta, setDifficolta] = useState<Difficolta>(Difficolta.EASY);
+  const [lobbyCreata, setLobbyCreata] = useState(() => {
+    // Recupera il valore da localStorage o usa un valore di default
+    const saved = localStorage.getItem("lobbyCreata");
+    return saved ? JSON.parse(saved) : false;
+  });
 
   const { nickname, admin, difficolta: difficoltaFromState } = state || {};
 
 const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem("lobbyCreata", JSON.stringify(lobbyCreata));
+    
+  }, [lobbyCreata]);
 
   useEffect(() => {
     if (difficoltaFromState) {
@@ -34,34 +44,67 @@ const navigate = useNavigate();
   useEffect(() => {
     if (!nickname) return;
 
-    setGiocatori((prevGiocatori) => {
-      if (prevGiocatori.some((g) => g.nome === nickname)) {
-        return prevGiocatori;
-      }
-
-      if (admin) {
-        const adminPlayer: IAdmin = {
-          // id: "admin",
-          nome: nickname,
-          conto: new Map([[1, { valore: 500, quantita: 1 }]]),
-          casellaCorrente: { type: 'Via', nome: "Partenza", id: 1 },
-          proprietaPossedute: [],
-          puntiFedelta: 10,
-        };
-        setCreatore(adminPlayer);
-        return [...prevGiocatori, adminPlayer];
-      }
-
-      const nuovoGiocatore: IGiocatore = {
+    if (admin) {
+      const adminPlayer: IAdmin = {
         nome: nickname,
         conto: new Map([[1, { valore: 500, quantita: 1 }]]),
         casellaCorrente: { type: 'Via', nome: "Partenza", id: 1 },
         proprietaPossedute: [],
         puntiFedelta: 10,
       };
-      return [...prevGiocatori, nuovoGiocatore];
-    });
-  }, [nickname, admin]);
+      setCreatore(adminPlayer);
+      setLobbyCreata(true);
+      StompController.entraLobby(nickname, (giocatori) => {
+        setGiocatori(giocatori);
+      });
+    } else {
+      if (lobbyCreata) {
+        StompController.entraLobby(nickname, (giocatori) => {
+          setGiocatori(giocatori);
+        });
+      }
+    }
+  }, [nickname, lobbyCreata, admin]);
+
+  // useEffect(() => {
+  //   if (!nickname) return;
+
+  //   setGiocatori((prevGiocatori) => {
+  //     if (prevGiocatori.some((g) => g.nome === nickname)) {
+  //       return prevGiocatori;
+  //     }
+
+  //     if (admin) {
+  //       const adminPlayer: IAdmin = {
+  //         // id: "admin",
+  //         nome: nickname,
+  //         conto: new Map([[1, { valore: 500, quantita: 1 }]]),
+  //         casellaCorrente: { type: 'Via', nome: "Partenza", id: 1 },
+  //         proprietaPossedute: [],
+  //         puntiFedelta: 10,
+  //       };
+  //       setCreatore(adminPlayer);
+  //       return [...prevGiocatori, adminPlayer];
+  //     } else {
+        
+  //     }
+
+  //     const nuovoGiocatore: IGiocatore = {
+  //       nome: nickname,
+  //       conto: new Map([[1, { valore: 500, quantita: 1 }]]),
+  //       casellaCorrente: { type: 'Via', nome: "Partenza", id: 1 },
+  //       proprietaPossedute: [],
+  //       puntiFedelta: 10,
+  //     };
+  //     return [...prevGiocatori, nuovoGiocatore];
+  //   });
+  //   console.log(admin)
+  //   if(!admin) {
+  //     console.log('ciaoOO')
+  //     StompController.entraLobby(nickname, setGiocatori)
+  //     console.log(giocatori)
+  //   }
+  // }, [nickname, admin]);
 
   const handleSetImprenditore = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsImprenditore(e.target.checked);
@@ -76,7 +119,10 @@ const navigate = useNavigate();
       numeroGiocatori: giocatori.length,
     };
     console.log("Request Body:", JSON.stringify(configurazione, null, 2));
-    StompController.creaPartita(configurazione)
+    StompController.creaPartita(configurazione).then((partita: String) => {
+      console.log(partita)
+      navigate("/partita", { state: { nickname, isImprenditore, partita } });
+    })
     // StompController.creaPartita(configurazione)
     // .then((partita: IPartita) => {
     //   // Notifichiamo gli observer e navighiamo alla pagina della partita
@@ -101,10 +147,10 @@ const navigate = useNavigate();
         <ul className="list-disc pl-6 space-y-2">
           {giocatori.map((g) => (
             <li
-              key={g.nome}
+              key={g}
               className="text-lg bg-blue-100 px-4 py-2 rounded-lg shadow-sm"
             >
-              {g.nome}
+              {g}
             </li>
           ))}
         </ul>

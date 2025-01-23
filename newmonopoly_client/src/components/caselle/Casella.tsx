@@ -14,9 +14,9 @@ import CasellaSingleton from "./CasellaSingleton";
 
 const translate = {
     "Imprevisti": (props: any, giocatoriJsx: React.ReactNode) => <Imprevisti casella={props}>{giocatoriJsx} </Imprevisti>,
-    "Strada": (props: any, giocatoriJsx: React.ReactNode, ca: () => {}) => <Strada casella={props} caHover={ca}> {giocatoriJsx} </Strada>,
-    "Societa": (props: any, giocatoriJsx: React.ReactNode, ca: () => {}) => <Societa caHover={ca} casella={props}>{giocatoriJsx}</Societa>,
-    "Stazione": (props: any, giocatoriJsx: React.ReactNode, ca: () => {}) => <Stazione caHover={ca} casella={props}>{giocatoriJsx}</Stazione>,
+    "Strada": (props: any, giocatoriJsx: React.ReactNode) => <Strada casella={props}> {giocatoriJsx} </Strada>,
+    "Societa": (props: any, giocatoriJsx: React.ReactNode) => <Societa casella={props}>{giocatoriJsx}</Societa>,
+    "Stazione": (props: any, giocatoriJsx: React.ReactNode) => <Stazione casella={props}>{giocatoriJsx}</Stazione>,
     "Prigione": (props: any, giocatoriJsx: React.ReactNode) => <Prigione casella={props}>{giocatoriJsx}</Prigione>,
     "Probabilita": (props: any, giocatoriJsx: React.ReactNode) => <Probabilita casella={props}>{giocatoriJsx}</Probabilita>,
     "Tassa": (props: any, giocatoriJsx: React.ReactNode) => <Tassa casella={props}>{giocatoriJsx}</Tassa>,

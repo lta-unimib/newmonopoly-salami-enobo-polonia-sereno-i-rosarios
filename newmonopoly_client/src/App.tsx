@@ -39,6 +39,12 @@ const App = () => {
         if (giocatore) {
             localStorage.setItem("giocatore", JSON.stringify(giocatore));
         }
+        return () => {
+            // Reset della partita quando il componente viene smontato o quando la partita finisce
+            setPartitaCreata(false);
+            sessionStorage.removeItem("partitaCreata");
+            sessionStorage.removeItem("giocatori");
+          }
     }, [partitaCreata, giocatore]);
 
     return (
