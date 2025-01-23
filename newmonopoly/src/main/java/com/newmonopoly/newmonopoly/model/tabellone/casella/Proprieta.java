@@ -38,6 +38,5 @@ public abstract class Proprieta extends Casella {
         affitto = (int) Math.floor(getAffitto()*random);
     }
 
-
     public abstract int pagaAffitto(PagamentiGiocatore payStrategy);
 }

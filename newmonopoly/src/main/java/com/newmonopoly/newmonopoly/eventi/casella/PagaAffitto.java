@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 public class PagaAffitto implements EventoCasella {
 
     private PagaAffitto() {}

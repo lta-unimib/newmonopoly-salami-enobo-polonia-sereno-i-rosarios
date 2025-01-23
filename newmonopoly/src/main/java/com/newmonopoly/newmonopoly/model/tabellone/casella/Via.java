@@ -1,19 +1,20 @@
 package com.newmonopoly.newmonopoly.model.tabellone.casella;
+import com.newmonopoly.newmonopoly.state.square.ViaState;
+import lombok.Builder;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 
+@EqualsAndHashCode(callSuper = true)
+@Data
 @SuperBuilder
 public class Via extends Casella {
 
-    private static Via via = null;
+    @Builder.Default
+    private int val = 200;
 
-    public Via() {
-        super("Via");
-    }
-
-    public static synchronized Via getVia() {
-        if (via == null) {
-            via = new Via();
-        }
-        return via;
+    public Via(){
+        stato = ViaState.builder().via(this).build();
+        val = 200;
     }
 }

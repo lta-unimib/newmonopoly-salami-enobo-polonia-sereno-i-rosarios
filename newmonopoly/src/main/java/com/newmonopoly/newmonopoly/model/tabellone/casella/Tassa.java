@@ -16,7 +16,8 @@ import lombok.experimental.SuperBuilder;
 @Data
 @SuperBuilder
 public class Tassa extends Casella {
-    private int importo;
+
+    private int costo;
 
     protected Tassa() {
         stato = TaxState.builder().tax(this).build();
@@ -32,7 +33,7 @@ public class Tassa extends Casella {
     }
 
     public void economiaCasuale(float random) {
-        importo = (int) Math.floor(getImporto()*random);
+        costo = (int) Math.floor(costo * random);
     }
 
 }

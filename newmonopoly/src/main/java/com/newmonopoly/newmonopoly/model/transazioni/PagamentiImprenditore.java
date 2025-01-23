@@ -14,7 +14,7 @@ public class PagamentiImprenditore extends PagamentiGiocatore {
     }
 
     public int CalcolaTassa(Tassa tassa){
-        return (int) Math.floor(tassa.getImporto() + tassa.getImporto()*0.5);
+        return (int) Math.floor(tassa.getCosto() + tassa.getCosto()*0.5);
     }
 
     public void PagaTassa(Tassa tassa, Imprenditore contribuente){

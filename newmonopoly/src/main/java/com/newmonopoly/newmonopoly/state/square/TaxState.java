@@ -21,7 +21,7 @@ public class TaxState implements SquareState {
 
     @Override
     public EventoCasella arrivo() {
-        return Ricevi.builder().importo(tax.getImporto()).build();
+        return Ricevi.builder().importo(tax.getCosto()).build();
     }
 
 }

@@ -5,20 +5,28 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 
+import com.newmonopoly.newmonopoly.model.transazioni.PagamentiGiocatore;
+import com.newmonopoly.newmonopoly.state.square.UnsoldSocietyState;
+import com.newmonopoly.newmonopoly.state.square.UnsoldStationState;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @SuperBuilder
 public class Societa extends Proprieta {
-    private String type = "Societa";
-    
-    // Costruttore di default pubblico
-    public Societa() {
-        super("", null, 0, 0, 0);  // Assicurati che la classe base Proprieta abbia un costruttore di default
+
+    private Societa() {
+        stato = UnsoldSocietyState.builder().societa(this).build();
     }
 
-    // Costruttore con i parametri
+    @Override
+    public int pagaAffitto(PagamentiGiocatore payStrategy) {
+        return (int) payStrategy.pagaAffitto(this,getProprietario());
+    }
+
+    /*
     @JsonCreator
     public Societa(
         @JsonProperty("nome") String nome,
@@ -27,7 +35,8 @@ public class Societa extends Proprieta {
         @JsonProperty("ipoteca") int ipoteca,
         @JsonProperty("affitto") int affitto) {
         super(nome, proprietario, costoBase, ipoteca, affitto);
-    }
+    } */
+
 
     public int calcolaAffittoSocieta() {
         // Lancia due dadi

@@ -10,9 +10,9 @@ import lombok.Data;
 @Builder
 public class Ricevi implements EventoCasella {
 
-    protected Proprieta proprieta;
+    protected int importo;
 
-    public Ricevi() {}
+    // public Ricevi() {}
 
     @Override
     public void accettaStato(GameState gameState) {

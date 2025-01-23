@@ -11,7 +11,7 @@ public class PagamentiGiocatore implements IPagamenti {
 
     @Override
     public int calcolaTassa(Tassa tassa) {
-       return tassa.getImporto();
+       return tassa.getCosto();
     }
 
 
