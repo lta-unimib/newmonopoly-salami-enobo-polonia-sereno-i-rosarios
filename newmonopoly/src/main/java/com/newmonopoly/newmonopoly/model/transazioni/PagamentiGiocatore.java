@@ -30,6 +30,7 @@ public class PagamentiGiocatore implements IPagamenti {
 
                 }
             }
+            acquirente.aggiungiPuntiFedelta(proprieta.getCostoBase());
         }
     }
 

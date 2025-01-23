@@ -61,18 +61,25 @@ public class Giocatore implements Serializable {
     }
 
     public void pay(int quantita) {
-        if (getSaldo() < quantita) {
-            throw new IllegalArgumentException("Saldo insufficiente per effettuare il pagamento.");
+        if (getSaldo() < quantita && convertiPuntiInDenaro(puntiFedelta) < quantita) {
+            throw new IllegalArgumentException("Saldo e punti insufficienti per effettuare il pagamento.");
         }
-        if (utilizzaBanconotaEsatta(quantita)) {
-            return;
+        if(puntiFedelta > 0 || getSaldo() > quantita) {
+            int resto= quantita - convertiPuntiInDenaro(puntiFedelta);
+
+            if(resto > 0) {
+                if (utilizzaBanconotaEsatta(resto)) {
+                    return;
+             }
+
+                if (utilizzaBanconotaMaggiore(resto)) {
+                return;
+            }
+            combinaBanconote(resto);
+            if (quantita > 0) {
+                throw new IllegalArgumentException("Impossibile completare il pagamento con le banconote disponibili.");
+            }
         }
-        if (utilizzaBanconotaMaggiore(quantita)) {
-            return;
-        }
-        combinaBanconote(quantita);
-        if (quantita > 0) {
-            throw new IllegalArgumentException("Impossibile completare il pagamento con le banconote disponibili.");
         }
     }
 
@@ -105,6 +112,14 @@ public class Giocatore implements Serializable {
                 quantita -= valoreBanconota;
             }
         }
+    }
+
+    public void aggiungiPuntiFedelta(int importo){
+        puntiFedelta += (int) (importo / 50);
+    }
+
+    public int convertiPuntiInDenaro(int punti){
+        return punti * 50;
     }
 
     public int getSaldo(){
