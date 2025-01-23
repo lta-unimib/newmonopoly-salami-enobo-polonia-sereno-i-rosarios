@@ -1,0 +1,26 @@
+[
+  {
+    "type": "CartaDenaro",
+    "testo": "Multa per eccesso di velocità. Paga 15€",
+    "denaro": -15
+  },
+  {
+    "type": "CartaPosizione",
+    "testo": "Avanza fino al Parco Della Vittoria.",
+    "casella": {
+      "type": "Strada",
+      "nome": "Parco della Vittoria",
+      "costoBase": 400,
+      "costoCasa": 200,
+      "costoAlbergo": 200,
+      "colore": "blue",
+      "ipoteca": 200,
+      "affitti": [50, 200, 600, 1400, 1700, 2000]
+    }
+  },
+  {
+    "type": "CartaSpostamento",
+    "testo": "Avanza di 5 caselle.",
+    "spostamento": 5
+  }
+]
