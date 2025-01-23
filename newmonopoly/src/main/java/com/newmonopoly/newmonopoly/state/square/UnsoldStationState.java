@@ -19,7 +19,7 @@ public class UnsoldStationState extends StationState{
     @Override
     public void handleEvent(AcquistaProprieta acquistaProprieta){
         acquistaProprieta.getGiocatore().aggiungiProprieta(stazione);
-        stazione.setStato(PurchasedStation.builder().build());
+        stazione.setState(PurchasedStation.builder().build());
     }
 
     @Override

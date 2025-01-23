@@ -47,15 +47,13 @@ public interface SquareState extends Serializable {
 
     default void handleEvent(AcquistaProprieta acquistaProprieta) {}
 
-    default void handleEvent(Join join) {}
+    default void handleEvent(EntraInPartita entraInPartita) {}
 
     default void handleEvent(EventoIpoteca eventoIpoteca) {}
 
     default void handleEvent(DowngradaTerreno downgradaTerreno) {}
 
     default void handleEvent(UpgradaTerreno upgradaTerreno) {}
-
-    default void handleEvent(EntraInPartita entraInPartita) {}
 
     default void handleEvent(EventoLanciaDadi eventoLanciaDadi) {}
 

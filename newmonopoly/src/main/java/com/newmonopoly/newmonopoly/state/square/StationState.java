@@ -17,7 +17,7 @@ public abstract class StationState implements SquareState {
 
     @Override
     public void handleEvent(EventoTerminaAsta eventoTerminaAsta){
-        stazione.setStato(PurchasedStation.builder().build());
+        stazione.setState(PurchasedStation.builder().build());
         eventoTerminaAsta.getGiocatore().acquistaProprieta(stazione, stazione.getProprietario(), eventoTerminaAsta.getAsta().getOffertaAttuale());
     }
     

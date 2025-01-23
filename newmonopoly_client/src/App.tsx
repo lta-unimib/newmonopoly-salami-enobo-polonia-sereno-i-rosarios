@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/home/Home";
 import Lobby from "./pages/home/Lobby";
-import PartitaRouter from "./pages/partita/PartitaRouter";
 
 import './index.css'
+import Partita from "./pages/partita/Partita";
 
 const App = () => {
     // Stato globale per controllare se una partita è stata creata
@@ -19,33 +19,35 @@ const App = () => {
 
     // Effetto per caricare lo stato della partita dalla memoria locale (localStorage)
     useEffect(() => {
-        const partitaSalvata = localStorage.getItem("partitaCreata");
+        // const partitaSalvata = localStorage.getItem("partitaCreata");
         const giocatoreSalvato = localStorage.getItem("giocatore");
 
-        if (partitaSalvata === "true") {
-            setPartitaCreata(true);
-        }
+        // if (partitaSalvata === "true") {
+        //     setPartitaCreata(true);
+        // }
 
         if (giocatoreSalvato) {
             setGiocatore(JSON.parse(giocatoreSalvato));
         }
+
+
     }, []);
 
     // Salvataggio dello stato della partita e del giocatore in localStorage
-    useEffect(() => {
-        if (partitaCreata) {
-            localStorage.setItem("partitaCreata", "true");
-        }
-        if (giocatore) {
-            localStorage.setItem("giocatore", JSON.stringify(giocatore));
-        }
-        return () => {
-            // Reset della partita quando il componente viene smontato o quando la partita finisce
-            setPartitaCreata(false);
-            sessionStorage.removeItem("partitaCreata");
-            sessionStorage.removeItem("giocatori");
-          }
-    }, [partitaCreata, giocatore]);
+    // useEffect(() => {
+    //     if (partitaCreata) {
+    //         localStorage.setItem("partitaCreata", "true");
+    //     }
+    //     if (giocatore) {
+    //         localStorage.setItem("giocatore", JSON.stringify(giocatore));
+    //     }
+    //     return () => {
+    //         // Reset della partita quando il componente viene smontato o quando la partita finisce
+    //         setPartitaCreata(false);
+    //         localStorage.removeItem("partitaCreata");
+    //         localStorage.removeItem("giocatori");
+    //       }
+    // }, [partitaCreata, giocatore]);
 
     return (
         <BrowserRouter>
@@ -62,9 +64,16 @@ const App = () => {
                     }
                 />
                 
-                <Route path="/partita" element={<PartitaRouter />} />
+                <Route path="/partita" element={<Partita />} />
 
                 {/* Rotta per la lobby */}
+                {/* <Route path="/lobby" element={
+                        partitaCreata ? (
+                            <Navigate to="/partita" /> // Redirezione automatica se la partita è già creata
+                        ) : (
+                            <Lobby setGiocatore={setGiocatoreHandler} />
+                        )
+                    } /> */}
                 <Route path="/lobby" element={<Lobby setGiocatore={setGiocatoreHandler} />} />
             </Routes>
         </BrowserRouter>

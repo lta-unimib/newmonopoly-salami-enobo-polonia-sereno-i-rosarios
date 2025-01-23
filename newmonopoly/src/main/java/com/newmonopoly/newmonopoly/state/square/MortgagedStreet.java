@@ -14,7 +14,7 @@ public class MortgagedStreet extends StreetState {
     public void handleEvent(EventoIpoteca rimuoviIpoteca) {
         try {
             strada.getProprietario().ricevi(strada.getIpoteca());
-            strada.setStato(PurchasedStreetState.builder().strada(strada).build());
+            strada.setState(PurchasedStreetState.builder().strada(strada).build());
         }catch (IllegalArgumentException ignored){
         }
     }

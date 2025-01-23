@@ -11,7 +11,7 @@ import lombok.experimental.SuperBuilder;
 public class Parcheggio extends Casella {
 
     protected Parcheggio(){
-        stato = ParkingState.builder().parcheggio(this).build();
+        state = ParkingState.builder().parcheggio(this).build();
     }
 
 }

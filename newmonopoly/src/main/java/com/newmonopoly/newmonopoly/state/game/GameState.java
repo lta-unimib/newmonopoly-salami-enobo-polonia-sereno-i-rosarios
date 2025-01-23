@@ -21,17 +21,17 @@ import lombok.experimental.SuperBuilder;
 })
 public abstract class GameState implements Serializable{
     
+    @JsonIgnore
+    AbstractGame game;
+
+    protected GameState() {}
+
     @JsonProperty("type")
     public String getTipo() {
         return getClass().getSimpleName();
     }
-    
-    @JsonIgnore
-    AbstractGame abstractGame;
 
-    protected GameState() {}
-
-    public void handleEvent(Join join){}
+    public void handleEvent(EntraInPartita entraInPartita){}
 
     public void handleEvent(){}
 
@@ -47,8 +47,6 @@ public abstract class GameState implements Serializable{
 
     public void handleEvent(DowngradaTerreno downgradaTerreno) {}
 
-    public void handleEvent(EntraInPartita entraInPartita) {}
-
     public void handleEvent(EventoLanciaDadi eventoLanciaDadi) {}
 
     public void handleEvent(EventoOfferta eventoOfferta){}
@@ -61,35 +59,21 @@ public abstract class GameState implements Serializable{
 
     public void handleEvent(VendiProprieta vendiProprieta){}
 
-    public void handleEvent(PassaggioVuoto passaggioVuoto) {
+    public void handleEvent(PassaggioVuoto passaggioVuoto) {}
 
-    }
+    public void handleEvent(RequestPurchase requestPurchase) {}
 
-    public void handleEvent(RequestPurchase requestPurchase) {
-    }
+    public void handleEvent(ArrestaGiocatore arrestaGiocatore) {}
 
-    public void handleEvent(ArrestaGiocatore arrestaGiocatore) {
+    public void handleEvent(PescaImprevisto pescaImprevisto) {}
 
-    }
+    public void handleEvent(PescaProbabilita pescaProbabilita) {}
 
-    public void handleEvent(PescaImprevisto pescaImprevisto) {
-    }
+    public void handleEvent(EventoAttesaLancioDadi eventoAttesaLancioDadi) {}
 
-    public void handleEvent(PescaProbabilita pescaProbabilita) {
+    public void handleEvent(EventoVaiInAttesaPrigione eventoVaiInAttesaPrigione) {}
 
-    }
+    public void handleEvent(EventoAvviaAsta eventoAvviaAsta) {}
 
-    public void handleEvent(EventoAttesaLancioDadi eventoAttesaLancioDadi) {
-
-    }
-
-    public void handleEvent(EventoVaiInAttesaPrigione eventoVaiInAttesaPrigione) {
-    }
-
-    public void handleEvent(EventoAvviaAsta eventoAvviaAsta) {
-    }
-
-    public void handleEvent(EventoTerminaAsta eventoTerminaAsta) {
-
-    }
+    public void handleEvent(EventoTerminaAsta eventoTerminaAsta) {}
 }

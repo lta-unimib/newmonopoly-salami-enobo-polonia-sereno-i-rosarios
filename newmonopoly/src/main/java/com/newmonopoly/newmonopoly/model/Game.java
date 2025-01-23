@@ -2,6 +2,10 @@ package com.newmonopoly.newmonopoly.model;
 
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 import com.newmonopoly.newmonopoly.state.game.GameState;
+import com.newmonopoly.newmonopoly.eventi.gamer.EventoGiocatore;
+import com.newmonopoly.newmonopoly.eventi.casella.EventoCasella;
+import com.newmonopoly.newmonopoly.controller.Broker;
+import com.newmonopoly.newmonopoly.interfacce.ICasellaSubscriber;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
@@ -11,13 +15,30 @@ import java.util.Iterator;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @SuperBuilder
-public class Game extends AbstractGame{
+public class Game extends AbstractGame implements ICasellaSubscriber{
 
-    /*
+    
     protected Game(AbstractGameBuilder<?, ?> builder){
         super(builder);
     }
-     */
+
+    @Override
+    public void setState(GameState newState) {
+        state = newState;
+        state.setGame(this);
+        aggiorna();
+    }
+
+    @Override
+    public void aggiorna() {
+        Broker.getBroker().aggiorna(this);
+    }
+
+    @Override
+    public synchronized void handleEvent(EventoGiocatore evento) {
+        evento.accept(state);
+        aggiorna();
+    }
 
     @Override
     public synchronized void addPlayer(Giocatore giocatore) {
@@ -37,9 +58,6 @@ public class Game extends AbstractGame{
     }
 
     @Override
-    public void setStato(GameState nuovaStato) {
-    }
-
     public synchronized Giocatore getGiocatoreByName(String name) {
         Iterator<Giocatore> iter = players.iterator();
         Giocatore g = null;
@@ -48,5 +66,13 @@ public class Game extends AbstractGame{
         }
         return g;
     }
+
+    @Override
+    public synchronized void casellaHandleEvent(EventoCasella evento) {
+        evento.accettaStato(state);
+        aggiorna();
+    }
+
+    
 
 }

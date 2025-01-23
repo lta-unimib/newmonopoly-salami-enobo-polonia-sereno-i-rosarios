@@ -11,6 +11,6 @@ import lombok.experimental.SuperBuilder;
 public class VaiInPrigione extends Casella {
 
     public VaiInPrigione(){
-        stato = GoToJailState.builder().vaiInPrigione(this).build();
+        state = GoToJailState.builder().vaiInPrigione(this).build();
     }
 }

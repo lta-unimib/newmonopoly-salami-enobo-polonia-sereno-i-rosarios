@@ -35,6 +35,7 @@ public class PartitaController {
     private Game partita; // Memorizza la partita in corso
     private final SimpMessagingTemplate messagingTemplate;
     private List<String> lobbyGiocatori = new ArrayList<>();
+    private boolean isPartitaCreata;
 
     // @RequestMapping(value = "/partita", method = RequestMethod.OPTIONS)
     // public ResponseEntity<?> handleOptions() {
@@ -55,8 +56,33 @@ public class PartitaController {
             if (!lobbyGiocatori.contains(nuovoGiocatore) && lobbyGiocatori.size() < 6) {
                 lobbyGiocatori.add(nuovoGiocatore);
                 System.out.println("Giocatore aggiunto alla lobby: " + nuovoGiocatore);
+            }
+        }
+        // Notifica tutti i client con la lista aggiornata dei giocatori
+        messagingTemplate.convertAndSend("/topic/lobby", lobbyGiocatori);
+    }
+
+    @MessageMapping("/lobby/esci")
+    public void esciDallaLobby(@Payload AddPlayer body, SimpMessageHeaderAccessor head) {
+        String giocatoreDaTogliere = body.getNickname();
+        System.out.println(body);
+
+        synchronized (lobbyGiocatori) {
+            if (lobbyGiocatori.contains(giocatoreDaTogliere)) {
+                lobbyGiocatori.remove(giocatoreDaTogliere);
+                System.out.println("Giocatore rimosso dalla lobby: " + giocatoreDaTogliere);
             } 
         }
+        // Notifica tutti i client con la lista aggiornata dei giocatori
+        messagingTemplate.convertAndSend("/topic/lobby", lobbyGiocatori);
+    }
+
+    @MessageMapping("/lobby/svuota")
+    public void svuotaLobby(SimpMessageHeaderAccessor head) {
+
+        synchronized (lobbyGiocatori) {
+                lobbyGiocatori.removeAll(lobbyGiocatori);
+            } 
 
         // Notifica tutti i client con la lista aggiornata dei giocatori
         messagingTemplate.convertAndSend("/topic/lobby", lobbyGiocatori);
@@ -68,35 +94,49 @@ public class PartitaController {
         // Logica per creare una nuova partita
         AbstractGame nuovaPartita = FactoryGame.getInstance().creaPartita(config);
         this.partita = (Game) nuovaPartita;
+
     
-        // Restituisci il nome dell'admin (può essere migliorato con una risposta più complessa se necessario)
         return ResponseEntity.ok(partita.getConfig().getAdmin().getNome());
+    }
+    
+    @MessageMapping("/partita/creata")
+    public void partitaCreata(@Payload Map<String, String> payload, SimpMessageHeaderAccessor head) {
+        try {
+            // Leggi l'azione dal payload
+            String action = payload.get("action");
+
+            if ("start".equals(action)) {
+                // Solo quando l'azione è "start", imposta la partita come creata
+                isPartitaCreata = true;
+
+                // Notifica tutti i client che la partita è stata avviata
+                messagingTemplate.convertAndSend("/topic/partita/creata", isPartitaCreata);
+            } else {
+                System.out.println("Azione non riconosciuta: " + action);
+            }
+        } catch (Exception e) {
+            System.err.println("Errore durante l'elaborazione del messaggio: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
 
     @MessageMapping("/partita/entra")
-    public void entraInPartita(
-            @Payload AddPlayer body,
-            SimpMessageHeaderAccessor head
-    ) {
+    public void accediPartita(@Payload List<AddPlayer> giocatori, SimpMessageHeaderAccessor head) {
         AbstractGame partita = this.partita;
         if (partita != null) {
             // try {
-                Giocatore g;
+                for(AddPlayer a : giocatori){
+                    Giocatore g = Giocatore.builder()
+                        .nome(a.getNickname())
+                        .idSessione(head.getSessionId())
+                        .build();
 
-                if(Boolean.TRUE.equals(body.getIsImprenditore())) {
-                    g = Imprenditore.builder().nome(body.getNickname()).idSessione(head.getSessionId()).build();
-                } else {
-                    g = Giocatore.builder()
-                            .nome(body.getNickname())
-                            .idSessione(head.getSessionId())
-                            .build();
-                }
-
-                EntraInPartita azione = EntraInPartita.builder()
+                    EntraInPartita azione = EntraInPartita.builder()
                         .giocatore(g)
                         .build();
-                // partita.onAzioneGiocatore(azione);
+                    partita.handleEvent(azione);
+                }
                 // partita.registraGiocatore(head.getSessionId(), partita.getGiocatoreByName(body.getNickname()));
             // } catch (PartitaPienaException e) {
             //     Map<String, Object> headers = new HashMap<>();

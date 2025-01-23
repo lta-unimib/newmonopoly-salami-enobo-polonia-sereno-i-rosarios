@@ -18,7 +18,7 @@ import lombok.experimental.SuperBuilder;
 public class Societa extends Proprieta {
 
     private Societa() {
-        stato = UnsoldSocietyState.builder().societa(this).build();
+        state = UnsoldSocietyState.builder().societa(this).build();
     }
 
     @Override

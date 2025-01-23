@@ -3,7 +3,8 @@ package com.newmonopoly.newmonopoly.model.tabellone.casella;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.newmonopoly.newmonopoly.eventi.casella.EventoCasella;
-import com.newmonopoly.newmonopoly.model.GameObserver;
+import com.newmonopoly.newmonopoly.interfacce.ICasellaSubscriber;
+import com.newmonopoly.newmonopoly.interfacce.ICasellaPublisher;
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 import lombok.Builder;
 import lombok.Data;
@@ -33,7 +34,7 @@ import com.newmonopoly.newmonopoly.state.square.SquareState;
         @JsonSubTypes.Type(value = Tassa.class, name = "Tassa"),
         @JsonSubTypes.Type(value = VaiInPrigione.class, name = "VaiInPrigione"),
 })
-public abstract class Casella implements Serializable, GameStateObserver {
+public abstract class Casella implements Serializable, ICasellaPublisher {
 
     @Serial
     private static final long serialVersionUID = 2405172041951071807L;
@@ -44,8 +45,8 @@ public abstract class Casella implements Serializable, GameStateObserver {
 
     @Builder.Default
     @JsonIgnore
-    protected ArrayList<GameObserver> subscribers = new ArrayList<>();
-    protected SquareState stato;
+    protected ArrayList<ICasellaSubscriber> subscribers = new ArrayList<>();
+    protected SquareState state;
 
     protected Casella () {
         // this.nome = nome;
@@ -60,25 +61,25 @@ public abstract class Casella implements Serializable, GameStateObserver {
     public void economiaCasuale(float random) {}
 
     public void arrivo(Giocatore giocatore) {
-        notifyGameState(stato.arrivo());
+        publishEvent(state.arrivo());
     }
 
     public void passaggio(Giocatore giocatore) {
-        notifyGameState(stato.passaggio());
+        publishEvent(state.passaggio());
     }
 
     @Override
-    public void notifyGameState(EventoCasella eventoCasella) {
-        subscribers.forEach(subscriber -> subscriber.handleEvent(eventoCasella));
+    public void publishEvent(EventoCasella eventoCasella) {
+        subscribers.forEach(subscriber -> subscriber.casellaHandleEvent(eventoCasella));
     }
 
     @Override
-    public void add(GameObserver observer) {
+    public void addEventListener(ICasellaSubscriber observer) {
         subscribers.add(observer);
     }
 
     @Override
-    public void remove(GameObserver observer) {
+    public void removeEventListener(ICasellaSubscriber observer) {
         subscribers.remove(observer);
     }
 

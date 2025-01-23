@@ -20,12 +20,12 @@ public class Tassa extends Casella {
     private int costo;
 
     protected Tassa() {
-        stato = TaxState.builder().tax(this).build();
+        state = TaxState.builder().tax(this).build();
     }
 
     @Override
     public void arrivo(Giocatore giocatore) {
-        notifyGameState(Ricevi.builder().importo(-giocatore.getStrategiaCalcoloAffitto().calcolaTassa(this)).build());
+        publishEvent(Ricevi.builder().importo(-giocatore.getStrategiaCalcoloAffitto().calcolaTassa(this)).build());
     }
 
     public int calcolaTassa(IPagamenti strategia){

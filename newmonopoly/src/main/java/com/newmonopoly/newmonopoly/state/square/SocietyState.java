@@ -17,7 +17,7 @@ public abstract class SocietyState implements SquareState {
 
     @Override
     public void handleEvent(EventoTerminaAsta terminaAsta){
-        societa.setStato(PurchasedSociety.builder().build());
+        societa.setState(PurchasedSociety.builder().build());
         terminaAsta.getGiocatore().acquistaProprieta(societa, societa.getProprietario(), terminaAsta.getAsta().getOffertaAttuale());
     }
 }

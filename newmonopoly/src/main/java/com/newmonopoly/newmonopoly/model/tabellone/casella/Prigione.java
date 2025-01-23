@@ -26,7 +26,7 @@ public class Prigione extends Casella implements Serializable {
     private HashMap<Token, Integer> giocatoriInPrigione = new HashMap<>();
 
     protected Prigione() {
-        stato = JailState.builder().prigione(this).build();
+        state = JailState.builder().prigione(this).build();
         turniInPrigione = 1;
     }
 

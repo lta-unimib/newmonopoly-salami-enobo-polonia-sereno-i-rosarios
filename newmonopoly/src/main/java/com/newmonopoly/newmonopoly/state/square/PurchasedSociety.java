@@ -16,7 +16,7 @@ public class PurchasedSociety extends SocietyState{
     @Override
     public void handleEvent(EventoIpoteca ipoteca){
         ipoteca.getGiocatore().ricevi(societa.getIpoteca());
-        societa.setStato(PurchasedSociety.builder().societa(societa).build());
+        societa.setState(PurchasedSociety.builder().societa(societa).build());
     }
 
     @Override

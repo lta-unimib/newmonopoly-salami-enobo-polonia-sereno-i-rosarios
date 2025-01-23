@@ -14,7 +14,7 @@ public class Via extends Casella {
     private int val = 200;
 
     public Via(){
-        stato = ViaState.builder().via(this).build();
+        state = ViaState.builder().via(this).build();
         val = 200;
     }
 }

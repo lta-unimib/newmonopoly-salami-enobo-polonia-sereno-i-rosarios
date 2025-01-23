@@ -18,7 +18,7 @@ public class PurchasedStation extends StationState{
     @Override
     public void handleEvent(EventoIpoteca eventoIpoteca){
         stazione.getProprietario().ricevi(stazione.getIpoteca());
-        stazione.setStato(PurchasedStation.builder().stazione(stazione).build());
+        stazione.setState(PurchasedStation.builder().stazione(stazione).build());
     }
 
     @Override

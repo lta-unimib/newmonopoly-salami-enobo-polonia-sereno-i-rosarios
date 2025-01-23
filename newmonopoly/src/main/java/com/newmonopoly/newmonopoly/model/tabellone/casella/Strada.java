@@ -50,7 +50,7 @@ public class Strada extends Proprieta {
      */
 
     public Strada() {
-        stato = UnsoldStreetState.builder().strada(this).build();
+        state = UnsoldStreetState.builder().strada(this).build();
         affitti = new ArrayList<>();
     }
 
@@ -112,7 +112,7 @@ public class Strada extends Proprieta {
     public void rinizializza(){
         numCase = 0;
         albergo = false;
-        setStato(UnsoldStreetState.builder().strada(this).build());
+        setState(UnsoldStreetState.builder().strada(this).build());
     }
 
 }

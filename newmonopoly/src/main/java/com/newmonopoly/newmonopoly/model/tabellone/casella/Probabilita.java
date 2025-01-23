@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class Probabilita extends Casella {
     protected Probabilita() {
-        stato = ProbabilitaState.builder().probabilita(this).build();
+        state = ProbabilitaState.builder().probabilita(this).build();
     }
 
 

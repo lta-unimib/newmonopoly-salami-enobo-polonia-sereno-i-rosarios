@@ -15,7 +15,7 @@ public class MortgagedStation extends StationState{
     public void handleEvent(EventoIpoteca fineIpoteca){
         try{
             stazione.getProprietario().pay(stazione.getIpoteca());
-            stazione.setStato(PurchasedStation.builder().stazione(stazione).build());
+            stazione.setState(PurchasedStation.builder().stazione(stazione).build());
         } catch (Exception e) {
             throw new IllegalArgumentException(e);
         }

@@ -17,7 +17,7 @@ public class UnsoldSocietyState extends SocietyState{
     @Override
     public void handleEvent(AcquistaProprieta acquistaProprieta){
         acquistaProprieta.getGiocatore().aggiungiProprieta(societa);
-        societa.setStato(PurchasedSociety.builder().societa(societa).build());
+        societa.setState(PurchasedSociety.builder().societa(societa).build());
     }
 
     @Override

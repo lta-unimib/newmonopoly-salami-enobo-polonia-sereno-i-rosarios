@@ -3,6 +3,7 @@ package com.newmonopoly.newmonopoly.model.factory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 import com.newmonopoly.newmonopoly.interfacce.IMazzo;
+import com.newmonopoly.newmonopoly.interfacce.ICasellaSubscriber;
 import com.newmonopoly.newmonopoly.model.AbstractGame;
 import com.newmonopoly.newmonopoly.model.Config;
 import com.newmonopoly.newmonopoly.model.Game;
@@ -11,6 +12,7 @@ import com.newmonopoly.newmonopoly.model.tabellone.Tabellone;
 import com.newmonopoly.newmonopoly.model.tabellone.carte.Carta;
 import com.newmonopoly.newmonopoly.model.tabellone.carte.Mazzo;
 import com.newmonopoly.newmonopoly.model.tabellone.strategy.FluttuazioneStrategy;
+import com.newmonopoly.newmonopoly.state.game.LobbyState;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.util.FileCopyUtils;
 
@@ -83,11 +85,17 @@ public class FactoryGame {
         Giocatore giocatore = config.getAdmin();
         IMazzo mazzo = creaMazzo(tabellone, config);
 
-        return Game.builder()
+        AbstractGame game = Game.builder()
                 .tabellone(tabellone)
                 .players(new ArrayList<>(List.of(giocatore)))
                 .mazzo(mazzo)
                 .config(config)
                 .build();
+        List<Casella> caselle = tabellone.getCaselle();
+        for(Casella casella : caselle) {
+            casella.addEventListener((ICasellaSubscriber) game);
+        }
+        game.setState(LobbyState.builder().build());
+        return game;
     }
 }

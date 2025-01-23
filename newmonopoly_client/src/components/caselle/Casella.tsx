@@ -35,16 +35,16 @@ export class Casella extends React.Component<Props>{
 
     render() {
         if ("type" in this.props) {
-            console.log("Tipo della casella:", this.props.type);
+            // console.log("Tipo della casella:", this.props.type);
         } else {
             console.warn("Proprietà 'type' non trovata nei dati forniti:", this.props);
         }
 
         if (!CasellaSingleton.casellaGiocatore[this.props.id]) {
-            console.warn("Nessun giocatore trovato per la casella:", this.props.id);
+            // console.warn("Nessun giocatore trovato per la casella:", this.props.id);
         }
 
-        console.log("CasellaSingleton.casellaGiocatore:", CasellaSingleton.casellaGiocatore);
+        // console.log("CasellaSingleton.casellaGiocatore:", CasellaSingleton.casellaGiocatore);
 
 
         const giocatoriJsx = <>

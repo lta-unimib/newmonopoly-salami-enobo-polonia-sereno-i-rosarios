@@ -16,7 +16,7 @@ public class PurchasedStreetState extends StreetState {
     @Override
     public void handleEvent(EventoIpoteca ipoteca) {
         strada.getProprietario().ricevi(strada.getIpoteca());
-        strada.setStato(
+        strada.setState(
                 MortgagedStreet
                         .builder()
                         .strada(strada)

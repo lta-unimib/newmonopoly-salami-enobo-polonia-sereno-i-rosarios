@@ -30,6 +30,8 @@ const Tabellone: React.FC<TabelloneProps> = ({ caselle, giocatori }) => {
         return Array.from(conto.values()).reduce((totale, entry) => totale + entry.valore * entry.quantita, 0);
       };
 
+      console.log(giocatori)
+
     return (
         <div className="">
             <h2 className="text-4xl text-center font-bold mb-6">NewMonopoly</h2>
@@ -61,7 +63,7 @@ const Tabellone: React.FC<TabelloneProps> = ({ caselle, giocatori }) => {
 
             {/* Giocatori */}
             <div className="mt-8">
-                <h3 className="text-xl font-bold mb-4">Giocatori</h3>
+                <h3 className="text-xl font-bold mb-4">Giocatori</h3> 
                 {giocatori.map((giocatore, index) => (
                     <div key={index} className="mb-4 border p-4 rounded-lg">
                         <strong className="block text-lg mb-2">{giocatore.nome}</strong>

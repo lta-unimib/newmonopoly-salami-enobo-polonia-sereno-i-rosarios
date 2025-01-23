@@ -21,7 +21,7 @@ public class UnsoldStreetState extends StreetState {
     @Override
     public void handleEvent(AcquistaProprieta acquistaProprieta){
         acquistaProprieta.getGiocatore().aggiungiProprieta(strada);
-        strada.setStato(PurchasedStreetState.builder().strada(strada).build());
+        strada.setState(PurchasedStreetState.builder().strada(strada).build());
     }
 
 }

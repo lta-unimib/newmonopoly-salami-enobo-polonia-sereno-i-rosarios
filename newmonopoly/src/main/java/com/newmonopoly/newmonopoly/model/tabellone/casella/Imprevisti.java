@@ -12,7 +12,7 @@ import lombok.experimental.SuperBuilder;
 public class Imprevisti extends Casella{
 
     protected Imprevisti() {
-        stato = ImprevistoState.builder().imprevisto(this).build();
+        state = ImprevistoState.builder().imprevisto(this).build();
     }
 
 
