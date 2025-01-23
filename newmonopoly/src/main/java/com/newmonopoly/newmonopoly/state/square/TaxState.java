@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 
 @Data
 @SuperBuilder
-public abstract class TaxState implements SquareState {
+public class TaxState implements SquareState {
 
     @JsonIgnore
     private Tassa tax;

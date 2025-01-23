@@ -15,18 +15,17 @@ import lombok.experimental.SuperBuilder;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @SuperBuilder
-public abstract class Tassa extends Casella {
+public class Tassa extends Casella {
     private int importo;
 
- /*   protected Tassa() {
+    protected Tassa() {
         stato = TaxState.builder().tax(this).build();
     }
 
     @Override
     public void arrivo(Giocatore giocatore) {
-        notifyAll(Ricevi.builder().importo(- giocatore.getStrategiaCalcoloAffitto().calcolaTassa(this)).build());
+        notifyGameState(Ricevi.builder().importo(-giocatore.getStrategiaCalcoloAffitto().calcolaTassa(this)).build());
     }
-*/
 
     public int calcolaTassa(IPagamenti strategia){
         return strategia.calcolaTassa(this);
