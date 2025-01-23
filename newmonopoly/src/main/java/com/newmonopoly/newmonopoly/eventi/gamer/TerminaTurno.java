@@ -11,7 +11,7 @@ public class TerminaTurno extends EventoGiocatore{
     }
 
     @Override
-    public void accettaStato(GameState gameState) {
+    public void accept(GameState gameState) {
 
     }
 }

@@ -5,7 +5,8 @@ import com.newmonopoly.newmonopoly.state.game.GameState;
 import lombok.Builder;
 import lombok.Data;
 
-@Builder@Data
+@Data
+@Builder
 public class EventoVaiInAttesaPrigione implements EventoCasella {
 
     private Giocatore giocatore;

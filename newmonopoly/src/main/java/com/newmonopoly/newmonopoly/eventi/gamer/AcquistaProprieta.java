@@ -14,7 +14,7 @@ public class AcquistaProprieta extends EventoGiocatore {
     }
 
     @Override
-    public void accettaStato(GameState gameState) {
+    public void accept(GameState gameState) {
         gameState.handleEvent(this);
     }
 }

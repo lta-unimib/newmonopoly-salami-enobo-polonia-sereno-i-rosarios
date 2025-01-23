@@ -3,9 +3,10 @@ package com.newmonopoly.newmonopoly.state.square;
 import com.newmonopoly.newmonopoly.eventi.gamer.EventoIpoteca;
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 public class MortgagedStation extends StationState{
 
     protected MortgagedStation(){}

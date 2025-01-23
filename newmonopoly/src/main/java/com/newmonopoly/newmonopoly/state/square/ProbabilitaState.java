@@ -5,7 +5,11 @@ import com.newmonopoly.newmonopoly.eventi.casella.EventoCasella;
 import com.newmonopoly.newmonopoly.eventi.casella.PescaImprevisto;
 import com.newmonopoly.newmonopoly.eventi.casella.PescaProbabilita;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Probabilita;
+import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
+@Data
+@SuperBuilder
 public class ProbabilitaState implements SquareState{
 
     @JsonIgnore

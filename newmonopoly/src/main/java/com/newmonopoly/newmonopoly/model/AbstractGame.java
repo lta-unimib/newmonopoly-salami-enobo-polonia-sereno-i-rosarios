@@ -1,5 +1,6 @@
 package com.newmonopoly.newmonopoly.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.newmonopoly.newmonopoly.interfacce.IMazzo;
 import com.newmonopoly.newmonopoly.interfacce.ITabellone;
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
@@ -17,11 +18,15 @@ public abstract class AbstractGame {
     @Builder.Default
     protected ArrayList<Giocatore> players = new ArrayList<>();
     protected ITabellone tabellone;
-    protected IMazzo mazzo;
     protected Config config;
+
+    @JsonIgnore
+    protected IMazzo mazzo;
     protected GameState stato;
+    protected Turno turno;
 
     public abstract void addPlayer(Giocatore giocatore);
+    public abstract void removePlayer(Giocatore giocatore);
     public abstract void setStato(GameState nuovaStato);
     public abstract Giocatore getGiocatoreByName(String name);
 

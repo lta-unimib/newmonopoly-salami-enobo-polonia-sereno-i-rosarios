@@ -6,9 +6,10 @@ import com.newmonopoly.newmonopoly.eventi.gamer.AcquistaProprieta;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 
 @Data
-@Builder
+@SuperBuilder
 public class UnsoldStationState extends StationState{
 
     protected UnsoldStationState(){

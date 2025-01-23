@@ -9,7 +9,7 @@ public class Join extends EventoGiocatore {
         squareState.handleEvent(this);
     }
 
-    public void accettaStato(GameState gameState) {
+    public void accept(GameState gameState) {
         gameState.handleEvent(this);
     }
 }

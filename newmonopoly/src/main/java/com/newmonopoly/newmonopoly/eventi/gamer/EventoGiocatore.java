@@ -16,5 +16,5 @@ public abstract class EventoGiocatore {
     protected EventoGiocatore(){}
 
     public abstract void accept(SquareState squareState);
-    public abstract void accettaStato(GameState gameState);
+    public abstract void accept(GameState gameState);
 }

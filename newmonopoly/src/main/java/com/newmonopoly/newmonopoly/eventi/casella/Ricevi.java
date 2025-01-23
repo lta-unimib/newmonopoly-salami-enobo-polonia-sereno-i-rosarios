@@ -1,11 +1,12 @@
 package com.newmonopoly.newmonopoly.eventi.casella;
 
 import com.newmonopoly.newmonopoly.state.game.GameState;
+import lombok.Builder;
 import lombok.experimental.SuperBuilder;
 import lombok.Data;
 
 @Data
-@SuperBuilder
+@Builder
 public class Ricevi implements EventoCasella {
 
     protected int importo;

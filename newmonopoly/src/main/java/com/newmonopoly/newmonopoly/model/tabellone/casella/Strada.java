@@ -3,6 +3,7 @@ package com.newmonopoly.newmonopoly.model.tabellone.casella;
 import java.util.ArrayList;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
@@ -11,6 +12,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @SuperBuilder
 public class Strada extends Proprieta {

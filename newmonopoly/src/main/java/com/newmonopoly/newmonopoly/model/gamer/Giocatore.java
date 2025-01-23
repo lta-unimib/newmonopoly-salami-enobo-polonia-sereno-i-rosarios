@@ -1,15 +1,12 @@
 package com.newmonopoly.newmonopoly.model.gamer;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.newmonopoly.newmonopoly.model.AbstractGame;
+import com.newmonopoly.newmonopoly.model.tabellone.carte.Carta;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
+import java.util.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Proprieta;
@@ -18,29 +15,29 @@ import com.newmonopoly.newmonopoly.model.tabellone.casella.Stazione;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Societa;
 import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada.Colore;
 
-
+@Data
 @SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Giocatore implements Serializable {
 
     private static final long serialVersionUID = 1905122041950251207L;
 
-    @Getter @Setter
-    private String nome;
-    @Setter
-    private Map<Integer, Banconota> banconote;
-    @Getter @Setter
-    private int puntiFedelta;
-    @Getter @Setter
-    private List<Proprieta> proprieta;
+    @JsonIgnore
+    private AbstractGame game;
+
     @JsonIgnore
     private String idSessione;
+    private String nome;
+    private Map<Integer, Banconota> banconote;
+    private int puntiFedelta;
+    private Token token;
 
-    public Giocatore(String nome) {
-        this.nome = nome;
-        this.banconote = new HashMap<>();
-        this.puntiFedelta = 0;
-        this.proprieta = new ArrayList<>();
-    }
+    @Builder.Default
+    private ArrayList<Proprieta> proprieta = new ArrayList<Proprieta>();
+
+    @Builder.Default
+    private Queue<Carta> cartePossedute = new LinkedList<>(); // carte x uscire di prigione
 
     public void ricevi(int quantita) {
     
