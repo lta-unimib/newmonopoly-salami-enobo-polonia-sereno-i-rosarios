@@ -1,6 +1,8 @@
 package com.newmonopoly.newmonopoly.state.square;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.newmonopoly.newmonopoly.eventi.casella.EventoCasella;
 import com.newmonopoly.newmonopoly.eventi.casella.PassaggioVuoto;
 import com.newmonopoly.newmonopoly.eventi.casella.Ricevi;
@@ -9,6 +11,25 @@ import com.newmonopoly.newmonopoly.eventi.gamer.*;
 
 import java.io.Serializable;
 
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.EXISTING_PROPERTY, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = PurchasedSociety.class, name = "SocietaAcquistata"),
+        @JsonSubTypes.Type(value = MortgagedSociety.class, name = "SocietaIpotecata"),
+        @JsonSubTypes.Type(value = UnsoldSocietyState.class, name = "SocietaNonAcquistata"),
+        @JsonSubTypes.Type(value = ImprevistoState.class, name = "StatoImprevisto"),
+      //  @JsonSubTypes.Type(value = StatoParcheggio.class, name = "StatoParcheggio"),
+      //  @JsonSubTypes.Type(value = StatoPrigione.class, name = "StatoPrigione"),
+        @JsonSubTypes.Type(value = ProbabilitaState.class, name = "StatoProbabilita"),
+        @JsonSubTypes.Type(value = TaxState.class, name = "StatoTassa"),
+       // @JsonSubTypes.Type(value = StatoVaiInPrigione.class, name = "StatoVaiInPrigione"),
+       // @JsonSubTypes.Type(value = StatoVia.class, name = "StatoVia"),
+        @JsonSubTypes.Type(value = PurchasedStation.class, name = "StazioneAcquistata"),
+        @JsonSubTypes.Type(value = MortgagedStation.class, name = "StazioneIpotecata"),
+        @JsonSubTypes.Type(value = UnsoldStationState.class, name = "StazioneNonAcquistata"),
+        @JsonSubTypes.Type(value = PurchasedStreetState.class, name = "TerrenoAcquistato"),
+        @JsonSubTypes.Type(value = MortgagedStreet.class, name = "TerrenoIpotecato"),
+        @JsonSubTypes.Type(value = UnsoldStreetState.class, name = "TerrenoNonAcquistato")
+})
 
 public interface SquareState extends Serializable {
     @JsonProperty("type")

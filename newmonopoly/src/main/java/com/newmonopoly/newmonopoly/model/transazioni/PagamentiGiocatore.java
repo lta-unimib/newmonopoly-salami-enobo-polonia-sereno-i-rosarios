@@ -75,10 +75,6 @@ public class PagamentiGiocatore implements IPagamenti {
         acquirente.aggiungiProprieta(proprieta);
         
     }
-
-    public void pagaTassa(int tassa, Giocatore contribuente) {
-        contribuente.pay(tassa);
-    }
     
 }
 

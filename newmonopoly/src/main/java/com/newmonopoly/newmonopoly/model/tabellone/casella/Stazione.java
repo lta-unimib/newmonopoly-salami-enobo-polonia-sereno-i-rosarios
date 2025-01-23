@@ -1,17 +1,8 @@
 package com.newmonopoly.newmonopoly.model.tabellone.casella;
 
-import com.newmonopoly.newmonopoly.model.tabellone.strategy.PayStrategy;
-import com.newmonopoly.newmonopoly.model.transazioni.IPagamenti;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
-import com.newmonopoly.newmonopoly.model.tabellone.casella.Strada.Colore;
-
 import com.newmonopoly.newmonopoly.state.square.UnsoldStationState;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.ArrayList;
 import lombok.experimental.SuperBuilder;

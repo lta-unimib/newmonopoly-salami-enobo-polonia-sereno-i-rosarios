@@ -3,14 +3,10 @@ package com.newmonopoly.newmonopoly.model.tabellone.casella;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.newmonopoly.newmonopoly.model.tabellone.strategy.PayStrategy;
+import com.newmonopoly.newmonopoly.model.transazioni.PagamentiGiocatore;
 import com.newmonopoly.newmonopoly.state.square.UnsoldStreetState;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -109,8 +105,8 @@ public class Strada extends Proprieta {
     }
 
     @Override
-    public int calcolaAffitto(PayStrategy payStrategy) {
-        return payStrategy.calcolaPagamento(this);
+    public int pagaAffitto(PagamentiGiocatore payStrategy) {
+        return (int) payStrategy.pagaAffitto(this, this.getProprietario());
     }
 
     public void rinizializza(){

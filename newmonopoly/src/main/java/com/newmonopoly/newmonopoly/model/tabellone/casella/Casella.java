@@ -1,6 +1,7 @@
 package com.newmonopoly.newmonopoly.model.tabellone.casella;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.newmonopoly.newmonopoly.eventi.casella.EventoCasella;
 import com.newmonopoly.newmonopoly.model.GameObserver;
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
@@ -49,6 +50,11 @@ public abstract class Casella implements Serializable, GameStateObserver {
     protected Casella () {
         // this.nome = nome;
         subscribers = new ArrayList<>();
+    }
+
+    @JsonProperty("type")
+    public String getTipo() {
+        return getClass().getSimpleName();
     }
 
     public void economiaCasuale(float random) {}

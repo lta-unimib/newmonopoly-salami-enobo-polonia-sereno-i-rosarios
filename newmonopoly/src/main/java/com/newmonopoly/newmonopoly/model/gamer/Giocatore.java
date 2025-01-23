@@ -2,6 +2,8 @@ package com.newmonopoly.newmonopoly.model.gamer;
 
 import com.newmonopoly.newmonopoly.model.AbstractGame;
 import com.newmonopoly.newmonopoly.model.tabellone.carte.Carta;
+import com.newmonopoly.newmonopoly.model.transazioni.IPagamenti;
+import com.newmonopoly.newmonopoly.model.transazioni.PagamentiGiocatore;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -38,6 +40,10 @@ public class Giocatore implements Serializable {
 
     @Builder.Default
     private Queue<Carta> cartePossedute = new LinkedList<>(); // carte x uscire di prigione
+
+    @JsonIgnore
+    @Builder.Default
+    private transient IPagamenti strategiaCalcoloAffitto = new PagamentiGiocatore();
 
     public void ricevi(int quantita) {
     

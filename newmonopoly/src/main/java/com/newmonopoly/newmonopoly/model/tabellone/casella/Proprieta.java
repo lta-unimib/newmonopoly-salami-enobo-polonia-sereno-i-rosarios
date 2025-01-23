@@ -3,8 +3,8 @@ package com.newmonopoly.newmonopoly.model.tabellone.casella;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
-import com.newmonopoly.newmonopoly.model.tabellone.strategy.PayStrategy;
 
+import com.newmonopoly.newmonopoly.model.transazioni.PagamentiGiocatore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
@@ -32,10 +32,6 @@ public abstract class Proprieta extends Casella {
         return null;
     }
 
-    public abstract int calcolaAffitto(PayStrategy payStrategy);
-
-    public void rinizializza(){};
-
     public void economiaCasuale(float random) {
         costoBase = (int) Math.floor(getCostoBase()*random);
         ipoteca = (int) Math.floor(getIpoteca()*random);
@@ -43,4 +39,5 @@ public abstract class Proprieta extends Casella {
     }
 
 
+    public abstract int pagaAffitto(PagamentiGiocatore payStrategy);
 }
