@@ -1,55 +1,53 @@
 package com.newmonopoly.newmonopoly.model.tabellone.casella;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.newmonopoly.newmonopoly.model.gamer.Giocatore;
 import com.newmonopoly.newmonopoly.model.gamer.Token;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.newmonopoly.newmonopoly.state.square.JailState;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.SuperBuilder;
 
+@Data
+@EqualsAndHashCode(callSuper = true)
 @SuperBuilder
 public class Prigione extends Casella implements Serializable {
-
-    @Serial
-    private static final long serialVersionUID = 2405172141950251807L;
-
-    private static Prigione prigione = null;
     private int cauzione;
+    private int turniInPrigione;
+    @JsonIgnore
+    private HashMap<Token, Integer> giocatoriInPrigione = new HashMap<>();
 
-    private ArrayList<Token> prigionieri;
-
-    @JsonCreator
-    public Prigione() {
-        super("Prigione");  // Se vuoi passare il nome al costruttore della classe base
-        this.prigionieri = new ArrayList<Token>(6);
-    }
-    private Prigione (@JsonProperty("nome") String nome, @JsonProperty("cauzione") int cauzione) {
-        super(nome);
-        this.prigionieri = new ArrayList<Token>(6);
-        this.cauzione = cauzione;
+    protected Prigione() {
+        stato = JailState.builder().prigione(this).build();
+        turniInPrigione = 1;
     }
 
-    public static synchronized Prigione getPrigione() {
-        if (prigione == null) {
-            prigione = new Prigione();
+    public Integer liberaGiocatore(Token token) {
+        return giocatoriInPrigione.remove(token.getGiocatore());
+    }
+
+    public Integer imprigionaGiocatore(Token token) {
+        return giocatoriInPrigione.put(token, turniInPrigione);
+    }
+/*
+    @Override
+    public void inizioTurno(Giocatore g) {
+        if (giocatoriInPrigione.get(g) == null) {
+            notificaTutti(AttesaLancioDadi.builder().build());
+        } else if (giocatoriInPrigione.get(g) == 0) {
+            this.liberaGiocatore(g);
+            notificaTutti(AttesaLancioDadi.builder().build());
+        } else {
+            giocatoriInPrigione.put(g, giocatoriInPrigione.get(g) - 1);
+            notificaTutti(VaiInAttesaPrigione.builder().giocatore(g).build());
         }
-        return prigione;
-    }
-
-    public void nuovoPrigioniero(Token pedina){
-        if(!checkPrigioniero(pedina)){
-            this.prigionieri.add(pedina);
-        }
-    }
-
-    public void rilascioPrigioniero(Token pedina){
-        this.prigionieri.remove(pedina);
-    }
-
-    public boolean checkPrigioniero(Token pedina) {
-        return this.prigionieri.contains(pedina);
-    }
-
+    }*/
 }

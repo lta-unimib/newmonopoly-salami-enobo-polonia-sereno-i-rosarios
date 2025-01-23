@@ -1,5 +1,6 @@
 package com.newmonopoly.newmonopoly.model.tabellone.casella;
 
+import com.newmonopoly.newmonopoly.model.transazioni.PagamentiGiocatore;
 import com.newmonopoly.newmonopoly.state.square.UnsoldStationState;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -38,14 +39,10 @@ public class Stazione extends Proprieta {
         }
 
     @Override
-    public int calcolaAffitto(PayStrategy payStrategy) {
-        return payStrategy.calcolaPagamento(this);
+    public int pagaAffitto(PagamentiGiocatore payStrategy) {
+        return (int) payStrategy.pagaAffitto(this, this.getProprietario());
     }
 
-    @Override
-    public void rinizializza(){
-        setStato(UnsoldStationState.builder().stazione(this).build());
-    }
 }
 
 
